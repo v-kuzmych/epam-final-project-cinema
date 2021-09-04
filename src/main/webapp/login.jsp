@@ -5,7 +5,7 @@
 <div class="wrapper">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form action="<%=request.getContextPath()%>/loginServlet" method="post">
+            <form action="<%=request.getContextPath()%>/controller" method="post">
                 <input type="hidden" name="command" value="login">
                 <div class="modal-header">
                     <h5 class="modal-title"><fmt:message key="login"/></h5>

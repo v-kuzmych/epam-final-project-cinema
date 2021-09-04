@@ -45,7 +45,7 @@ public class SeanceDao {
         }
     }
 
-    public List<Seance> getByFilmId(int id, Locale currentLocale) throws ClassNotFoundException {
+    public List<Seance> getByFilmId(int id, Locale currentLocale) {
         List<Seance> seancesList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;

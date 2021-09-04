@@ -13,7 +13,7 @@ public class UserDao {
     private static final String INSERT_USER = "INSERT INTO user (email, password) VALUES  (?, ?)";
     private static final String GET_ALL_USERS = "SELECT * FROM user";
 
-    public User create(User user) throws ClassNotFoundException {
+    public User create(User user) {
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
@@ -42,7 +42,7 @@ public class UserDao {
         return null;
     }
 
-    public User login(User user) throws ClassNotFoundException {
+    public User login(User user) {
         User loggedUser = null;
 
         PreparedStatement preparedStatement = null;
@@ -74,7 +74,7 @@ public class UserDao {
         return loggedUser;
     }
 
-    public List<User> getAll() throws ClassNotFoundException {
+    public List<User> getAll() {
         List<User> usersList = new ArrayList<>();
 
         PreparedStatement preparedStatement = null;
@@ -105,7 +105,7 @@ public class UserDao {
         return usersList;
     }
 
-    public User get(int id) throws ClassNotFoundException {
+    public User get(int id) {
         User user = null;
 
         PreparedStatement preparedStatement = null;
