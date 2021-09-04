@@ -123,7 +123,7 @@ public class Controller extends HttpServlet {
         try {
             request.setAttribute("films", filmDao.getAll());
             request.getRequestDispatcher("/films.jsp").forward(request, response);
-        } catch (IOException | ServletException | ClassNotFoundException e) {
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }
@@ -132,7 +132,7 @@ public class Controller extends HttpServlet {
         try {
             request.setAttribute("films", filmDao.getAll());
             request.getRequestDispatcher("/admin/films/list.jsp").forward(request, response);
-        } catch (IOException | ServletException | ClassNotFoundException e) {
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }
@@ -161,7 +161,7 @@ public class Controller extends HttpServlet {
             List<Language> languages = languageDao.getAll();
             request.setAttribute("languages", languages);
             request.getRequestDispatcher("/admin/films/add.jsp").forward(request, response);
-        } catch (IOException | ClassNotFoundException | ServletException e) {
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }
@@ -217,7 +217,7 @@ public class Controller extends HttpServlet {
         try {
             film = filmDao.create(film);
             response.sendRedirect("/controller?command=film_edit&id=" + film.getId());
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -233,7 +233,7 @@ public class Controller extends HttpServlet {
         try {
             seanceDao.create(seance);
             response.sendRedirect("/controller?command=film_edit&tab=schedule&id=" + filmId);
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -266,7 +266,7 @@ public class Controller extends HttpServlet {
             request.setAttribute("schedule", dashboard);
 
             request.getRequestDispatcher("/admin/schedule.jsp").forward(request, response);
-        } catch (IOException | ServletException | ClassNotFoundException e) {
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }

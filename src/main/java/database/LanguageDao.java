@@ -10,19 +10,17 @@ public class LanguageDao {
 
     private static final String GET_ALL_LANGUAGES = "SELECT * FROM language";
 
-    public List<Language> getAll() throws ClassNotFoundException {
+    public List<Language> getAll() {
         List<Language> languagesList = new ArrayList<>();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_ALL_LANGUAGES);
 
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_ALL_LANGUAGES)) {
-
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Language language = new Language();
                 language.setId(rs.getInt(1));
@@ -30,8 +28,13 @@ public class LanguageDao {
                 language.setFullName(rs.getString(4));
                 languagesList.add(language);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return languagesList;
     }

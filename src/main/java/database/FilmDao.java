@@ -21,19 +21,17 @@ public class FilmDao {
     private static final String INSERT_FILM = "INSERT INTO film (img) VALUES  (?)";
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
 
-    public List<Film> getAll() throws ClassNotFoundException {
+    public List<Film> getAll() {
+
         List<Film> filmsList = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_ALL_FILMS_FOR_ADMIN);
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_ALL_FILMS_FOR_ADMIN)) {
-
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Film film = new Film();
                 List<FilmDescription> filmDesc = new ArrayList<>();
@@ -52,72 +50,80 @@ public class FilmDao {
                 film.setFilmDescriptions(filmDesc);
                 filmsList.add(film);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
+
         return filmsList;
     }
 
-    public Film get(int id) throws ClassNotFoundException {
+    public Film get(int id) {
         Film film = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_FILM_BY_ID)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_FILM_BY_ID);
             preparedStatement.setInt(1, id);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 film = new Film();
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return film;
     }
 
-    public Film create(Film film) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_FILM, Statement.RETURN_GENERATED_KEYS)) {
+    public Film create(Film film) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_FILM, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, film.getImg());
 
             if (preparedStatement.executeUpdate() > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        film.setId(rs.getInt(1));
-                        createFilmDescFromFilm(film);
-                    }
+                rs = preparedStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    film.setId(rs.getInt(1));
+                    createFilmDescFromFilm(film);
                 }
             }
 
+            rs.close();
+            preparedStatement.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return null;
     }
 
-    private void createFilmDescFromFilm(Film film) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_FILM_DESCRIPTION)) {
+    private void createFilmDescFromFilm(Film film) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_FILM_DESCRIPTION);
 
             for (FilmDescription fd : film.getFilmDescriptions()) {
                 preparedStatement.setInt(1, film.getId());
@@ -126,10 +132,14 @@ public class FilmDao {
                 preparedStatement.setString(4, fd.getDescription());
                 preparedStatement.addBatch();
             }
-            preparedStatement.executeBatch();
 
+            preparedStatement.executeBatch();
+            preparedStatement.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
     }
 

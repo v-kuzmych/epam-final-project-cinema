@@ -14,28 +14,29 @@ public class UserDao {
     private static final String GET_ALL_USERS = "SELECT * FROM user";
 
     public User create(User user) throws ClassNotFoundException {
-
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
 
             if (preparedStatement.executeUpdate() > 0) {
-                try (ResultSet rs = preparedStatement.getGeneratedKeys()) {
-                    if (rs.next()) {
-                        user.setId(rs.getInt(1));
-                        return user;
-                    }
+                rs = preparedStatement.getGeneratedKeys();
+                if (rs.next()) {
+                    user.setId(rs.getInt(1));
+                    return user;
                 }
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
 
         return null;
@@ -44,18 +45,16 @@ public class UserDao {
     public User login(User user) throws ClassNotFoundException {
         User loggedUser = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL_AND_PASSWORD);
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 loggedUser = new User();
                 loggedUser.setId(rs.getInt(1));
@@ -63,8 +62,14 @@ public class UserDao {
                 loggedUser.setEmail(rs.getString(3));
                 loggedUser.setRole(rs.getString(5));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return loggedUser;
     }
@@ -72,16 +77,14 @@ public class UserDao {
     public List<User> getAll() throws ClassNotFoundException {
         List<User> usersList = new ArrayList<>();
 
-        Class.forName("com.mysql.jdbc.Driver");
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_ALL_USERS);
 
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_ALL_USERS)) {
-
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getInt(1));
@@ -90,8 +93,14 @@ public class UserDao {
                 user.setRole(rs.getString(5));
                 usersList.add(user);
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return usersList;
     }
@@ -99,17 +108,15 @@ public class UserDao {
     public User get(int id) throws ClassNotFoundException {
         User user = null;
 
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_USER_BY_ID)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_USER_BY_ID);
             preparedStatement.setInt(1, id);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 user = new User();
                 user.setId(rs.getInt(1));
@@ -117,8 +124,14 @@ public class UserDao {
                 user.setEmail(rs.getString(3));
                 user.setRole(rs.getString(5));
             }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return user;
     }

@@ -23,15 +23,12 @@ public class SeanceDao {
                                                     "ORDER BY s.date ASC";
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
-    public void create(Seance seance) throws ClassNotFoundException {
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(INSERT_SEANCE, Statement.RETURN_GENERATED_KEYS)) {
+    public void create(Seance seance) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_SEANCE, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, seance.getFilmId());
             preparedStatement.setString(2, fmt.format(seance.getDate()));
             preparedStatement.setInt(3, 111);
@@ -39,27 +36,29 @@ public class SeanceDao {
             if (preparedStatement.executeUpdate() <= 0) {
                 // error
             }
+            preparedStatement.close();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
     }
 
     public List<Seance> getByFilmId(int id, Locale currentLocale) throws ClassNotFoundException {
         List<Seance> seancesList = new ArrayList<>();
-        Class.forName("com.mysql.jdbc.Driver");
-
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_SEANCE_BY_FILM_ID)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_SEANCE_BY_FILM_ID);
             preparedStatement.setInt(1, id);
 
 //            String[] localeAttr = locale.split("_");
 //            Locale currentLocale = new Locale(localeAttr[0], localeAttr[1]);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Seance seance = new Seance();
                 seance.setId(rs.getInt(1));
@@ -69,29 +68,32 @@ public class SeanceDao {
                 // 4 price
                 seancesList.add(seance);
             }
-        } catch (SQLException e) {
-            // process sql exception
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
         return seancesList;
     }
 
-    public List<Seance> getAll(String locale) throws ClassNotFoundException {
+    public List<Seance> getAll(String locale) {
         List<Seance> seancesList = new ArrayList<>();
-        Class.forName("com.mysql.jdbc.Driver");
 
-        try (Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-
-             // Step 2:Create a statement using connection object
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(GET_ALL_SEANCES)) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_ALL_SEANCES);
             preparedStatement.setString(1, locale);
 
             String[] localeAttr = locale.split("_");
             Locale currentLocale = new Locale(localeAttr[0], localeAttr[1]);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Film film = new Film();
                 List<FilmDescription> filmDescriptions = new ArrayList<>();
@@ -111,10 +113,15 @@ public class SeanceDao {
 
                 seancesList.add(seance);
             }
-        } catch (SQLException e) {
-            // process sql exception
-            System.out.println(e.getMessage());
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
         }
+
         return seancesList;
     }
 }
