@@ -11,8 +11,8 @@
                     <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
                          alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">${"uk_UA".equals(sessionScope.locale) ? film.nameUa : film.nameEn}</h5>
-                        <p class="card-text">${"uk_UA".equals(sessionScope.locale) ? film.descriptionUa : film.descriptionEn}</p>
+                        <h5 class="card-title">${film.filmDescriptions[0].name}</h5>
+<%--                        <p class="card-text">${film.filmDescriptions[0].description}</p>--%>
                     </div>
                 </div>
             </div>

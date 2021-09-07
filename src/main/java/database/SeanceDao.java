@@ -2,6 +2,7 @@ package database;
 
 import bean.Film;
 import bean.FilmDescription;
+import bean.Hall;
 import bean.Seance;
 
 import java.sql.*;
@@ -13,14 +14,21 @@ import java.util.Locale;
 
 public class SeanceDao {
 
-    private static final String INSERT_SEANCE = "INSERT INTO seance (film_id, date, price) VALUES  (?, ?, ?)";
+    private static final String INSERT_SEANCE = "INSERT INTO seance (film_id, date, price, hall_id) VALUES  (?, ?, ?, ?)";
     private static final String GET_SEANCE_BY_FILM_ID = "SELECT * FROM seance WHERE film_id = ? ORDER BY date ASC ";
     private static final String GET_ALL_SEANCES = "SELECT s.*, l.id as lang_id, fd.name, fd.description, f.img " +
                                                     "FROM seance s " +
-                                                    "JOIN film f ON f.Id = s.film_id " +
+                                                    "JOIN film f ON f.id = s.film_id " +
                                                     "LEFT JOIN language l ON l.locale = ? " +
                                                     "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
                                                     "ORDER BY s.date ASC";
+    private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.language_id, fd.name, fd.description, f.img " +
+                                                    "FROM seance s " +
+                                                    "JOIN film f ON f.id = s.film_id " +
+                                                    "LEFT JOIN language l ON l.locale = ? " +
+                                                    "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
+                                                    "JOIN hall h ON h.id = s.hall_id " +
+                                                    "WHERE s.id = ? ";
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
     public void create(Seance seance) {
@@ -31,7 +39,8 @@ public class SeanceDao {
             preparedStatement = connection.prepareStatement(INSERT_SEANCE, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, seance.getFilmId());
             preparedStatement.setString(2, fmt.format(seance.getDate()));
-            preparedStatement.setInt(3, 111);
+            preparedStatement.setInt(3, seance.getPrice());
+            preparedStatement.setInt(4, 1);
 
             if (preparedStatement.executeUpdate() <= 0) {
                 // error
@@ -61,10 +70,10 @@ public class SeanceDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Seance seance = new Seance();
-                seance.setId(rs.getInt(1));
-                seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
+                seance.setId(rs.getInt(3));
+                seance.setDate(LocalDateTime.parse(rs.getString(2), fmt));
                 seance.setFormatedDate(currentLocale);
-                seance.setFilmId(rs.getInt(2));
+                seance.setFilmId(rs.getInt(1));
                 // 4 price
                 seancesList.add(seance);
             }
@@ -99,13 +108,13 @@ public class SeanceDao {
                 List<FilmDescription> filmDescriptions = new ArrayList<>();
 
                 film.setId(rs.getInt(2));
-               // price rs.getString(4)
-                filmDescriptions.add(new FilmDescription(rs.getInt(5), rs.getString(6), rs.getString(7)));
+                filmDescriptions.add(new FilmDescription(rs.getInt(6), rs.getString(7), rs.getString(8)));
                 film.setFilmDescriptions(filmDescriptions);
-                film.setImg(rs.getString(8));
+                film.setImg(rs.getString(9));
 
                 Seance seance = new Seance();
                 seance.setId(rs.getInt(1));
+                seance.setPrice(rs.getInt(4));
                 seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
                 seance.setFormatedDate(currentLocale);
                 seance.setFilmId(rs.getInt(2));
@@ -123,5 +132,55 @@ public class SeanceDao {
         }
 
         return seancesList;
+    }
+
+    public Seance get(int seanceId, String locale) {
+        Seance seance = new Seance();
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_SEANCE_BY_ID);
+            preparedStatement.setString(1, locale);
+            preparedStatement.setInt(2, seanceId);
+
+            String[] localeAttr = locale.split("_");
+            Locale currentLocale = new Locale(localeAttr[0], localeAttr[1]);
+
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                Hall hall = new Hall();
+                Film film = new Film();
+                List<FilmDescription> filmDescriptions = new ArrayList<>();
+
+                seance.setId(rs.getInt(1));
+                seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
+                seance.setFormatedDate(currentLocale);
+                seance.setFilmId(rs.getInt(2));
+                seance.setPrice(rs.getInt(5));
+
+                hall.setId(rs.getInt(4));
+                hall.setNumberOfRows(rs.getInt(6));
+                hall.setNumberOfSeats(rs.getInt(7));
+
+                film.setId(rs.getInt(2));
+                filmDescriptions.add(new FilmDescription(rs.getInt(8), rs.getString(9), rs.getString(10)));
+                film.setFilmDescriptions(filmDescriptions);
+                film.setImg(rs.getString(11));
+
+                seance.setFilm(film);
+                seance.setHall(hall);
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
+        }
+
+        return seance;
     }
 }

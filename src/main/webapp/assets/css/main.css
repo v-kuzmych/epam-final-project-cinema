@@ -1,13 +1,16 @@
 html, body {
     height: 100%;
 }
+
 body {
     display: flex;
     flex-direction: column;
 }
+
 .content {
     flex: 1 0 auto;
 }
+
 .footer {
     flex-shrink: 0;
 }
@@ -23,10 +26,10 @@ body {
 }
 
 .tile-list-wr {
-    display              : grid;
-    grid-gap             : 0 4%;
+    display: grid;
+    grid-gap: 0 4%;
     grid-template-columns: repeat(auto-fit, minmax(218px, 1fr));
-    grid-template-rows   : auto
+    grid-template-rows: auto
 }
 
 .movie-block {
@@ -35,17 +38,17 @@ body {
 }
 
 .movie-block:hover {
-    cursor:pointer;
+    cursor: pointer;
     opacity: 0.8;
 }
 
 .tile-list-wr .movie-block {
-    display        : flex;
-    width          : 100%;
+    display: flex;
+    width: 100%;
     justify-content: center
 }
 
-@media screen and (max-width:1024px) {
+@media screen and (max-width: 1024px) {
     .tile-list-wr {
         display: block
     }
@@ -58,7 +61,7 @@ body {
     }
 }
 
-@media (max-width:576px) {
+@media (max-width: 576px) {
 
     .optimize .tile-list-wr {
         display: block
@@ -69,8 +72,512 @@ body {
     }
 
     .optimize .movie-block {
-        margin    : 10px 0 40px;
+        margin: 10px 0 40px;
         text-align: center;
-        width     : 100%
+        width: 100%
     }
+}
+
+
+.timetable-wrapper {
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    border-top: 1px #f3f3f3 solid;
+}
+
+.timetable-wrapper .desktop-filters {
+    grid-column: 1;
+}
+
+.timetable-wrapper .movies {
+    grid-column: 2;
+}
+
+.filter-panel {
+    width: 256px;
+    background: #fff;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+div.filter-title {
+    flex-direction: row;
+    padding: 15px 10px;
+}
+
+.small-text {
+    font-size: 12px;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1500px) {
+    .filter-section {
+        align-items: normal;
+    }
+}
+
+.date-filter {
+    flex-direction: column;
+    margin-bottom: 1px;
+}
+
+.filter-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px 10px;
+    border-bottom: 1px #f3f3f3 solid;
+
+}
+
+.filter-section__title {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.small-grey-text {
+    font-size: 12px;
+    color: #b6b6b6;
+}
+
+.mr-15 {
+    margin-right: 15px;
+}
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
+.m-20 {
+    margin: 20px;
+}
+
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-15 {
+    margin-bottom: 15px;
+}
+
+@media screen and (min-width: 992px) and (max-width: 1500px) {
+    .filter-group {
+        width: auto;
+    }
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    width: 120px;
+    margin-left: 50px;
+}
+
+.group-item {
+    margin-top: 5px;
+    text-align: left;
+}
+
+.movie {
+    display: flex;
+    padding: 50px 30px;
+    margin-bottom: 10px;
+    min-height: 277px;
+    background-color: #f5f5f5;
+}
+
+.movie .tablet-movie-name {
+    display: none;
+}
+
+.link-text {
+    color: #3cb4e7;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.box-for-img, .box-for-img__inner {
+    position: relative;
+}
+
+.movie .movie-info {
+    margin-left: 30px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.fallback-img, .poster {
+    cursor: pointer;
+    width: 100px;
+    height: 150px;
+    display: block;
+}
+
+.movie .movie-info {
+    margin-left: 30px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.movie .movie-info .movie-name {
+    color: #3cb4e7;
+    font-weight: 600;
+}
+
+.movie .tech {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.movie .technology-title {
+    min-width: 145px;
+    text-transform: uppercase;
+}
+
+.movie .seances {
+    width: 350px;
+}
+
+.chips:disabled {
+    color: #b6b6b6;
+    background-color: #f5f5f5;
+    border: 1px solid #b6b6b6;
+    cursor: default;
+}
+
+.chips {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 28px;
+    margin: 5px 12px;
+    border-radius: 2px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    background-color: #3cb4e7;
+    cursor: pointer;
+    border: none;
+}
+
+.none-text-decoration {
+    text-decoration: none;
+}
+
+
+/* order page style */
+
+@media (min-width: 1220px) and (max-width: 1279px) {
+    .order-content {
+        padding-top: 50px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
+    .order-content {
+        padding-top: 0;
+    }
+}
+
+.order-content {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    -js-display: flex;
+    position: relative;
+    justify-content: space-between;
+}
+
+.order-content {
+    min-height: calc(100% - 130px - 60px);
+}
+
+@media (min-width: 992px) and (max-width: 1279px) {
+    .order-content .content__left-block {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 1279px) {
+    .order-content .content__left-block {
+        padding-top: 50px;
+    }
+}
+
+.order-content .content__left-block {
+    display: flex;
+    -js-display: flex;
+    flex-direction: column;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    flex: 0 0 30%;
+    width: 30%;
+    min-width: 430px;
+}
+
+@media (max-width: 1600px) {
+    .order-content .content__left-block {
+        padding-left: 5%;
+        padding-right: 5%;
+        flex: 0 0 30%;
+        width: 30%;
+    }
+}
+
+.left-block-row {
+    display: flex;
+    -js-display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.left-block-row .left-block-row__item {
+    width: 95%;
+}
+
+.dv {
+    display: block;
+}
+
+.movie-badge {
+    width: 100%;
+    min-height: 125px;
+}
+
+.movie-badge .movie-badge__poster {
+    display: inline-block;
+    float: left;
+    width: 85px;
+    height: 125px;
+    margin-right: 20px;
+    margin-top: 0px;
+}
+
+.movie-badge .movie-badge__poster img {
+    width: 100%;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .movie-badge .movie-badge__title {
+        font-size: 16px;
+        margin-bottom: 5px;
+    }
+}
+
+.movie-badge .movie-badge__title {
+    color: #252525;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    height: 23px;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .info-badges {
+        top: 15px !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .info-badges {
+        display: block;
+    }
+}
+
+.info-badges {
+    display: block;
+    position: relative;
+}
+
+.movie-info .movie-info__text {
+    font-size: 16px;
+    color: #252525;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+@media (min-width: 1200px) and (max-width: 1439px) {
+    .movie-info__text {
+        font-size: 14px !important;
+    }
+}
+
+.movie-info .movie-info__element {
+    line-height: 25px;
+    margin-top: -5px;
+    font-size: 16px;
+}
+
+.left-block-row .left-block-row__delete-item {
+    font-size: 22px;
+    color: #acacac;
+    cursor: pointer;
+    margin-left: 10px;
+    width: 14px;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .add-to-cart {
+        height: 60px !important;
+    }
+}
+
+.add-to-cart {
+    cursor: pointer;
+    width: 100%;
+    border-radius: 100px;
+    background-color: #3cb4e7;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    color: #fff;
+    border: none;
+    padding-left: 40px;
+    padding-right: 40px;
+    height: 60px;
+    line-height: 55px;
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.add-to-cart .add-to-cart__content-left {
+    float: left;
+}
+
+.add-to-cart .add-to-cart__content-right {
+    float: right;
+}
+
+.add-to-cart .add-to-cart__price {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.add-to-cart .add-to-cart__currency {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.order-content .content__middle-block {
+    align-self: flex-start;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    flex: 0 0 48%;
+    width: 65%;
+    padding-top: 50px;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .ticket-info {
+        padding-top: 7px;
+        padding-bottom: 7px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .ticket-info {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 4.5px;
+        padding-bottom: 4.5px;
+    }
+}
+
+.ticket-info {
+    width: 100%;
+    background-color: #f5f5f5;
+    border-radius: 2px;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    box-sizing: border-box;
+    vertical-align: center;
+    display: flex;
+    -js-display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticket-info .ticket-info__seats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-width: 70px;
+}
+
+.ticket-info .ticket-info__block {
+    text-align: center;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .ticket-info .ticket-info__number {
+        font-size: 18px;
+        font-weight: 600;
+    }
+}
+
+.ticket-info .ticket-info__number {
+    font-weight: 600;
+    color: #252525;
+}
+
+.ticket-info .ticket-info__description {
+    font-size: 12px;
+    color: #252525;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .ticket-info__description {
+        font-size: 10px !important;
+    }
+}
+
+.ticket-info .ticket-info__price-block {
+    color: #3cb4e7;
+    height: 47px;
+    margin-top: -3px;
+    width: 70px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.ticket-info .ticket-info__block {
+    text-align: center;
+}
+
+@media (min-width: 992px) and (max-width: 1439px) {
+    .ticket-info__price-block {
+        margin-top: 4px !important;
+    }
+}
+
+.ticket-info .ticket-info__price-wrapper {
+    text-align: center;
+}
+
+.user-order-block {
+    margin-top: 20px;
+}
+
+.hall-scheme .hall-scheme__screen {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
 }

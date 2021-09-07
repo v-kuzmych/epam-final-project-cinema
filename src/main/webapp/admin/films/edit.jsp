@@ -86,13 +86,17 @@
                                       action="${pageContext.request.contextPath}/controller?command=add_seance&id=${film.id}">
                                     <div class="item-block">
                                         <label>Оберіть дату</label>
-                                        <input type="date" class="date-input" name="date" value="2021-09-01"
+                                        <input type="date" class="min-input" name="date" value="2021-09-01"
                                                min="2021-09-01" max="2022-12-31" required>
                                     </div>
                                     <div class="item-block">
                                         <label>Оберіть час</label>
-                                        <input type="time" class="date-input" name="time" value="09:00" min="09:00"
+                                        <input type="time" class="min-input" name="time" value="09:00" min="09:00"
                                                max="22:00" required>
+                                    </div>
+                                    <div class="item-block">
+                                        <label>Введіть вартість</label>
+                                        <input type="text" class="min-input" value="" name="price">
                                     </div>
                                     <button class="btn btn-success" type="submit" style="float:right">
                                         <fmt:message key="save"/>

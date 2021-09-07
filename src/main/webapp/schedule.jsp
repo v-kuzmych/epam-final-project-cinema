@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="/admin/header.jsp" %>
+<%@ include file="/header.jsp" %>
 
 <div class="wrapper">
     <div class="page-title">
@@ -48,7 +48,7 @@
             <c:forEach items="${schedule}" var="item">
                 <div class="movie">
                     <a class="tablet-movie-name link-text" href="${pageContext.request.contextPath}/controller?command=film_edit&id=${item.getKey().id}">
-                         ${item.getKey().filmDescriptions[0].name}</a>
+                            ${item.getKey().filmDescriptions[0].name}</a>
                     <div class="box-for-img">
                         <div class="box-for-img__inner">
                             <div>
@@ -67,7 +67,7 @@
                                     <div class="tech">
                                         <div class="seances">
                                             <c:forEach items="${ date.getValue() }" var="seance">
-                                                <button class="chips">${ seance.formatedTime }</button>
+                                                <a class="chips none-text-decoration" href="${pageContext.request.contextPath}/controller?command=order_page&id=${seance.id}">${ seance.formatedTime }</a>
                                             </c:forEach>
                                         </div>
                                     </div>
@@ -85,4 +85,4 @@
 
 </div>
 
-<%@ include file="/admin/footer.jsp" %>
+<%@ include file="/footer.jsp" %>

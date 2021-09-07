@@ -17,6 +17,12 @@ public class FilmDao {
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id " +
                                                             "LEFT JOIN language l ON l.Id = fd.language_id " +
                                                             "GROUP BY f.id";
+    private static final String GET_ALL_FILMS_FOR_USER = "SELECT f.*, l.id as lang_id, fd.name, fd.description, f.img " +
+                                                            "FROM film f " +
+                                                            "LEFT JOIN language l ON l.locale = ? " +
+                                                            "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
+                                                            "ORDER BY fd.name ASC";
+
     private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img) VALUES  (?)";
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
@@ -46,6 +52,41 @@ public class FilmDao {
                 for (int i = 0; i < locales.length; i++) {
                     filmDesc.add(new FilmDescription(Integer.parseInt(locales[i]), names[i], descriptions[i]));
                 }
+
+                film.setFilmDescriptions(filmDesc);
+                filmsList.add(film);
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
+        }
+
+        return filmsList;
+    }
+
+    public List<Film> getAllForUser(String locale) {
+
+        List<Film> filmsList = new ArrayList<>();
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_ALL_FILMS_FOR_USER);
+            preparedStatement.setString(1, locale);
+
+            rs = preparedStatement.executeQuery();
+            while (rs.next()) {
+                Film film = new Film();
+                List<FilmDescription> filmDesc = new ArrayList<>();
+
+                film.setId(rs.getInt(1));
+                film.setImg(rs.getString(2));
+                filmDesc.add(new FilmDescription(rs.getInt(3), rs.getString(4), rs.getString(5)));
 
                 film.setFilmDescriptions(filmDesc);
                 filmsList.add(film);

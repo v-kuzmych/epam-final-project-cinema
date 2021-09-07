@@ -6,7 +6,7 @@
         <li class="active"><a href="#"><fmt:message key="home"/></a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=admin_films_page">
             <fmt:message key="films"/></a></li>
-        <li><a href="${pageContext.request.contextPath}/controller?command=schedule_page"><fmt:message key="schedule"/></a></li>
+        <li><a href="${pageContext.request.contextPath}/controller?command=admin_schedule"><fmt:message key="schedule"/></a></li>
         <li><a href="${pageContext.request.contextPath}/controller?command=admin_users_page">
             <fmt:message key="users"/></a></li>
     </ul>

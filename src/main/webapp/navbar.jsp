@@ -14,7 +14,7 @@
                         key="home"/></a></li>
                 <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/controller?command=user_films_page"><fmt:message
                         key="films"/></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><fmt:message key="schedule"/></a></li>
+                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/controller?command=user_schedule"><fmt:message key="schedule"/></a></li>
                 <li class="nav-item"><a class="nav-link" href="#"><fmt:message key="schedule"/></a></li>
             </ul>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">

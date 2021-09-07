@@ -55,7 +55,6 @@ $('.nav-link').click(function () {
 })
 
 $('.open_add_seance_block').click(function () {
-    console.log(111)
     $('.add-seance').toggleClass('active')
 })
 
@@ -67,21 +66,39 @@ var openFilmTab = () => {
     // }
 }
 
-// $('.submit-add-film').click(function (e) {
-//     $.ajax({
-//         type: 'GET',
-//         data:$('#save-film').serialize(),
-//         url: '/controller',
-//         success: function (data) {
-//
-//             // location.href = "/admin/films/edit.jsp"
-//         }
-//     })
-// })
+
+var addingOrder = () => {
+
+
+    // $(document).on('click', '.add-to-cart', function (e) {
+    //     var places = [];
+    //     $('.choosedPlace:checked').each(function () {
+    //         places.push($(this).val())
+    //     })
+    //
+    //     var form = $('form#user-order')
+    //     var formData = new FormData(form[0]);
+    //     formData.append('places', places)
+    //
+    //     $.ajax({
+    //         processData: false,
+    //         contentType: false,
+    //         type: 'POST',
+    //         data:formData,
+    //         url: '/controller?command=add_order',
+    //         success: function (data) {
+    //             console.log(111111)
+    //             // location.href = "/admin/films/edit.jsp"
+    //         }
+    //     })
+    // })
+}
+
 
 
 $( document ).ready(function() {
     openFilmTab();
+    addingOrder();
 });
 
 

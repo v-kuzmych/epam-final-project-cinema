@@ -48,14 +48,15 @@ public class AdminCommand {
         return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__EDIT_FILM);
     }
 
-//    public String deleteFilm(HttpServletRequest request, HttpServletResponse response) {
-//        Film film = new Film();
-////        film.deleteById(request.getParameter("id"));
-//    }
+    public CommandResult deleteFilm(HttpServletRequest request, HttpServletResponse response) {
+        Film film = new Film();
+//        film.deleteById(request.getParameter("id"));
+        return new CommandResult(CommandResult.ResponseType.REDIRECT, Path.PAGE__ADMIN_FILMS_LIST);
+    }
 
     public CommandResult saveFilm(HttpServletRequest request, HttpServletResponse response) {
         Film film = new Film();
-        film.setImg("image_placeholder");
+        film.setImg("vend1.jpg");
 
         String langIds[] = request.getParameter("lang_ids").split(",");
 
@@ -81,9 +82,11 @@ public class AdminCommand {
         LocalDateTime dateTime = LocalDateTime.parse(request.getParameter("date") + " " + request.getParameter("time"), fmt);
 
         int filmId = Integer.parseInt(request.getParameter("id"));
+        int price = Integer.parseInt(request.getParameter("price"));
         Seance seance = new Seance();
         seance.setFilmId(filmId);
         seance.setDate(dateTime);
+        seance.setPrice(price);
         new SeanceDao().create(seance);
 
         String page = "/controller?command=film_edit&tab=schedule&id=" + filmId;

@@ -13,7 +13,10 @@ public class CommandContainer {
         // common commands
         commands.put("switch_language", new GeneralCommand()::switchLanguage);
         commands.put("register", new GeneralCommand()::register);
+        commands.put("user_schedule", new GeneralCommand()::getSchedule);
         commands.put("user_films_page", new GeneralCommand()::getAllFilms);
+        commands.put("order_page", new GeneralCommand()::showOrderPage);
+        commands.put("add_order", new GeneralCommand()::addOrder);
         commands.put("noCommand", new GeneralCommand()::noCommand);
 
         // client commands
@@ -25,9 +28,9 @@ public class CommandContainer {
         commands.put("add_film", new AdminCommand()::showAddFilmPage);
         commands.put("film_edit", new AdminCommand()::showEditFilmPage);
         commands.put("save_film", new AdminCommand()::saveFilm);
-//        commands.put("film_delete", new AdminCommand()::deleteFilm);
+        commands.put("film_delete", new AdminCommand()::deleteFilm);
         commands.put("add_seance", new AdminCommand()::addSeance);
-        commands.put("schedule_page", new AdminCommand()::getSchedule);
+        commands.put("admin_schedule", new AdminCommand()::getSchedule);
         commands.put("admin_users_page", new AdminCommand()::getAllUsers);
         commands.put("user_info", new AdminCommand()::getUserInfo);
 
