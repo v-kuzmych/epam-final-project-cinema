@@ -11,28 +11,28 @@ public class CommandContainer {
 
     static {
         // common commands
-        commands.put("switch_language", new GeneralCommand()::switchLanguage);
-        commands.put("register", new GeneralCommand()::register);
-        commands.put("user_schedule", new GeneralCommand()::getSchedule);
-        commands.put("user_films_page", new GeneralCommand()::getAllFilms);
-        commands.put("order_page", new GeneralCommand()::showOrderPage);
-        commands.put("add_order", new GeneralCommand()::addOrder);
-        commands.put("noCommand", new GeneralCommand()::noCommand);
+        commands.put("switch_language", new SwitchLanguageCommand());
+        commands.put("register", new RegisterCommand());
+        commands.put("user_schedule", new GetScheduleForUserCommand());
+        commands.put("user_films_page", new GetAllFilmsForUserCommand());
+        commands.put("order_page", new ShowOrderPageCommand());
+        commands.put("add_order", new AddOrderCommand());
+        commands.put("noCommand", new NoCommand());
 
         // client commands
-        commands.put("login", new UserCommand()::login);
-        commands.put("logout", new UserCommand()::logout);
+        commands.put("login", new LoginCommand());
+        commands.put("logout", new LogoutCommand());
 
         // admin commands
-        commands.put("admin_films_page", new AdminCommand()::getAllFilms);
-        commands.put("add_film", new AdminCommand()::showAddFilmPage);
-        commands.put("film_edit", new AdminCommand()::showEditFilmPage);
-        commands.put("save_film", new AdminCommand()::saveFilm);
-        commands.put("film_delete", new AdminCommand()::deleteFilm);
-        commands.put("add_seance", new AdminCommand()::addSeance);
-        commands.put("admin_schedule", new AdminCommand()::getSchedule);
-        commands.put("admin_users_page", new AdminCommand()::getAllUsers);
-        commands.put("user_info", new AdminCommand()::getUserInfo);
+        commands.put("admin_films_page", new GetAllFilmsForAdminCommand());
+        commands.put("add_film", new ShowAddFilmPageCommand());
+        commands.put("film_edit", new ShowEditFilmPageCommand());
+        commands.put("save_film", new SaveFilmCommand());
+//        commands.put("film_delete", new DeleteFilmCommand());
+        commands.put("add_seance", new AddSeanceCommand());
+        commands.put("admin_schedule", new GetScheduleForAdminCommand());
+        commands.put("admin_users_page", new GetAllUsersCommand());
+        commands.put("user_info", new GetUserInfoForAdminCommand());
 
 
 

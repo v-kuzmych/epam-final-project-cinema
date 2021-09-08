@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UserCommand {
-
-    public CommandResult login(HttpServletRequest request, HttpServletResponse response) {
+public class LoginCommand implements Command{
+    @Override
+    public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
 
         String email = request.getParameter("email");
@@ -64,15 +64,5 @@ public class UserCommand {
 
 //        log.debug("Command finished");
         return new CommandResult(CommandResult.ResponseType.REDIRECT, page);
-    }
-
-    public CommandResult logout(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession(false);
-        if (session != null) {
-            session.removeAttribute("loggedUser");
-            session.invalidate();
-        }
-
-        return new CommandResult(CommandResult.ResponseType.REDIRECT, Path.PAGE__LOGIN);
     }
 }
