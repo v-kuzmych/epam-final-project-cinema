@@ -10,12 +10,21 @@
 
         <div class="collapse navbar-collapse" id="navbars">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link active" href="/index.jsp" aria-current="page"><fmt:message
-                        key="home"/></a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/controller?command=user_films_page"><fmt:message
-                        key="films"/></a></li>
-                <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/controller?command=user_schedule"><fmt:message key="schedule"/></a></li>
-                <li class="nav-item"><a class="nav-link" href="#"><fmt:message key="schedule"/></a></li>
+                <li class="nav-item">
+                    <a class="nav-link <c:if test='${empty sitePage || sitePage == "home"}'>active</c:if>"
+                       href="/index.jsp" aria-current="page"><fmt:message key="home"/></a></li>
+                <li class="nav-item">
+                    <a class="nav-link <c:if test='${sitePage == "films"}'>active</c:if>"
+                       href="${pageContext.request.contextPath}/controller?command=user_films_page">
+                        <fmt:message key="films"/></a></li>
+                <li class="nav-item">
+                    <a class="nav-link <c:if test='${sitePage == "schedule"}'>active</c:if>"
+                       href="${pageContext.request.contextPath}/controller?command=user_schedule">
+                        <fmt:message key="schedule"/></a></li>
+                <li class="nav-item">
+                    <a class="nav-link <c:if test='${sitePage == "uk_UA"}'>active</c:if>"
+                       href="#">
+                    <fmt:message key="schedule"/></a></li>
             </ul>
             <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input class="form-control" type="text" placeholder="<fmt:message key="search"/>..."

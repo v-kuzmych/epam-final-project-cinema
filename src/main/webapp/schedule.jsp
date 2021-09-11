@@ -22,23 +22,27 @@
                     <span class="filter-section__title small-grey-text">Період:</span>
                     <div class="filter-group">
                         <div class="group-item">
-                            <input type="radio" id="contactChoice1" name="contact" value="email">
-                            <label for="contactChoice1">сьогодні</label>
+                            <input type="radio" class="filterScheduleByDate" id="todayFilter" name="date_filter" value="today"
+                                   <c:if test='${dateFilter == "today"}'>checked="checked"</c:if>>
+                            <label for="todayFilter">сьогодні</label>
                         </div>
 
                         <div class="group-item">
-                            <input type="radio" id="contactChoice2" name="contact" value="phone">
-                            <label for="contactChoice2">завтра</label>
+                            <input type="radio" class="filterScheduleByDate" id="tomorrowFilter" name="date_filter" value="tomorrow"
+                                   <c:if test='${dateFilter == "tomorrow"}'>checked="checked"</c:if>>
+                            <label for="tomorrowFilter">завтра</label>
                         </div>
 
                         <div class="group-item">
-                            <input type="radio" id="contactChoice3" name="contact" value="mail">
-                            <label for="contactChoice3">тиждень</label>
+                            <input type="radio" class="filterScheduleByDate" id="weekFilter" name="date_filter" value="week"
+                                   <c:if test='${dateFilter == "week"}'>checked="checked"</c:if>>
+                            <label for="weekFilter">тиждень</label>
                         </div>
 
                         <div class="group-item">
-                            <input type="radio" id="contactChoice4" name="contact" value="mail">
-                            <label for="contactChoice4">місяць</label>
+                            <input type="radio" class="filterScheduleByDate" id="monthFilter" name="date_filter" value="month"
+                                   <c:if test='${dateFilter == "month"}'>checked="checked"</c:if>>
+                            <label for="monthFilter">місяць</label>
                         </div>
                     </div>
                 </div>

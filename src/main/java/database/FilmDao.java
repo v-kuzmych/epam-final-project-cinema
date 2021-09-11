@@ -21,7 +21,9 @@ public class FilmDao {
                                                             "FROM film f " +
                                                             "LEFT JOIN language l ON l.locale = ? " +
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
-                                                            "ORDER BY fd.name ASC";
+                                                            "ORDER BY fd.name ASC " +
+                                                            "LIMIT ? OFFSET ?";
+    private static final String GET_FILMS_COUNT = "SELECT count(*) FROM film";
 
     private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img) VALUES  (?)";
@@ -68,7 +70,7 @@ public class FilmDao {
         return filmsList;
     }
 
-    public List<Film> getAllForUser(String locale) {
+    public List<Film> getAllForUser(String locale, int limit, int offset) {
 
         List<Film> filmsList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -78,6 +80,8 @@ public class FilmDao {
             connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(GET_ALL_FILMS_FOR_USER);
             preparedStatement.setString(1, locale);
+            preparedStatement.setInt(2, limit);
+            preparedStatement.setInt(3, offset);
 
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -101,6 +105,31 @@ public class FilmDao {
         }
 
         return filmsList;
+    }
+
+    public int getFilmsCount() {
+        int count = 0;
+
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_FILMS_COUNT);
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
+        }
+
+        return count;
     }
 
     public Film get(int id) {

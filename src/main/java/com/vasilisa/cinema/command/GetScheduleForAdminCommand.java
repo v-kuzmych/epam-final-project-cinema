@@ -8,9 +8,7 @@ import database.SeanceDao;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -20,7 +18,8 @@ public class GetScheduleForAdminCommand implements Command{
         HttpSession session = request.getSession(false);
         String locale = (String) session.getAttribute("locale");
 
-        List<Seance> seances = new SeanceDao().getAll(locale);
+        String dateFilter = request.getParameter("dateFilter");
+        List<Seance> seances = new SeanceDao().getAll(locale, dateFilter);
 
         Map<Film, List<Seance>> scheduleMap = seances.stream().collect(Collectors.groupingBy(
                 Seance::getFilm,

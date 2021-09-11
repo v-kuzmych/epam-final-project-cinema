@@ -8,16 +8,31 @@
         <c:forEach items="${films}" var="film">
             <div class="movie-block">
                 <div class="movie-block__inner">
-                    <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
-                         alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">${film.filmDescriptions[0].name}</h5>
-<%--                        <p class="card-text">${film.filmDescriptions[0].description}</p>--%>
-                    </div>
+                        <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
+                             alt="...">
+                        <span class="card-title">${film.filmDescriptions[0].name}</span>
                 </div>
             </div>
         </c:forEach>
     </div>
+</div>
+
+<div class="films_pagination">
+    <nav aria-label="navigation">
+        <ul class="pagination justify-content-center" data-pages="${pages}">
+            <li class="page-item <c:if test='${currentPage == "1" || pages == "1"}'>disabled</c:if>">
+                <span class="page-link" data-value="prev">&laquo;</span>
+            </li>
+            <c:forEach var="page" begin="1" end="${pages}" varStatus="loop">
+                <li class="page-item <c:if test='${currentPage == page}'>active</c:if>">
+                    <span class="page-link" data-value="${page}">${page}</span>
+                </li>
+            </c:forEach>
+            <li class="page-item <c:if test='${currentPage == pages || pages == "1"}'>disabled</c:if>">
+                <span class="page-link" data-value="next">&raquo;</span>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 

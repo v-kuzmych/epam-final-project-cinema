@@ -4,16 +4,19 @@ import bean.Film;
 import bean.FilmDescription;
 import database.FilmDao;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SaveFilmCommand implements Command{
+public class AddFilmCommand implements Command{
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         Film film = new Film();
-        film.setImg("vend1.jpg");
+        film.setImg(request.getParameter("file"));
 
         String langIds[] = request.getParameter("lang_ids").split(",");
 

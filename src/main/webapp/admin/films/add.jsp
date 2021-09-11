@@ -23,8 +23,8 @@
                 <div class="item-block">
                     <label><fmt:message key="film.poster"/></label>
                     <div class="item-photo">
-                        <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_photo">
-                        <input type="file" id="poster" name="filename" accept="image/gif, image/jpeg, image/png"
+                        <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
+                        <input type="file" id="poster" name="file" accept="image/gif, image/jpeg, image/png"
                                style="display: none">
                     </div>
                 </div>

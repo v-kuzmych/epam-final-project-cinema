@@ -9,6 +9,7 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -20,8 +21,12 @@ public class SeanceDao {
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +
                                                     "LEFT JOIN language l ON l.locale = ? " +
-                                                    "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
-                                                    "ORDER BY s.date ASC";
+                                                    "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id ";
+    private static final String WHERE_SEANCE_DATE_IS_TODAY = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 day ";
+    private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > CURDATE() + interval 1 day AND s.date < CURDATE() + interval 2 day ";
+    private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 week ";
+    private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 month ";
+    private static final String ORDER_SEANCE_BY_DATE = "ORDER BY s.date ASC";
     private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.language_id, fd.name, fd.description, f.img " +
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +
@@ -72,11 +77,11 @@ public class SeanceDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Seance seance = new Seance();
-                seance.setId(rs.getInt(3));
-                seance.setDate(LocalDateTime.parse(rs.getString(2), fmt));
+                seance.setId(rs.getInt(1));
+                seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
                 seance.setFormatedDate(currentLocale);
-                seance.setFilmId(rs.getInt(1));
-                // 4 price
+                seance.setFilmId(rs.getInt(2));
+                seance.setPrice(rs.getInt(5));
                 seancesList.add(seance);
             }
             rs.close();
@@ -90,15 +95,16 @@ public class SeanceDao {
         return seancesList;
     }
 
-    public List<Seance> getAll(String locale) {
+    public List<Seance> getAll(String locale, String dateFilter) {
         List<Seance> seancesList = new ArrayList<>();
+        String dateFilterQuery = switchDateFilterQuery(dateFilter);
 
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL_SEANCES);
+            preparedStatement = connection.prepareStatement(GET_ALL_SEANCES + dateFilterQuery + ORDER_SEANCE_BY_DATE);
             preparedStatement.setString(1, locale);
 
             String[] localeAttr = locale.split("_");
@@ -210,5 +216,21 @@ public class SeanceDao {
         }
 
         return seance.getPrice();
+    }
+
+    public String switchDateFilterQuery(String dateFilter) {
+        String result = "";
+
+        if ("tomorrow".equals(dateFilter)) {
+            result = WHERE_SEANCE_DATE_IS_TOMORROW;
+        } else if ("week".equals(dateFilter)) {
+            result = WHERE_SEANCE_DATE_IS_WEEK;
+        } else if ("month".equals(dateFilter)) {
+            result = WHERE_SEANCE_DATE_IS_MONTH;
+        } else {
+            result = WHERE_SEANCE_DATE_IS_TODAY;
+        }
+
+        return result;
     }
 }
