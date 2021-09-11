@@ -31,56 +31,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="user-order-block">
-                            <div class="left-block-row">
-                                <div class="left-block-row__item">
-                                    <div class="ticket-info popup__ticket-info">
-                                        <div class="ticket-info__seats">
-                                            <div class="ticket-info__seat-info ticket-info__block">
-                                                <div class="ticket-info__number">
-                                                    <span>5</span>
-                                                </div>
-                                                <div class="ticket-info__description">
-                                                    <span>ряд</span>
-                                                </div>
-                                            </div>
-                                            <div class="ticket-info__seat-info ticket-info__block">
-                                                <div class="ticket-info__number">
-                                                    <span>15</span>
-                                                </div>
-                                                <div class="ticket-info__description">
-                                                    <span>місце</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="ticket-info__price-block ticket-info__block">
-                                            <div class="ticket-info__price-number ticket-info__cash-number ticket-info__cash-number_hall">
-                                                <span>400</span>
-                                            </div>
-                                            <div class="ticket-info__currency ticket-info__currency_cash">
-                                                <span>грн</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="left-block-row__delete-item">
-                                    <i class="fa fa-times" aria-hidden="true"></i>
-                                </div>
-                            </div>
+                        <div class="user-orders">
+                            <%--   user tickets block   --%>
                         </div>
                     </div>
-                    <div class="left-block-row">
-                        <div class="left-block-row__item">
-                            <button type="submit" form="user-order" class="btn btn-primary add-to-cart">
-                                <div class="add-to-cart__content-left">
-                                    Забронювати
-                                </div>
-                                <div class="add-to-cart__content-right">
-                                    <span class="add-to-cart__price">400</span>
-                                    <span class="add-to-cart__currency">грн</span>
-                                </div>
-                            </button>
-                        </div>
+                    <div class="reservation">
+                            <%--  reservation tickets block   --%>
                     </div>
                 </div>
             </div>
@@ -88,7 +44,7 @@
                 <div class="hall-ticket-info__seat-type">
                     <div class="hall-info small">
                         <div class="hall-info__price_block">
-                            <span class="hall-info__price">200 грн</span>
+                            <span class="hall-info__price">${seance.price} грн</span>
                         </div>
                     </div>
                 </div>
@@ -100,18 +56,17 @@
                         <span>ЕКРАН</span>
                     </div>
                     <div class="hall-scheme__hall">
-                        <span>${seance.hall.numberOfRows}</span>
-                        <span>${seance.hall.numberOfSeats}</span>
+                        <input type="hidden" name="price" value="${seance.price}">
                         <form id="user-order" action="<%=request.getContextPath()%>/controller?command=add_order" method="post">
                             <input type="hidden" name="seance_id" value="${seance.id}">
-                            <table>
+                            <table class="hall-area">
                                 <tbody>
                                 <c:forEach var="row" begin="1" end="${seance.hall.numberOfRows}" varStatus="loop">
                                     <tr>
                                         <c:forEach var="seat" begin="1" end="${seance.hall.numberOfSeats}" varStatus="loop">
                                             <c:set var="thisSeat" value="${row}_${seat}" />
                                             <td>
-                                                <input type="checkbox" name="places" value="${thisSeat}"
+                                                <input class="seat" type="checkbox" name="places" value="${thisSeat}"
                                                        <c:if test='${fn:contains(occupiedSeats, thisSeat)}'>checked="checked" disabled="disabled"</c:if> >
                                             </td>
                                         </c:forEach>

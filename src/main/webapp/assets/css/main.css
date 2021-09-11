@@ -363,8 +363,8 @@ div.filter-title {
     padding-right: 5%;
     padding-top: 50px;
     padding-bottom: 50px;
-    flex: 0 0 30%;
-    width: 30%;
+    flex: 0 0 40%;
+    width: 40%;
     min-width: 430px;
 }
 
@@ -372,8 +372,8 @@ div.filter-title {
     .order-content .content__left-block {
         padding-left: 5%;
         padding-right: 5%;
-        flex: 0 0 30%;
-        width: 30%;
+        flex: 0 0 40%;
+        width: 40%;
     }
 }
 
@@ -420,7 +420,7 @@ div.filter-title {
 .movie-badge .movie-badge__title {
     color: #252525;
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     margin-bottom: 20px;
     margin-top: 0px;
     height: 23px;
@@ -519,8 +519,57 @@ div.filter-title {
     padding-bottom: 50px;
     box-sizing: border-box;
     flex: 0 0 48%;
-    width: 65%;
+    width: 60%;
     padding-top: 50px;
+}
+
+@media (max-width: 991px) {
+    .order-content .content__middle-block {
+        width: 100%;
+        padding-bottom: 0;
+        padding-top: 25px;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+@media (min-width: 992px) {
+    .order-content .content__middle-block {
+        padding-top: 40px;
+        padding-right: 4%;
+        flex: 0 0 48%;
+        width: 65%;
+    }
+}
+
+@media (max-width: 991px) {
+    .order-content .content__left-block {
+        width: 60%;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        min-width: auto;
+    }
+}
+
+@media (max-width: 767px) {
+    .order-content .content__left-block {
+        width: 88%;
+        padding-right: 5%;
+        padding-left: 7%;
+    }
+}
+
+@media (min-width: 320px) and (max-width: 600px) {
+    .order-content .content__left-block {
+        padding-bottom: 15px;
+    }
+}
+
+@media (max-width: 991px) {
+    .order-content {
+        padding-top: 0;
+        display: block;
+    }
 }
 
 @media (min-width: 992px) and (max-width: 1439px) {
@@ -537,6 +586,38 @@ div.filter-title {
         padding-top: 4.5px;
         padding-bottom: 4.5px;
     }
+}
+
+.content__middle-block {
+    text-align: center;
+}
+
+.hall-area {
+    display: initial;
+}
+
+.hall-scheme__title {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    color: #ccc;
+}
+
+.hall-info__price_block {
+    margin-bottom: 10px;
+}
+
+.hall-info__price {
+    font-size: 14px;
+    font-weight: 600;
+    color: #252525;
+}
+
+.ticket-info .ticket-info__price-number {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: right;
+    display: inline-block;
 }
 
 .ticket-info {
@@ -621,4 +702,50 @@ div.filter-title {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+}
+
+.hall-scheme__screen img {
+    width: 100%;
+}
+
+/* schedule seats style */
+
+.hall-area .seat[type=checkbox] {
+    border-radius: 7px;
+     width: 19px;
+     --active: #275EFE;
+     --active-inner: #fff;
+     --focus: 2px rgba(39, 94, 254, .3);
+     --border: #BBC1E1;
+     --border-hover: #275EFE;
+     --background: #fff;
+     --disabled: #F6F8FF;
+     --disabled-inner: #E1E6F9;
+     -webkit-appearance: none;
+     -moz-appearance: none;
+     height: 27px;
+     outline: none;
+     display: inline-block;
+     vertical-align: top;
+     position: relative;
+     margin: 0;
+     cursor: pointer;
+     border: 1px solid #bbc1e1;
+     background: #fff;
+     transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+    margin: 5px;
+ }
+
+.hall-area .seat[type=checkbox]:checked {
+    border: 1px solid #275efe;
+    background: #275efe;
+}
+
+.hall-area .seat[type=checkbox]:disabled:checked {
+    border: 1px solid #e1e6f9;
+    background: #cccfe0;
+}
+
+.hall-area .seat[type=checkbox]:hover:not(:checked):not(:disabled) {
+    border: 1px solid #275efe;
 }
