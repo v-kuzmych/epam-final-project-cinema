@@ -10,9 +10,9 @@ import java.util.List;
 public class FilmDao {
 
     private static final String GET_ALL_FILMS_FOR_ADMIN = "SELECT f.*," +
-                                                            "group_concat(l.id) as locales," +
-                                                            "group_concat(fd.name) as names, " +
-                                                            "group_concat(fd.description) as descriptions " +
+                                                            "group_concat(COALESCE (l.id, '') SEPARATOR ',') as locales," +
+                                                            "group_concat(COALESCE (fd.name, '') SEPARATOR ',') as names, " +
+                                                            "group_concat(COALESCE (fd.description, '') SEPARATOR ',') as descriptions " +
                                                             "FROM film f " +
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id " +
                                                             "LEFT JOIN language l ON l.Id = fd.language_id " +

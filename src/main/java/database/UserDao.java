@@ -3,6 +3,8 @@ package database;
 import bean.User;
 
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,8 +12,9 @@ public class UserDao {
 
     private static final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM user WHERE email = ? AND password = ?";
     private static final String GET_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
-    private static final String INSERT_USER = "INSERT INTO user (email, password) VALUES  (?, ?)";
+    private static final String INSERT_USER = "INSERT INTO user (email, password, date) VALUES  (?, ?, ?)";
     private static final String GET_ALL_USERS = "SELECT * FROM user";
+    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
     public User create(User user) {
         PreparedStatement preparedStatement = null;
@@ -22,6 +25,7 @@ public class UserDao {
             preparedStatement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, user.getEmail());
             preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, fmt.format(LocalDateTime.now()));
 
             if (preparedStatement.executeUpdate() > 0) {
                 rs = preparedStatement.getGeneratedKeys();

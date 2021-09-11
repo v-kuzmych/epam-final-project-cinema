@@ -29,6 +29,8 @@ public class SeanceDao {
                                                     "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
                                                     "JOIN hall h ON h.id = s.hall_id " +
                                                     "WHERE s.id = ? ";
+    private static final String GET_SEANCE_PRICE_BY_ID = "SELECT s.price FROM seance s WHERE s.id = ?";
+
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
     public void create(Seance seance) {
@@ -182,5 +184,31 @@ public class SeanceDao {
         }
 
         return seance;
+    }
+
+    public int getPrice(int seanceId) {
+        Seance seance = new Seance();
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_SEANCE_PRICE_BY_ID);
+            preparedStatement.setInt(1, seanceId);
+
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                seance.setPrice(rs.getInt(1));
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().commitAndClose(connection);
+        }
+
+        return seance.getPrice();
     }
 }

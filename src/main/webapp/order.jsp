@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%@ include file="/header.jsp" %>
 
-
+<c:set var="occupiedSeats" value="${occupiedSeats}" />
 <div>
     <div class="order-content">
             <div class="content__left-block">
@@ -70,7 +71,15 @@
                     </div>
                     <div class="left-block-row">
                         <div class="left-block-row__item">
-                            <button type="submit" form="user-order" class="btn btn-primary add-to-cart">Primary</button>
+                            <button type="submit" form="user-order" class="btn btn-primary add-to-cart">
+                                <div class="add-to-cart__content-left">
+                                    Забронювати
+                                </div>
+                                <div class="add-to-cart__content-right">
+                                    <span class="add-to-cart__price">400</span>
+                                    <span class="add-to-cart__currency">грн</span>
+                                </div>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -94,15 +103,16 @@
                         <span>${seance.hall.numberOfRows}</span>
                         <span>${seance.hall.numberOfSeats}</span>
                         <form id="user-order" action="<%=request.getContextPath()%>/controller?command=add_order" method="post">
-                            <input type="hidden" name="command" value="add_order">
-                            <input type="hidden" name="seance" value="${seance.id}">
+                            <input type="hidden" name="seance_id" value="${seance.id}">
                             <table>
                                 <tbody>
                                 <c:forEach var="row" begin="1" end="${seance.hall.numberOfRows}" varStatus="loop">
                                     <tr>
                                         <c:forEach var="seat" begin="1" end="${seance.hall.numberOfSeats}" varStatus="loop">
+                                            <c:set var="thisSeat" value="${row}_${seat}" />
                                             <td>
-                                                <input type="checkbox" name="places" value="${row}_${seat}">
+                                                <input type="checkbox" name="places" value="${thisSeat}"
+                                                       <c:if test='${fn:contains(occupiedSeats, thisSeat)}'>checked="checked" disabled="disabled"</c:if> >
                                             </td>
                                         </c:forEach>
                                     </tr>
