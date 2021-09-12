@@ -58,35 +58,10 @@ $('.open_add_seance_block').click(function () {
     $('.add-seance').toggleClass('active')
 })
 
-$('.choose_poster').on('click', function () {
-    $('#poster').trigger('click')
-})
-
-$('#poster').on('change', function () {
-    let that = $(this)
-    let formData = new FormData();
-    let filename = $(this).get(0).files[0].name;
-    console.log(filename)
-    formData.append('file[]', $(this).get(0).files[0], filename);
-    $.ajax({
-        type: "POST",
-        url: "/controller?command=save_poster",
-        data: formData,
-        contentType: false,
-        processData: false,
-        success: function (data) {
-            result = JSON.parse(data);
-            if (result.status == 'ok') {
-                that.val(filename)
-                $('.choose_image').attr('src', '/assets/img/posters/' + filename)
-            } else {
-                alert('Error');
-            }
-        },
-        error: function (data, error) {
-            alert('Error');
-        }
-    })
+$('.item-photo [name="img_url"]').on('change', function () {
+    let val = $(this).val();
+    console.log(val)
+    $(this).closest('.item-photo').find('.img_url').attr('src', val)
 })
 
 $('.filterScheduleByDate').on('click', function () {
@@ -110,8 +85,11 @@ $('.films_pagination .page-link').on('click', function () {
             else return
         }
     }
+    var url = new URL(window.location.href);
+    url.searchParams.set('page',page);
+    window.history.pushState({},"", url.search);
 
-    location.href = "/controller?command=user_films_page&page=" + page;
+    location.reload();
 })
 
 $('.hall-area .seat').on('change', function () {

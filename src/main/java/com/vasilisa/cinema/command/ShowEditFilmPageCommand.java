@@ -38,6 +38,7 @@ public class ShowEditFilmPageCommand implements Command{
         request.setAttribute("film", film);
         request.setAttribute("descriptions", descriptions);
         request.setAttribute("seances", seancesMap);
+        request.setAttribute("adminPage", "films");
 
         return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__EDIT_FILM);
     }

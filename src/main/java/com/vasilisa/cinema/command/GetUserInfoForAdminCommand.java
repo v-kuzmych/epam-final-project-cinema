@@ -24,6 +24,7 @@ public class GetUserInfoForAdminCommand implements Command{
         user.setOrders(orders);
 
         request.setAttribute("user", user);
+        request.setAttribute("adminPage", "users");
         return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__USER_INFO);
     }
 }

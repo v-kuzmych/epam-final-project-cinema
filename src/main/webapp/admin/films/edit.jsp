@@ -49,12 +49,17 @@
                                     <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${pageContext.request.contextPath}/assets/img/posters/${film.img}" class="choose_poster">
+                                    <img src="${film.img}" class="img_url">
                                 </c:otherwise>
                             </c:choose>
 
-                            <input type="file" id="poster" name="file" accept="image/gif, image/jpeg, image/png" style="display: none">
+                            <input type="text" name="img_url" value="${film.img}" placeholder="Введіть url зображення">
                         </div>
+                    </div>
+
+                    <div class="item-block">
+                        <label>Тривалість у хв</label>
+                        <input type="text" name="duration" value="${film.duration}">
                     </div>
 
                     <c:forEach items="${descriptions}" var="item">

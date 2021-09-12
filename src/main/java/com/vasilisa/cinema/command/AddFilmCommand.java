@@ -16,7 +16,8 @@ public class AddFilmCommand implements Command{
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         Film film = new Film();
-        film.setImg(request.getParameter("file"));
+        film.setImg(request.getParameter("img_url"));
+        film.setDuration(Integer.parseInt(request.getParameter("duration")));
 
         String langIds[] = request.getParameter("lang_ids").split(",");
 
@@ -33,6 +34,8 @@ public class AddFilmCommand implements Command{
         film.setFilmDescriptions(fd);
 
         film = new FilmDao().create(film);
+        new FilmDao().createFilmDescFromFilm(film);
+
         String page = "/controller?command=film_edit&id=" + film.getId();
         return new CommandResult(CommandResult.ResponseType.REDIRECT, page);
     }

@@ -35,7 +35,7 @@ public class GetAllFilmsForUserCommand implements Command {
         }
         int offset = LIMIT * currentPage - LIMIT;
 
-        List<Film> films = new FilmDao().getAllForUser(currentLocale, LIMIT, offset);
+        List<Film> films = new FilmDao().getAll(currentLocale, LIMIT, offset);
 
         request.setAttribute("films", films);
         request.setAttribute("sitePage", "films");

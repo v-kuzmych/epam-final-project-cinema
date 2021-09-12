@@ -16,21 +16,15 @@
     <table class="table films-table hover-table">
         <thead>
         <tr>
-            <th scope="col">#</th>
             <th scope="col" class="col-1"><fmt:message key="film.poster"/></th>
-
-            <th scope="col" class="col-2"><fmt:message key="film.nameUa"/></th>
-            <th scope="col" class="col-3"><fmt:message key="film.descUa"/></th>
-            <th scope="col" class="col-2"><fmt:message key="film.nameEn"/></th>
-            <th scope="col" class="col-3"><fmt:message key="film.descEn"/></th>
-
+            <th scope="col" class="col-2"><fmt:message key="film.name"/></th>
+            <th scope="col" class="col-5"><fmt:message key="film.desc"/></th>
             <th scope="col" class="col-1"><fmt:message key="operations"/></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach items="${films}" var="film">
             <tr class='clickable-row' data-id="${film.id}">
-                <th scope="row">1</th>
                 <td>
                     <c:choose>
                         <c:when test="${empty film.img}">
@@ -41,19 +35,34 @@
                         </c:otherwise>
                     </c:choose>
                 </td>
+                <td>${film.name}</td>
+                <td>${film.description.length() > 300 ? film.description.substring(0, 300) : film.description}</td>
 
-                <c:forEach items="${film.filmDescriptions}" var="item">
-                    <td>${item.name}</td>
-                    <td>${item.description.length() > 150 ? item.description.substring(0, 150) : item.description}</td>
-                </c:forEach>
-
-                <td class="align-middle operation-btn">
+                <td class="align-middle operation-btn" style="text-align: center;">
                     <button class="btn btn-danger delete-film"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
+
+    <div class="films_pagination">
+        <nav aria-label="navigation">
+            <ul class="pagination justify-content-center" data-pages="${pages}">
+                <li class="page-item <c:if test='${currentPage == "1" || pages == "1"}'>disabled</c:if>">
+                    <span class="page-link" data-value="prev">&laquo;</span>
+                </li>
+                <c:forEach var="page" begin="1" end="${pages}" varStatus="loop">
+                    <li class="page-item <c:if test='${currentPage == page}'>active</c:if>">
+                        <span class="page-link" data-value="${page}">${page}</span>
+                    </li>
+                </c:forEach>
+                <li class="page-item <c:if test='${currentPage == pages || pages == "1"}'>disabled</c:if>">
+                    <span class="page-link" data-value="next">&raquo;</span>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
 </div>
 

@@ -9,15 +9,7 @@ import java.util.List;
 
 public class FilmDao {
 
-    private static final String GET_ALL_FILMS_FOR_ADMIN = "SELECT f.*," +
-                                                            "GROUP_CONCAT(COALESCE (l.id, '') SEPARATOR ',') as locales," +
-                                                            "GROUP_CONCAT(COALESCE (fd.name, '') SEPARATOR ',') as names, " +
-                                                            "GROUP_CONCAT(COALESCE (fd.description, '') SEPARATOR ',') as descriptions " +
-                                                            "FROM film f " +
-                                                            "LEFT JOIN film_description fd ON fd.film_id = f.id " +
-                                                            "LEFT JOIN language l ON l.Id = fd.language_id " +
-                                                            "GROUP BY f.id";
-    private static final String GET_ALL_FILMS_FOR_USER = "SELECT f.*, l.id as lang_id, fd.name, fd.description, f.img " +
+    private static final String GET_ALL_FILMS = "SELECT f.*, fd.name, fd.description, f.img " +
                                                             "FROM film f " +
                                                             "LEFT JOIN language l ON l.locale = ? " +
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
@@ -26,10 +18,10 @@ public class FilmDao {
     private static final String GET_FILMS_COUNT = "SELECT count(*) FROM film";
 
     private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
-    private static final String INSERT_FILM = "INSERT INTO film (img) VALUES  (?)";
+    private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
 
-    public List<Film> getAll() {
+    public List<Film> getAll(String locale, int limit, int offset) {
 
         List<Film> filmsList = new ArrayList<>();
         PreparedStatement preparedStatement = null;
@@ -37,49 +29,7 @@ public class FilmDao {
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL_FILMS_FOR_ADMIN);
-
-            rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                Film film = new Film();
-                List<FilmDescription> filmDesc = new ArrayList<>();
-
-                film.setId(rs.getInt(1));
-                film.setImg(rs.getString(2));
-                film.setDuration(rs.getInt(3));
-
-                String[] locales = (rs.getString(4)).split(",", -1);
-                String[] names = (rs.getString(5)).split(",", -1);
-                String[] descriptions = (rs.getString(6)).split(",", -1);
-
-                for (int i = 0; i < locales.length; i++) {
-                    filmDesc.add(new FilmDescription(Integer.parseInt(locales[i]), names[i], descriptions[i]));
-                }
-
-                film.setFilmDescriptions(filmDesc);
-                filmsList.add(film);
-            }
-            rs.close();
-            preparedStatement.close();
-        } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
-            ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
-        }
-
-        return filmsList;
-    }
-
-    public List<Film> getAllForUser(String locale, int limit, int offset) {
-
-        List<Film> filmsList = new ArrayList<>();
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        Connection connection = null;
-        try {
-            connection = DBManager.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL_FILMS_FOR_USER);
+            preparedStatement = connection.prepareStatement(GET_ALL_FILMS);
             preparedStatement.setString(1, locale);
             preparedStatement.setInt(2, limit);
             preparedStatement.setInt(3, offset);
@@ -87,14 +37,13 @@ public class FilmDao {
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 Film film = new Film();
-                List<FilmDescription> filmDesc = new ArrayList<>();
 
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
                 film.setDuration(rs.getInt(3));
-                filmDesc.add(new FilmDescription(rs.getInt(4), rs.getString(5), rs.getString(6)));
+                film.setName(rs.getString(4));
+                film.setDescription(rs.getString(5));
 
-                film.setFilmDescriptions(filmDesc);
                 filmsList.add(film);
             }
             rs.close();
@@ -171,12 +120,13 @@ public class FilmDao {
             connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(INSERT_FILM, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, film.getImg());
+            preparedStatement.setInt(2, film.getDuration());
 
             if (preparedStatement.executeUpdate() > 0) {
                 rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     film.setId(rs.getInt(1));
-                    createFilmDescFromFilm(film);
+                    return film;
                 }
             }
 
@@ -191,7 +141,7 @@ public class FilmDao {
         return null;
     }
 
-    private void createFilmDescFromFilm(Film film) {
+    public void createFilmDescFromFilm(Film film) {
         PreparedStatement preparedStatement = null;
         Connection connection = null;
         try {

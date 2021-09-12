@@ -52,6 +52,6 @@ public class AddOrderCommand implements Command{
 
         new OrderDao().create(order, places);
 
-        return new CommandResult(CommandResult.ResponseType.FORWARD, Path.COMMAND_SHOW_PROFILE);
+        return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__SUCCESS_ORDER);
     }
 }

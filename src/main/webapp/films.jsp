@@ -10,7 +10,7 @@
                 <div class="movie-block__inner">
                         <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
                              alt="...">
-                        <span class="card-title">${film.filmDescriptions[0].name}</span>
+                        <span class="card-title">${film.name}</span>
                 </div>
             </div>
         </c:forEach>

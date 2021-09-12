@@ -23,9 +23,13 @@
                 <div class="item-block">
                     <label><fmt:message key="film.poster"/></label>
                     <div class="item-photo">
-                        <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
-                        <input type="file" id="poster" name="file" accept="image/gif, image/jpeg, image/png" style="display: none">
+                        <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="img_url">
+                        <input type="text" name="img_url" value="" placeholder="Введіть url зображення">
                     </div>
+                </div>
+                <div class="item-block">
+                    <label>Тривалість у хв</label>
+                    <input type="text" name="duration" value="">
                 </div>
 
                 <input type="hidden" name="lang_ids" value="1,2">

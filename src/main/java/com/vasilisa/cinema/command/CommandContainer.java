@@ -13,7 +13,7 @@ public class CommandContainer {
         // common commands
         commands.put("switch_language", new SwitchLanguageCommand());
         commands.put("register", new RegisterCommand());
-        commands.put("user_schedule", new GetScheduleForUserCommand());
+        commands.put("user_schedule", new GetScheduleCommand());
         commands.put("user_films_page", new GetAllFilmsForUserCommand());
         commands.put("order_page", new ShowOrderPageCommand());
         commands.put("add_order", new AddOrderCommand());
@@ -24,7 +24,6 @@ public class CommandContainer {
         commands.put("logout", new LogoutCommand());
         commands.put("profile", new GetUserProfileCommand());
 
-
         // admin commands
         commands.put("admin_films_page", new GetAllFilmsForAdminCommand());
         commands.put("add_film", new ShowAddFilmPageCommand());
@@ -32,7 +31,6 @@ public class CommandContainer {
         commands.put("save_film", new AddFilmCommand());
 //        commands.put("film_delete", new DeleteFilmCommand());
         commands.put("add_seance", new AddSeanceCommand());
-        commands.put("admin_schedule", new GetScheduleForAdminCommand());
         commands.put("admin_users_page", new GetAllUsersCommand());
         commands.put("user_info", new GetUserInfoForAdminCommand());
         commands.put("save_poster", new SavePosterFileCommand());
