@@ -23,11 +23,11 @@
                     <fmt:message key="films"/></a></li>
             <li class="nav-item">
                 <a class="nav-link px-2 footer-link <c:if test='${sitePage == "schedule"}'>active</c:if>"
-                   href="${pageContext.request.contextPath}/controller?command=user_schedule">
+                   href="${pageContext.request.contextPath}/controller?command=schedule">
                     <fmt:message key="schedule"/></a></li>
             <li class="nav-item">
                 <a class="nav-link px-2 footer-link <c:if test='${sitePage == "other"}'>active</c:if>"
-                   href="${pageContext.request.contextPath}/controller?command=user_schedule">
+                   href="${pageContext.request.contextPath}/controller?command=schedule">
                     <fmt:message key="schedule"/></a></li>
             <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
         </ul>

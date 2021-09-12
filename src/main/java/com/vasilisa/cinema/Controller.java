@@ -20,7 +20,6 @@ import javax.servlet.annotation.*;
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.REDIRECT;
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.FORWARD;
 
-@WebServlet("/controller")
 public class Controller extends HttpServlet {
 
     @Override

@@ -1,7 +1,7 @@
 <%@ page import="java.time.format.DateTimeFormatter" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ include file="/admin/header.jsp" %>
+<%@ include file="/WEB-INF/admin/header.jsp" %>
 <% DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");%>
 
 <div class="wrapper">
@@ -130,4 +130,4 @@
 
 </div>
 
-<%@ include file="/admin/footer.jsp" %>
+<%@ include file="/WEB-INF/admin/footer.jsp" %>

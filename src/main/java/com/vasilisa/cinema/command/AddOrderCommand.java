@@ -22,9 +22,7 @@ public class AddOrderCommand implements Command{
         String page = Path.PAGE__ERROR_PAGE;
 
         if (user == null) {
-            errorMessage = "Unregister user cannot by ticket";
-            request.setAttribute("errorMessage", errorMessage);
-            return new CommandResult(CommandResult.ResponseType.FORWARD, page);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__LOGIN);
         }
 
         String[] places = request.getParameterValues("places");

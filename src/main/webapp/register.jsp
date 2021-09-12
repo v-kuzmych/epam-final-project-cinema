@@ -9,7 +9,7 @@
                 <input type="hidden" name="command" value="register">
                 <div class="modal-header">
                     <h5 class="modal-title"><fmt:message key="signUp"/></h5>
-                    <a href="login" style="color: #8e8e8e; text-decoration: none;"><fmt:message key="login"/></a>
+                    <a href="${pageContext.request.contextPath}/login.jsp" style="color: #8e8e8e; text-decoration: none;"><fmt:message key="login"/></a>
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">

@@ -4,32 +4,53 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--============================================================
+	Controller
+    =============================================================-->
     <servlet>
-        <servlet-name>LoginJsp</servlet-name>
-        <jsp-file>/login.jsp</jsp-file>
+        <servlet-name>Controller</servlet-name>
+        <servlet-class>com.vasilisa.cinema.Controller</servlet-class>
     </servlet>
+
     <servlet-mapping>
-        <servlet-name>LoginJsp</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>Controller</servlet-name>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
-    <servlet>
-        <servlet-name>RegisterJsp</servlet-name>
-        <jsp-file>/register.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RegisterJsp</servlet-name>
-        <url-pattern>/register</url-pattern>
-    </servlet-mapping>
+    <!--============================================================
+	Security filter.
+	1) admin: admin commands
+	2) user: user commands
+	3) commons: commands for all roles
+	4) out-of-control: commands without access control
+	Delimiter - space/tab
+    =============================================================-->
 
-    <servlet>
-        <servlet-name>AdminDashboardJsp</servlet-name>
-        <jsp-file>/admin/dashboard.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AdminDashboardJsp</servlet-name>
-        <url-pattern>/admin/dashboard</url-pattern>
-    </servlet-mapping>
+    <filter>
+        <filter-name>CommandAccessFilter</filter-name>
+        <filter-class>com.vasilisa.cinema.filter.CommandAccessFilter</filter-class>
+        <init-param>
+            <param-name>admin</param-name>
+            <param-value>admin_films_page add_film film_edit save_film delete_film add_seance admin_users_page user_info admin_dashboard</param-value>
+        </init-param>
+        <init-param>
+            <param-name>user</param-name>
+            <param-value></param-value>
+        </init-param>
+        <init-param>
+            <param-name>common</param-name>
+            <param-value>profile add_order logout</param-value>
+        </init-param>
+        <init-param>
+            <param-name>out-of-control</param-name>
+            <param-value>login switch_language register schedule user_films_page order_page noCommand</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>CommandAccessFilter</filter-name>
+        <servlet-name>Controller</servlet-name>
+    </filter-mapping>
 
     <error-page>
         <error-code>404</error-code>

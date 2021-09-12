@@ -13,15 +13,15 @@ public class CommandContainer {
         // common commands
         commands.put("switch_language", new SwitchLanguageCommand());
         commands.put("register", new RegisterCommand());
-        commands.put("user_schedule", new GetScheduleCommand());
+        commands.put("schedule", new GetScheduleCommand());
         commands.put("user_films_page", new GetAllFilmsForUserCommand());
         commands.put("order_page", new ShowOrderPageCommand());
-        commands.put("add_order", new AddOrderCommand());
+        commands.put("logout", new LogoutCommand());
         commands.put("noCommand", new NoCommand());
 
         // client commands
         commands.put("login", new LoginCommand());
-        commands.put("logout", new LogoutCommand());
+        commands.put("add_order", new AddOrderCommand());
         commands.put("profile", new GetUserProfileCommand());
 
         // admin commands
@@ -29,11 +29,11 @@ public class CommandContainer {
         commands.put("add_film", new ShowAddFilmPageCommand());
         commands.put("film_edit", new ShowEditFilmPageCommand());
         commands.put("save_film", new AddFilmCommand());
-//        commands.put("film_delete", new DeleteFilmCommand());
+//        commands.put("delete_film", new DeleteFilmCommand());
         commands.put("add_seance", new AddSeanceCommand());
         commands.put("admin_users_page", new GetAllUsersCommand());
         commands.put("user_info", new GetUserInfoForAdminCommand());
-        commands.put("save_poster", new SavePosterFileCommand());
+        commands.put("admin_dashboard", new ShowDashboardPageCommand());
 
 
 

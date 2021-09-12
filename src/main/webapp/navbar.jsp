@@ -19,7 +19,7 @@
                         <fmt:message key="films"/></a></li>
                 <li class="nav-item">
                     <a class="nav-link <c:if test='${sitePage == "schedule"}'>active</c:if>"
-                       href="${pageContext.request.contextPath}/controller?command=user_schedule">
+                       href="${pageContext.request.contextPath}/controller?command=schedule">
                         <fmt:message key="schedule"/></a></li>
                 <li class="nav-item">
                     <a class="nav-link <c:if test='${sitePage == "uk_UA"}'>active</c:if>"
@@ -34,8 +34,8 @@
             <c:choose>
                 <c:when test="${sessionScope.loggedUser == null}">
                     <div class="text-end">
-                        <a type="button" class="btn btn-outline-light me-2" href="login"><fmt:message key="login"/></a>
-                        <a type="button" class="btn btn-warning" href="register"><fmt:message key="signUp"/></a>
+                        <a type="button" class="btn btn-outline-light me-2" href="${pageContext.request.contextPath}/login.jsp"><fmt:message key="login"/></a>
+                        <a type="button" class="btn btn-warning" href="${pageContext.request.contextPath}/register.jsp"><fmt:message key="signUp"/></a>
                     </div>
                 </c:when>
 
@@ -51,7 +51,7 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=profile"><fmt:message key="profile"/></a>
                                     <c:if test="${sessionScope.loggedUser.role.equals('admin')}">
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dashboard.jsp"><fmt:message
+                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=admin_dashboard"><fmt:message
                                                 key="adminPanel"/></a>
                                     </c:if>
                                     <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message

@@ -66,7 +66,7 @@ $('.item-photo [name="img_url"]').on('change', function () {
 
 $('.filterScheduleByDate').on('click', function () {
     let filter = $(this).val()
-    location.href = "/controller?command=user_schedule&dateFilter=" + filter;
+    location.href = "/controller?command=schedule&dateFilter=" + filter;
 })
 
 $('.films_pagination .page-link').on('click', function () {

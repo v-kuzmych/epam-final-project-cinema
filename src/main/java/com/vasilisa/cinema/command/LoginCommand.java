@@ -43,7 +43,7 @@ public class LoginCommand implements Command{
 //            log.trace("userRole --> " + userRole);
 
             if ("admin".equals(userRole))
-                page = Path.PAGE__ADMIN_DASHBOARD;
+                page = Path.COMMAND_SHOW_DASHBOARD;
 
             if ("user".equals(userRole))
                 page = Path.COMMAND_SHOW_PROFILE;

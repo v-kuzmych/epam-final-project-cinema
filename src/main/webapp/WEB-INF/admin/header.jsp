@@ -3,13 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%
-    if (session.getAttribute("loggedUser") == null
-            || !"admin".equals(((User) session.getAttribute("loggedUser")).getRole())) {
-        response.sendRedirect("/login");
-    }
-%>
-
 <c:choose>
     <c:when test="${not empty sessionScope.locale}">
         <fmt:setLocale value="${sessionScope.locale}"/>
@@ -39,6 +32,6 @@
 <div class="btn-show-sidebar click"><span class="fas fa-bars"></span></div>
 <div class="main-container show-sidebar">
 
-    <%@ include file="/admin/sidebar.jsp" %>
+    <%@ include file="/WEB-INF/admin/sidebar.jsp" %>
 
     <div class="content">
