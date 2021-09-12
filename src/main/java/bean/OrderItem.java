@@ -6,6 +6,13 @@ public class OrderItem {
     private int rowNumber;
     private int seatNumber;
 
+    public OrderItem() {}
+
+    public OrderItem(int rowNumber, int seatNumber) {
+        this.rowNumber = rowNumber;
+        this.seatNumber = seatNumber;
+    }
+
     public int getId() {
         return id;
     }

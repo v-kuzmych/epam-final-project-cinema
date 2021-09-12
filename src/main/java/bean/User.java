@@ -1,11 +1,14 @@
 package bean;
 
+import java.util.List;
+
 public class User {
     private int id;
     private String name;
     private String email;
     private String password;
     private String role;
+    private List<Order> orders;
 
     public int getId() {
         return id;
@@ -45,5 +48,13 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

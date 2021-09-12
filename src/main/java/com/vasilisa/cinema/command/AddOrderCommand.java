@@ -47,11 +47,11 @@ public class AddOrderCommand implements Command{
         Order order = new Order();
         order.setUserId(user.getId());
         order.setSeanceId(seanceId);
-        order.setPrice(seancePrice);
+        order.setPrice(seancePrice * places.length);
         order.setDate(LocalDateTime.now());
 
         new OrderDao().create(order, places);
 
-        return null;
+        return new CommandResult(CommandResult.ResponseType.FORWARD, Path.COMMAND_SHOW_PROFILE);
     }
 }

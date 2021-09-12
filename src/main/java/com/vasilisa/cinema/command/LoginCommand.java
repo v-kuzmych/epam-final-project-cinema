@@ -46,7 +46,7 @@ public class LoginCommand implements Command{
                 page = Path.PAGE__ADMIN_DASHBOARD;
 
             if ("user".equals(userRole))
-                page = Path.PAGE__PROFILE;
+                page = Path.COMMAND_SHOW_PROFILE;
 
             session.setAttribute("loggedUser", loggedUser);
 //            log.trace("Set the session attribute: user --> " + user);

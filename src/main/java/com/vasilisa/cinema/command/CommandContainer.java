@@ -22,6 +22,8 @@ public class CommandContainer {
         // client commands
         commands.put("login", new LoginCommand());
         commands.put("logout", new LogoutCommand());
+        commands.put("profile", new GetUserProfileCommand());
+
 
         // admin commands
         commands.put("admin_films_page", new GetAllFilmsForAdminCommand());

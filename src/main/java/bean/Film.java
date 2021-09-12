@@ -7,6 +7,9 @@ public class Film {
     private int id;
     private List<FilmDescription> filmDescriptions;
     private String img;
+    private int duration;
+    private String name;
+    private String description;
 
     public int getId() {
         return id;
@@ -30,6 +33,30 @@ public class Film {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override

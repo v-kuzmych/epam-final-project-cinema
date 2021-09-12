@@ -25,7 +25,7 @@ public class RegisterCommand implements Command{
         HttpSession session = request.getSession();
         if (newUser != null) {
             session.setAttribute("loggedUser", newUser);
-            forward = Path.PAGE__PROFILE;
+            forward = Path.COMMAND_SHOW_PROFILE;
         } else {
             errorMessage = "Cannot create user with such login/password";
             request.setAttribute("errorMessage", errorMessage);

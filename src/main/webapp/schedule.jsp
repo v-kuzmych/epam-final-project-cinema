@@ -2,13 +2,9 @@
 
 <%@ include file="/header.jsp" %>
 
-<div class="wrapper">
+<div class="site-wrapper">
     <div class="page-title">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page"><fmt:message key="schedule"/></li>
-            </ol>
-        </nav>
+        <h4><fmt:message key="schedule"/></h4>
     </div>
 
     <div class="timetable-wrapper">

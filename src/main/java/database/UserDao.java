@@ -1,6 +1,6 @@
 package database;
 
-import bean.User;
+import bean.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;

@@ -49,7 +49,7 @@
                                          width="40" height="40" class="rounded-circle">
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/user/profile.jsp"><fmt:message key="profile"/></a>
+                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=profile"><fmt:message key="profile"/></a>
                                     <c:if test="${sessionScope.loggedUser.role.equals('admin')}">
                                         <a class="dropdown-item" href="${pageContext.request.contextPath}/admin/dashboard.jsp"><fmt:message
                                                 key="adminPanel"/></a>

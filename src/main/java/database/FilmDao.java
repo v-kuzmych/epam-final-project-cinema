@@ -10,9 +10,9 @@ import java.util.List;
 public class FilmDao {
 
     private static final String GET_ALL_FILMS_FOR_ADMIN = "SELECT f.*," +
-                                                            "group_concat(COALESCE (l.id, '') SEPARATOR ',') as locales," +
-                                                            "group_concat(COALESCE (fd.name, '') SEPARATOR ',') as names, " +
-                                                            "group_concat(COALESCE (fd.description, '') SEPARATOR ',') as descriptions " +
+                                                            "GROUP_CONCAT(COALESCE (l.id, '') SEPARATOR ',') as locales," +
+                                                            "GROUP_CONCAT(COALESCE (fd.name, '') SEPARATOR ',') as names, " +
+                                                            "GROUP_CONCAT(COALESCE (fd.description, '') SEPARATOR ',') as descriptions " +
                                                             "FROM film f " +
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id " +
                                                             "LEFT JOIN language l ON l.Id = fd.language_id " +
@@ -46,10 +46,11 @@ public class FilmDao {
 
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
+                film.setDuration(rs.getInt(3));
 
-                String[] locales = (rs.getString(3)).split(",", -1);
-                String[] names = (rs.getString(4)).split(",", -1);
-                String[] descriptions = (rs.getString(5)).split(",", -1);
+                String[] locales = (rs.getString(4)).split(",", -1);
+                String[] names = (rs.getString(5)).split(",", -1);
+                String[] descriptions = (rs.getString(6)).split(",", -1);
 
                 for (int i = 0; i < locales.length; i++) {
                     filmDesc.add(new FilmDescription(Integer.parseInt(locales[i]), names[i], descriptions[i]));
@@ -90,7 +91,8 @@ public class FilmDao {
 
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
-                filmDesc.add(new FilmDescription(rs.getInt(3), rs.getString(4), rs.getString(5)));
+                film.setDuration(rs.getInt(3));
+                filmDesc.add(new FilmDescription(rs.getInt(4), rs.getString(5), rs.getString(6)));
 
                 film.setFilmDescriptions(filmDesc);
                 filmsList.add(film);
@@ -148,6 +150,7 @@ public class FilmDao {
                 film = new Film();
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
+                film.setDuration(rs.getInt(3));
             }
             rs.close();
             preparedStatement.close();

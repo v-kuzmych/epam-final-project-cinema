@@ -19,4 +19,7 @@ public final class Path {
     public static final String PAGE__ADMIN_SCHEDULE = "/admin/schedule.jsp";
     public static final String PAGE__USERS_LIST = "/admin/users/list.jsp";
     public static final String PAGE__USER_INFO = "/admin/users/info.jsp";
+
+    // command
+    public static final String COMMAND_SHOW_PROFILE = "/controller?command=profile";
 }

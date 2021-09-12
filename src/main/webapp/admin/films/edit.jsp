@@ -46,17 +46,14 @@
                         <div class="item-photo">
                             <c:choose>
                                 <c:when test="${empty film.img}">
-                                    <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg"
-                                         class="choose_photo">
+                                    <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
                                 </c:when>
                                 <c:otherwise>
-                                    <img src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
-                                         class="choose_photo">
+                                    <img src="${pageContext.request.contextPath}/assets/img/posters/${film.img}" class="choose_poster">
                                 </c:otherwise>
                             </c:choose>
 
-                            <input type="file" id="poster" name="filename" accept="image/gif, image/jpeg, image/png"
-                                   style="display: none">
+                            <input type="file" id="poster" name="file" accept="image/gif, image/jpeg, image/png" style="display: none">
                         </div>
                     </div>
 
