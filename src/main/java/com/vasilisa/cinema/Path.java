@@ -9,7 +9,7 @@ public final class Path {
     public static final String PAGE__ERROR_PAGE = "/error_page.jsp";
     public static final String PAGE__FILMS_LIST = "/WEB-INF/site/films.jsp";
     public static final String PAGE__SCHEDULE = "/WEB-INF/site/schedule.jsp";
-    public static final String PAGE__ORDER = "/order.jsp";
+    public static final String PAGE__ORDER = "/WEB-INF/site/order.jsp";
     public static final String PAGE__SUCCESS_ORDER = "/success_order.jsp";
 
     // admin pages

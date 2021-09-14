@@ -1,6 +1,6 @@
 package database;
 
-import bean.Language;
+import entity.Language;
 
 import java.sql.*;
 import java.util.ArrayList;

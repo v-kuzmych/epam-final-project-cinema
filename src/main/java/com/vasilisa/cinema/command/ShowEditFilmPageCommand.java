@@ -1,8 +1,8 @@
 package com.vasilisa.cinema.command;
 
-import bean.Film;
-import bean.FilmDescription;
-import bean.Seance;
+import entity.Film;
+import entity.FilmDescription;
+import entity.Seance;
 import com.vasilisa.cinema.Path;
 import database.FilmDao;
 import database.FilmDescriptionDao;

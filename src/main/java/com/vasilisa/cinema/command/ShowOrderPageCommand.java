@@ -1,7 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import bean.OrderItem;
-import bean.Seance;
+import entity.Seance;
 import com.vasilisa.cinema.Path;
 import database.OrderItemDao;
 import database.SeanceDao;

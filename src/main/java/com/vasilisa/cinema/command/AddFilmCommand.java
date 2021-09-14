@@ -1,14 +1,11 @@
 package com.vasilisa.cinema.command;
 
-import bean.Film;
-import bean.FilmDescription;
+import entity.Film;
+import entity.FilmDescription;
 import database.FilmDao;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

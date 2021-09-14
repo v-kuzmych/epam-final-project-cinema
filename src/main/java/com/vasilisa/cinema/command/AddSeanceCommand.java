@@ -1,6 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import bean.Seance;
+import entity.Seance;
 import database.SeanceDao;
 
 import javax.servlet.http.HttpServletRequest;

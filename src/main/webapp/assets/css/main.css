@@ -492,7 +492,6 @@ div.filter-title {
     padding-left: 40px;
     padding-right: 40px;
     height: 60px;
-    line-height: 55px;
     font-weight: 600;
     margin-top: 30px;
 }
@@ -652,16 +651,17 @@ div.filter-title {
     text-align: center;
 }
 
+.ticket-info .ticket-info__number {
+    font-size: 24px;
+    font-weight: 600;
+    color: #252525;
+}
+
 @media (min-width: 992px) and (max-width: 1439px) {
     .ticket-info .ticket-info__number {
         font-size: 18px;
         font-weight: 600;
     }
-}
-
-.ticket-info .ticket-info__number {
-    font-weight: 600;
-    color: #252525;
 }
 
 .ticket-info .ticket-info__description {
@@ -1008,11 +1008,6 @@ h1
 .tickets-box :last-child .card:first-child .card-cont a
 {
     background-color: #037FDD
-}
-
-.tickets-box :last-child .card:last-child .card-cont a
-{
-    background-color: #F8504C
 }
 
 @media screen and (max-width: 860px)

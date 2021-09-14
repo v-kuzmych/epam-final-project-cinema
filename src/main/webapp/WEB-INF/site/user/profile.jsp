@@ -69,7 +69,7 @@
                                                         <i class="fa fa-map-marker"></i>
                                                         <p>MULTIFLEX</p>
                                                     </div>
-                                                    <a href="#">tickets</a>
+                                                    <a href="#">ticket</a>
                                                 </section>
                                             </article>
                                     </c:forEach>

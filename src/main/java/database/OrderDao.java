@@ -1,5 +1,5 @@
 package database;
-import bean.*;
+import entity.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -71,10 +71,11 @@ public class OrderDao {
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
-            connection.setAutoCommit(false);
 
-            int orderId = createOrder(order);
-            new OrderItemDao().createItems(orderId, places);
+            connection.setAutoCommit(false);
+            int orderId = createOrder(connection, order);
+            new OrderItemDao().createItems(connection, orderId, places);
+            connection.commit();
 
         } catch (SQLException ex) {
             DBManager.getInstance().rollbackAndClose(connection);
@@ -89,14 +90,10 @@ public class OrderDao {
         }
     }
 
-    public int createOrder(Order order) {
+    public int createOrder(Connection connection, Order order) {
         PreparedStatement preparedStatement = null;
-        Connection connection = null;
         ResultSet rs = null;
         try {
-            connection = DBManager.getInstance().getConnection();
-
-            connection.setAutoCommit(false);
             preparedStatement = connection.prepareStatement(INSERT_ORDER, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, order.getUserId());
             preparedStatement.setInt(2, order.getSeanceId());
@@ -109,14 +106,10 @@ public class OrderDao {
                     order.setId(rs.getInt(1));
                 }
             }
-
             preparedStatement.close();
 
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
         }
 
         return order.getId();

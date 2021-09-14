@@ -1,7 +1,7 @@
 package database;
 
-import bean.Film;
-import bean.FilmDescription;
+import entity.Film;
+import entity.FilmDescription;
 
 import java.sql.*;
 import java.util.ArrayList;

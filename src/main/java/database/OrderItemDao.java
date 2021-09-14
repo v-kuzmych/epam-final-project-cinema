@@ -1,5 +1,4 @@
 package database;
-import bean.OrderItem;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -39,11 +38,9 @@ public class OrderItemDao {
         return occupiedSeats;
     }
 
-    public void createItems(int orderId, String[] places) {
+    public void createItems(Connection connection, int orderId, String[] places) {
         PreparedStatement preparedStatement = null;
-        Connection connection = null;
         try {
-            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(INSERT_ORDER_ITEM);
 
             for (String place : places) {
@@ -60,10 +57,7 @@ public class OrderItemDao {
             preparedStatement.executeBatch();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
         }
     }
 }

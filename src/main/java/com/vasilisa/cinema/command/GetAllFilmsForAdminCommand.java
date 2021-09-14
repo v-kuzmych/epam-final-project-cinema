@@ -1,6 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import bean.Film;
+import entity.Film;
 import com.vasilisa.cinema.Path;
 import database.FilmDao;
 

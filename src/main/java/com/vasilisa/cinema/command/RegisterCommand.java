@@ -1,6 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import bean.User;
+import entity.User;
 import com.vasilisa.cinema.Path;
 import database.UserDao;
 

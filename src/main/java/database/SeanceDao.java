@@ -1,15 +1,14 @@
 package database;
 
-import bean.Film;
-import bean.FilmDescription;
-import bean.Hall;
-import bean.Seance;
+import entity.Film;
+import entity.FilmDescription;
+import entity.Hall;
+import entity.Seance;
 
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 

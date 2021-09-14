@@ -1,7 +1,7 @@
 package com.vasilisa.cinema.command;
 
-import bean.Order;
-import bean.User;
+import entity.Order;
+import entity.User;
 import com.vasilisa.cinema.Path;
 import database.OrderDao;
 import database.UserDao;

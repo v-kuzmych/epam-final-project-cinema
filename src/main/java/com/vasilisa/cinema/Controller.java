@@ -1,21 +1,13 @@
 package com.vasilisa.cinema;
 
-import bean.*;
 import com.vasilisa.cinema.command.Command;
 import com.vasilisa.cinema.command.CommandContainer;
 import com.vasilisa.cinema.command.CommandResult;
-import database.*;
 
 import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
-import javax.servlet.annotation.*;
 
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.REDIRECT;
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.FORWARD;

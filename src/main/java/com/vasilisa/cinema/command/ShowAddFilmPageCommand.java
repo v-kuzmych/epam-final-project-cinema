@@ -1,6 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import bean.Language;
+import entity.Language;
 import com.vasilisa.cinema.Path;
 import database.LanguageDao;
 
