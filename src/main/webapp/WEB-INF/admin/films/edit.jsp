@@ -37,42 +37,44 @@
             <div class="tab-pane fade <%=request.getParameter("tab") == null || request.getParameter("tab").equals("home") ? "show active": ""%>"
                  id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="m-20">
-                    <a class="btn btn-success" href="${pageContext.request.contextPath}/controller?command=save_film"
-                       style="float: right;">
-                        <i class="fa fa-save" aria-hidden="true"></i> <fmt:message key="save"/></a>
 
-                    <div class="item-block">
-                        <label><fmt:message key="film.poster"/></label>
-                        <div class="item-photo">
-                            <c:choose>
-                                <c:when test="${empty film.img}">
-                                    <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
-                                </c:when>
-                                <c:otherwise>
-                                    <img src="${film.img}" class="img_url">
-                                </c:otherwise>
-                            </c:choose>
-
-                            <input type="text" name="img_url" value="${film.img}" placeholder="Введіть url зображення">
-                        </div>
-                    </div>
-
-                    <div class="item-block">
-                        <label>Тривалість у хв</label>
-                        <input type="text" name="duration" value="${film.duration}">
-                    </div>
-
-                    <c:forEach items="${descriptions}" var="item">
+                    <form id="save-film" method="post" action="${pageContext.request.contextPath}/controller?command=save_film">
+                        <input type="hidden" name="id" value="${film.id}">
                         <div class="item-block">
-                            <label><fmt:message key="film.nameUa"/></label>
-                            <input type="text" name="nameUa" value="${item.name}">
-                        </div>
-                        <div class="item-block">
-                            <label><fmt:message key="film.descUa"/></label>
-                            <textarea oninput="auto_grow(this)" name="descEn">${item.description}</textarea>
-                        </div>
-                    </c:forEach>
+                            <label><fmt:message key="film.poster"/></label>
+                            <div class="item-photo">
+                                <c:choose>
+                                    <c:when test="${empty film.img}">
+                                        <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="choose_poster">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${film.img}" class="img_url">
+                                    </c:otherwise>
+                                </c:choose>
 
+                                <input type="text" name="img_url" value="${film.img}" placeholder="Введіть url зображення">
+                            </div>
+                        </div>
+
+                        <div class="item-block">
+                            <label>Тривалість у хв</label>
+                            <input type="text" name="duration" value="${film.duration}">
+                        </div>
+
+                        <c:forEach items="${descriptions}" var="item">
+                            <input type="hidden" name="languageIds" value="${item.languageId}">
+                            <div class="item-block">
+                                <label><fmt:message key="film.name${item.languageId}"/></label>
+                                <input type="text" name="name${item.languageId}" value="${item.name}">
+                            </div>
+                            <div class="item-block">
+                                <label><fmt:message key="film.desc${item.languageId}"/></label>
+                                <textarea oninput="auto_grow(this)" name="desc${item.languageId}">${item.description}</textarea>
+                            </div>
+                        </c:forEach>
+                        <button class="btn btn-success submit-add-film" type="submit">
+                            <i class="fa fa-save" aria-hidden="true"></i> <fmt:message key="save"/></button>
+                    </form>
                 </div>
             </div>
 

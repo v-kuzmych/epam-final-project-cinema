@@ -19,7 +19,7 @@ public class FilmDao {
 
     private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
-    private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
+    private static final String UPDATE_FILM = "UPDATE film SET img = ?, duration = ? WHERE id = ? ";
 
     public List<Film> getAll(String locale, int limit, int offset) {
 
@@ -112,12 +112,43 @@ public class FilmDao {
         return film;
     }
 
-    public Film create(Film film) {
+    public boolean save(Film film) {
+        boolean status = false;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
+
+            connection.setAutoCommit(false);
+            if (film.getId() == 0) {
+                status = new FilmDescriptionDao().create(connection, create(connection, film));
+            } else {
+                if (update(connection, film)) {
+                    status = new FilmDescriptionDao().update(connection, film);
+                }
+            }
+            connection.commit();
+
+        } catch (SQLException ex) {
+            DBManager.getInstance().rollbackAndClose(connection);
+            ex.printStackTrace();
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return status;
+    }
+
+    public Film create(Connection connection, Film film) {
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        try {
             preparedStatement = connection.prepareStatement(INSERT_FILM, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setString(1, film.getImg());
             preparedStatement.setInt(2, film.getDuration());
@@ -126,44 +157,36 @@ public class FilmDao {
                 rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     film.setId(rs.getInt(1));
-                    return film;
                 }
             }
 
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
         }
-        return null;
+
+        return film;
     }
 
-    public void createFilmDescFromFilm(Film film) {
+    public boolean update(Connection connection, Film film) {
+        boolean status = false;
+
         PreparedStatement preparedStatement = null;
-        Connection connection = null;
         try {
-            connection = DBManager.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(INSERT_FILM_DESCRIPTION);
+            preparedStatement = connection.prepareStatement(UPDATE_FILM);
+            preparedStatement.setString(1, film.getImg());
+            preparedStatement.setInt(2, film.getDuration());
+            preparedStatement.setInt(3, film.getId());
 
-            for (FilmDescription fd : film.getFilmDescriptions()) {
-                preparedStatement.setInt(1, film.getId());
-                preparedStatement.setInt(2, fd.getLanguageId());
-                preparedStatement.setString(3, fd.getName());
-                preparedStatement.setString(4, fd.getDescription());
-                preparedStatement.addBatch();
+            if (preparedStatement.executeUpdate() > 0) {
+                status = true;
             }
-
-            preparedStatement.executeBatch();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
         }
-    }
 
+        return status;
+    }
 }

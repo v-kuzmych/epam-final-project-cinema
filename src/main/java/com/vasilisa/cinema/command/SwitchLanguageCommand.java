@@ -12,10 +12,10 @@ public class SwitchLanguageCommand implements Command{
         String currentLocale = (String) session.getAttribute("locale");
 
         if (!newLocale.equals(currentLocale)) {
-            if ("en".equals(newLocale)) {
-                session.setAttribute("locale", "en_US");
-            } else {
+            if ("ua".equals(newLocale)) {
                 session.setAttribute("locale", "uk_UA");
+            } else {
+                session.setAttribute("locale", "en_US");
             }
         }
 

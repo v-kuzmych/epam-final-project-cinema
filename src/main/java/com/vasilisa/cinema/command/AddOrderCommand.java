@@ -19,7 +19,7 @@ public class AddOrderCommand implements Command{
 
         // error handler
         String errorMessage = null;
-        String page = Path.PAGE__ERROR_PAGE;
+        String errorPage = Path.PAGE__ERROR_PAGE;
 
         if (user == null) {
             return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__LOGIN);
@@ -29,7 +29,7 @@ public class AddOrderCommand implements Command{
         if (places.length == 0) {
             errorMessage = "Please, select seat";
             request.setAttribute("errorMessage", errorMessage);
-            return new CommandResult(CommandResult.ResponseType.FORWARD, page);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, errorPage);
         }
 
         int seanceId = Integer.parseInt(request.getParameter("seance_id"));
@@ -38,7 +38,7 @@ public class AddOrderCommand implements Command{
         if (!checkForEmptySeats) {
             errorMessage = "Sorry, seats are not available, please select others";
             request.setAttribute("errorMessage", errorMessage);
-            return new CommandResult(CommandResult.ResponseType.FORWARD, page);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, errorPage);
         }
 
         int seancePrice = new SeanceDao().getPrice(seanceId);
@@ -48,7 +48,11 @@ public class AddOrderCommand implements Command{
         order.setPrice(seancePrice * places.length);
         order.setDate(LocalDateTime.now());
 
-        new OrderDao().create(order, places);
+        if (!new OrderDao().create(order, places)) {
+            errorMessage = "Не вдалося забронювати замовлення";
+            request.setAttribute("errorMessage", errorMessage);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, errorPage);
+        };
 
         return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__SUCCESS_ORDER);
     }

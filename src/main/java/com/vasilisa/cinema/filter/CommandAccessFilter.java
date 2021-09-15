@@ -2,7 +2,6 @@ package com.vasilisa.cinema.filter;
 
 import com.vasilisa.cinema.Path;
 
-import javax.management.relation.Role;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;

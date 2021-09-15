@@ -8,7 +8,7 @@
         <fmt:setLocale value="${sessionScope.locale}"/>
     </c:when>
     <c:otherwise>
-        <fmt:setLocale value="uk_UA"/>
+        <fmt:setLocale value="en_US"/>
     </c:otherwise>
 </c:choose>
 <fmt:setBundle basename="Locale"/>

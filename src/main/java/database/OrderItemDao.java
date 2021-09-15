@@ -38,7 +38,7 @@ public class OrderItemDao {
         return occupiedSeats;
     }
 
-    public void createItems(Connection connection, int orderId, String[] places) {
+    public boolean createItems(Connection connection, int orderId, String[] places) {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(INSERT_ORDER_ITEM);
@@ -54,10 +54,19 @@ public class OrderItemDao {
                 preparedStatement.addBatch();
             }
 
-            preparedStatement.executeBatch();
+            int[] items = preparedStatement.executeBatch();
+            for (int item : items) {
+                if (item != 1) {
+                    return false;
+                }
+            }
+
             preparedStatement.close();
+            return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
+
+        return false;
     }
 }

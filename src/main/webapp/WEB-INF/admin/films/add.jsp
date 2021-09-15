@@ -32,25 +32,17 @@
                     <input type="text" name="duration" value="">
                 </div>
 
-                <input type="hidden" name="lang_ids" value="1,2">
-
-                <div class="item-block">
-                    <label><fmt:message key="film.nameUa"/></label>
-                    <input type="text" name="name.2" value="">
-                </div>
-                <div class="item-block">
-                    <label><fmt:message key="film.descUa"/></label>
-                    <textarea oninput="auto_grow(this)" name="desc.1"></textarea>
-                </div>
-
-                <div class="item-block">
-                    <label><fmt:message key="film.nameEn"/></label>
-                    <input type="text" name="name.1" value="">
-                </div>
-                <div class="item-block">
-                    <label><fmt:message key="film.descEn"/></label>
-                    <textarea oninput="auto_grow(this)" name="desc.2"></textarea>
-                </div>
+                <c:forEach items="${languages}" var="language">
+                    <input type="hidden" name="languageIds" value="${language.id}">
+                    <div class="item-block">
+                        <label><fmt:message key="film.name${language.id}"/></label>
+                        <input type="text" name="name${language.id}" value="">
+                    </div>
+                    <div class="item-block">
+                        <label><fmt:message key="film.desc${language.id}"/></label>
+                        <textarea oninput="auto_grow(this)" name="desc${language.id}"></textarea>
+                    </div>
+                </c:forEach>
 
                 <button class="btn btn-success submit-add-film" type="submit">
                     <i class="fa fa-save" aria-hidden="true"></i> <fmt:message key="save"/></button>

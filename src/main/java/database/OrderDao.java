@@ -67,14 +67,15 @@ public class OrderDao {
         return true;
     }
 
-    public void create(Order order, String[] places) {
+    public boolean create(Order order, String[] places) {
+        boolean status = false;
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
 
             connection.setAutoCommit(false);
             int orderId = createOrder(connection, order);
-            new OrderItemDao().createItems(connection, orderId, places);
+            status = new OrderItemDao().createItems(connection, orderId, places);
             connection.commit();
 
         } catch (SQLException ex) {
@@ -83,11 +84,13 @@ public class OrderDao {
         } finally {
             try {
                 connection.setAutoCommit(true);
+                connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            DBManager.getInstance().commitAndClose(connection);
         }
+
+        return status;
     }
 
     public int createOrder(Connection connection, Order order) {

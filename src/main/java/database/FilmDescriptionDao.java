@@ -13,6 +13,7 @@ public class FilmDescriptionDao {
                                                         "LEFT JOIN film_description fd ON fd.language_id = l.id AND fd.film_id = ?";
 
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
+    private static final String UPDATE_FILM_DESCRIPTION = "UPDATE film_description SET name = ?, description = ? WHERE  film_id = ? AND  language_id = ?";
 
     public List<FilmDescription> getByFilmId(int id) {
         List<FilmDescription> filmDescriptions = new ArrayList<>();
@@ -41,11 +42,9 @@ public class FilmDescriptionDao {
         return filmDescriptions;
     }
 
-    public void createFromFilm(Film film) {
+    public boolean create(Connection connection, Film film) {
         PreparedStatement preparedStatement = null;
-        Connection connection = null;
         try {
-            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(INSERT_FILM_DESCRIPTION);
 
             for (FilmDescription fd : film.getFilmDescriptions()) {
@@ -56,13 +55,48 @@ public class FilmDescriptionDao {
                 preparedStatement.addBatch();
             }
 
-            preparedStatement.executeBatch();
+            int[] items = preparedStatement.executeBatch();
+            for (int item : items) {
+                if (item != 1) {
+                    return false;
+                }
+            }
+
             preparedStatement.close();
+            return true;
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
-        } finally {
-            DBManager.getInstance().commitAndClose(connection);
         }
+
+        return false;
+    }
+
+    public boolean update(Connection connection, Film film) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_FILM_DESCRIPTION);
+
+            for (FilmDescription fd : film.getFilmDescriptions()) {
+                preparedStatement.setString(1, fd.getName());
+                preparedStatement.setString(2, fd.getDescription());
+                preparedStatement.setInt(3, film.getId());
+                preparedStatement.setInt(4, fd.getLanguageId());
+                preparedStatement.addBatch();
+            }
+
+            int[] items = preparedStatement.executeBatch();
+            for (int item : items) {
+                if (item != 1) {
+                    return false;
+                }
+            }
+
+            preparedStatement.close();
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 }
