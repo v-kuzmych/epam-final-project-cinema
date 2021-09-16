@@ -58,10 +58,9 @@ public class OrderDao {
                 preparedStatement.close();
             }
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return true;
@@ -79,7 +78,6 @@ public class OrderDao {
             connection.commit();
 
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
             try {
@@ -170,10 +168,9 @@ public class OrderDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return ordersList;

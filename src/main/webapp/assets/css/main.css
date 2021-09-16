@@ -26,6 +26,18 @@ body {
     min-width: auto;
 }
 
+.remove-btn {
+    cursor: pointer;
+    color: #ec3030;
+    margin-left: -10px;
+    margin-right: 10px;
+}
+
+.delete-seance:hover {
+    opacity: 0.8;
+}
+
+
 .site-wrapper .page-title {
     margin: 25px;
 }

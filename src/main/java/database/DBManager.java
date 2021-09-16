@@ -69,6 +69,14 @@ public class DBManager {
         }
     }
 
+    public void close(Connection con) {
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     /**
      * Rollbacks and close the given connection.
      *

@@ -13,7 +13,7 @@
                             <div class="left-block-row__item">
                                 <div class="movie-badge dv">
                                     <div class="movie-badge__poster">
-                                        <img src="${pageContext.request.contextPath}/assets/img/posters/${seance.film.img}">
+                                        <img src="${seance.film.img}">
                                     </div>
                                     <div class="movie-badge__info">
                                         <div class="movie-badge__title">

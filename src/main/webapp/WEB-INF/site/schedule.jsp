@@ -52,7 +52,7 @@
                     <div class="box-for-img">
                         <div class="box-for-img__inner">
                             <div>
-                                <img alt="Movie poster" class="poster" srcset="${pageContext.request.contextPath}/assets/img/posters/${item.getKey().img}">
+                                <img alt="Movie poster" class="poster" srcset="${item.getKey().img}">
                             </div>
                         </div>
                     </div>

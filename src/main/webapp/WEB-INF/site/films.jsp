@@ -8,7 +8,7 @@
         <c:forEach items="${films}" var="film">
             <div class="movie-block">
                 <div class="movie-block__inner">
-                        <img class="card-img-top" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}"
+                        <img class="card-img-top" src="${film.img}"
                              alt="...">
                         <span class="card-title">${film.name}</span>
                 </div>

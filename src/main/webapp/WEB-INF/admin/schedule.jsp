@@ -52,7 +52,7 @@
                     <div class="box-for-img">
                         <div class="box-for-img__inner">
                             <div>
-                                <img alt="Movie poster" class="poster" srcset="${pageContext.request.contextPath}/assets/img/posters/${item.getKey().img}">
+                                <img alt="Movie poster" class="poster" srcset="${item.getKey().img}">
                             </div>
                         </div>
                     </div>
@@ -66,8 +66,9 @@
                                 <div class="showtime-date mb-10"><span>${ date.getKey() }</span>
                                     <div class="tech">
                                         <div class="seances">
+                                            <jsp:useBean id="now" class="java.util.Date"/>
                                             <c:forEach items="${ date.getValue() }" var="seance">
-                                                <button class="chips">${ seance.formatedTime }</button>
+                                                <button class="chips" <c:if test="${seance.date lt now}">disabled</c:if> >${ seance.formatedTime }</button>
                                             </c:forEach>
                                         </div>
                                     </div>

@@ -26,12 +26,13 @@ public class CommandContainer {
 
         // admin commands
         commands.put("admin_films_page", new GetAllFilmsForAdminCommand());
+        commands.put("admin_users_page", new GetAllUsersCommand());
         commands.put("add_film", new ShowAddFilmPageCommand());
         commands.put("film_edit", new ShowEditFilmPageCommand());
-        commands.put("save_film", new AddFilmCommand());
-//        commands.put("delete_film", new DeleteFilmCommand());
+        commands.put("save_film", new SaveFilmCommand());
+        commands.put("delete_film", new DeleteFilmCommand());
+        commands.put("delete_seance", new DeleteSeanceCommand());
         commands.put("add_seance", new AddSeanceCommand());
-        commands.put("admin_users_page", new GetAllUsersCommand());
         commands.put("user_info", new GetUserInfoForAdminCommand());
         commands.put("admin_dashboard", new ShowDashboardPageCommand());
 

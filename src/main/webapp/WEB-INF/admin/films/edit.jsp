@@ -116,9 +116,12 @@
                                 <div class="showtime-date mb-10">${seance.getKey()}</div>
                                 <div class="tech">
                                     <div class="seances">
-<%--                                        <button class="chips" disabled="">11:45</button>--%>
+                                        <jsp:useBean id="now" class="java.util.Date"/>
                                         <c:forEach items="${seance.getValue()}" var="item">
-                                            <button class="chips">${item.formatedTime }</button>
+                                            <a class="delete-seance none-text-decoration" data-id="${item.id}">
+                                                <div class="chips"  >${item.formatedTime }</div>
+                                                <i class="fa fa-trash remove-btn" aria-hidden="true"></i>
+                                            </a>
                                         </c:forEach>
                                     </div>
                                 </div>

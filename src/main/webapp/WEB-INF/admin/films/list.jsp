@@ -31,7 +31,7 @@
                                 <img class="small-film-img" src="${pageContext.request.contextPath}/assets/img/no_img.jpeg">
                         </c:when>
                         <c:otherwise>
-                            <img class="small-film-img" src="${pageContext.request.contextPath}/assets/img/posters/${film.img}">
+                            <img class="small-film-img" src="${film.img}">
                         </c:otherwise>
                     </c:choose>
                 </td>
@@ -39,7 +39,7 @@
                 <td>${film.description.length() > 300 ? film.description.substring(0, 300) : film.description}</td>
 
                 <td class="align-middle operation-btn" style="text-align: center;">
-                    <button class="btn btn-danger delete-film"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                    <button class="btn btn-danger delete-film" data-id="${film.id}"><i class="fa fa-trash" aria-hidden="true"></i></button>
                 </td>
             </tr>
         </c:forEach>

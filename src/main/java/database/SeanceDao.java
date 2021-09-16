@@ -34,6 +34,8 @@ public class SeanceDao {
                                                     "JOIN hall h ON h.id = s.hall_id " +
                                                     "WHERE s.id = ? ";
     private static final String GET_SEANCE_PRICE_BY_ID = "SELECT s.price FROM seance s WHERE s.id = ?";
+    private static final String DELETE_SEANCE = "DELETE FROM seance WHERE id = ?";
+
 
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
@@ -53,10 +55,9 @@ public class SeanceDao {
             }
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
     }
 
@@ -86,10 +87,9 @@ public class SeanceDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
         return seancesList;
     }
@@ -132,10 +132,9 @@ public class SeanceDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return seancesList;
@@ -182,10 +181,9 @@ public class SeanceDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return seance;
@@ -208,10 +206,9 @@ public class SeanceDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return seance.getPrice();
@@ -231,5 +228,23 @@ public class SeanceDao {
         }
 
         return result;
+    }
+
+    public boolean delete(int seanceId) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_SEANCE);
+            preparedStatement.setInt(1, seanceId);
+
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 }

@@ -20,6 +20,7 @@ public class FilmDao {
     private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
     private static final String UPDATE_FILM = "UPDATE film SET img = ?, duration = ? WHERE id = ? ";
+    private static final String DELETE_FILM = "DELETE FROM film WHERE id = ?";
 
     public List<Film> getAll(String locale, int limit, int offset) {
 
@@ -49,10 +50,9 @@ public class FilmDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return filmsList;
@@ -74,10 +74,9 @@ public class FilmDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return count;
@@ -104,18 +103,15 @@ public class FilmDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
         return film;
     }
 
     public boolean save(Film film) {
         boolean status = false;
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
@@ -188,5 +184,23 @@ public class FilmDao {
         }
 
         return status;
+    }
+
+    public boolean delete(int filmId) {
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(DELETE_FILM);
+            preparedStatement.setInt(1, filmId);
+
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
     }
 }

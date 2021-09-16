@@ -33,10 +33,9 @@ public class FilmDescriptionDao {
                 rs.close();
                 preparedStatement.close();
             } catch (SQLException ex) {
-                DBManager.getInstance().rollbackAndClose(connection);
                 ex.printStackTrace();
             } finally {
-                DBManager.getInstance().commitAndClose(connection);
+                DBManager.getInstance().close(connection);
             }
 
         return filmDescriptions;

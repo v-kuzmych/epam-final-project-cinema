@@ -34,7 +34,7 @@
               type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="root" password="password"
-              defaultAutoCommit="false"
+              defaultAutoCommit="true"
               defaultTransactionIsolation="READ_COMMITTED"
               driverClassName = "com.mysql.jdbc.Driver"
               url="jdbc:mysql://localhost:3306/cinema"/>

@@ -13,19 +13,36 @@ $('.users-table .clickable-row').click(function () {
     location.href = "/controller?command=user_info&id=" + id;
 });
 
-$('.films-table .clickable-row').click(function () {
-    if (!$(this).hasClass('delete-film')) {
-        let id = $(this).data("id")
-        location.href = "/controller?command=film_edit&id=" + id;
-    }
+$('.films-table .clickable-row').click(function (e) {
+    if($(e.target).hasClass('delete-film') || $('.delete-film').find($(e.target)).length > 0) return;
+    let id = $(this).data("id")
+    location.href = "/controller?command=film_edit&id=" + id;
+
 });
 
 $('.films-table .delete-film').click(function (e) {
     e.preventDefault();
-    if (confirm('dsadsadsada')) {
-        let id = $(this).data("id")
-        location.href = "/controller?command=film_delete&id=" + id;
-    }
+    let id = $(this).data("id")
+    $('#deleteFilmModal').modal('show')
+    $('#deleteFilmModal .confilm-deleting-film').attr('data-id', id)
+});
+
+$('.confilm-deleting-film').click(function (e) {
+    let id = $(this).data("id")
+    location.href = "/controller?command=delete_film&id=" + id;
+});
+
+$('.delete-seance').click(function (e) {
+    e.preventDefault();
+    let id = $(this).data("id")
+    $('#deleteSeanceModal').modal('show')
+    $('#deleteSeanceModal .confilm-deleting-seance').attr('data-id', id)
+});
+
+$('.confilm-deleting-seance').click(function (e) {
+    let id = $(this).data("id")
+    let filmId = $('#save-film [name="id"]').val()
+    location.href = "/controller?command=delete_seance&id=" + id + "&film_id=" + filmId;
 });
 
 function auto_grow(element) {

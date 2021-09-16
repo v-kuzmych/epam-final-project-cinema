@@ -37,10 +37,9 @@ public class UserDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
 
         return null;
@@ -70,10 +69,9 @@ public class UserDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
         return loggedUser;
     }
@@ -101,10 +99,9 @@ public class UserDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
         return usersList;
     }
@@ -132,10 +129,9 @@ public class UserDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
         } finally {
-            DBManager.getInstance().commitAndClose(connection);
+            DBManager.getInstance().close(connection);
         }
         return user;
     }
