@@ -43,7 +43,7 @@
                                 <div class="user-order">
                                     <div class="order-info">
                                         <b>Замовлення № ${order.id},</b>
-                                        <span>${order.formatedDateTime}</span>
+                                        <span>${order.formattedDateTime}</span>
                                         <p class="order-price">Вартість: ${order.price}</p>
                                     </div>
 
@@ -61,8 +61,8 @@
                                                     <div class="even-date">
                                                         <i class="fa fa-calendar"></i>
                                                         <time>
-                                                            <span>${order.seance.formatedDate}</span>
-                                                            <span>${order.seance.formatedTime}</span>
+                                                            <span>${order.seance.formattedDate}</span>
+                                                            <span>${order.seance.formattedTime}</span>
                                                         </time>
                                                     </div>
                                                     <div class="even-info">

@@ -185,11 +185,6 @@
     margin: 0px;
 }
 
-
-.small-film-img {
-    height: 80px;
-}
-
 .hover-table tbody tr:hover {
     cursor: pointer;
     background-color: #e4f3ff;
@@ -209,7 +204,6 @@
 }
 
 .add-seance {
-    width: 360px;
     display: none;
 }
 

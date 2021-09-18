@@ -1,7 +1,6 @@
 package database;
 
 import entity.Film;
-import entity.FilmDescription;
 import entity.Hall;
 import entity.Seance;
 
@@ -14,19 +13,19 @@ import java.util.Locale;
 
 public class SeanceDao {
 
-    private static final String INSERT_SEANCE = "INSERT INTO seance (film_id, date, price, hall_id) VALUES  (?, ?, ?, ?)";
+    private static final String INSERT_SEANCE = "INSERT INTO seance (film_id, date, price, hall_id, free_seats) VALUES  (?, ?, ?, ?, ?)";
     private static final String GET_SEANCE_BY_FILM_ID = "SELECT * FROM seance WHERE film_id = ? ORDER BY date ASC ";
-    private static final String GET_ALL_SEANCES = "SELECT s.*, l.id as lang_id, fd.name, fd.description, f.img " +
+    private static final String GET_ALL_SEANCES = "SELECT s.*, fd.name, fd.description, f.img, f.duration " +
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +
                                                     "LEFT JOIN language l ON l.locale = ? " +
                                                     "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id ";
-    private static final String WHERE_SEANCE_DATE_IS_TODAY = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 day ";
-    private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > CURDATE() + interval 1 day AND s.date < CURDATE() + interval 2 day ";
-    private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 week ";
-    private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > CURDATE() AND s.date < CURDATE() + interval 1 month ";
+    private static final String WHERE_SEANCE_DATE_IS_TODAY = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 day ";
+    private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > NOW() + interval 1 day AND s.date < NOW() + interval 2 day ";
+    private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 week ";
+    private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 month ";
     private static final String ORDER_SEANCE_BY_DATE = "ORDER BY s.date ASC";
-    private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.language_id, fd.name, fd.description, f.img " +
+    private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.name, f.img, f.duration " +
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +
                                                     "LEFT JOIN language l ON l.locale = ? " +
@@ -48,7 +47,8 @@ public class SeanceDao {
             preparedStatement.setInt(1, seance.getFilmId());
             preparedStatement.setString(2, fmt.format(seance.getDate()));
             preparedStatement.setInt(3, seance.getPrice());
-            preparedStatement.setInt(4, 1);
+            preparedStatement.setInt(4, seance.getHall().getId());
+            preparedStatement.setInt(5, seance.getFreeSeats());
 
             if (preparedStatement.executeUpdate() <= 0) {
                 // error
@@ -79,9 +79,10 @@ public class SeanceDao {
                 Seance seance = new Seance();
                 seance.setId(rs.getInt(1));
                 seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
-                seance.setFormatedDate(currentLocale);
+                seance.setFormattedDate(currentLocale);
                 seance.setFilmId(rs.getInt(2));
                 seance.setPrice(rs.getInt(5));
+                seance.setFreeSeats(rs.getInt(6));
                 seancesList.add(seance);
             }
             rs.close();
@@ -96,7 +97,7 @@ public class SeanceDao {
 
     public List<Seance> getAll(String locale, String dateFilter) {
         List<Seance> seancesList = new ArrayList<>();
-        String dateFilterQuery = switchDateFilterQuery(dateFilter);
+        String dateFilterQuery = getDateFilterQuery(dateFilter);
 
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -111,21 +112,21 @@ public class SeanceDao {
 
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
-                Film film = new Film();
-                List<FilmDescription> filmDescriptions = new ArrayList<>();
-
-                film.setId(rs.getInt(2));
-                filmDescriptions.add(new FilmDescription(rs.getInt(6), rs.getString(7), rs.getString(8)));
-                film.setFilmDescriptions(filmDescriptions);
-                film.setImg(rs.getString(9));
-
                 Seance seance = new Seance();
-                seance.setId(rs.getInt(1));
-                seance.setPrice(rs.getInt(4));
-                seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
-                seance.setFormatedDate(currentLocale);
-                seance.setFilmId(rs.getInt(2));
+                Film film = new Film();
+                film.setId(rs.getInt(2));
+                film.setName(rs.getString(7));
+                film.setDescription(rs.getString(8));
+                film.setImg(rs.getString(9));
+                film.setDuration(rs.getInt(10));
                 seance.setFilm(film);
+
+                seance.setId(rs.getInt(1));
+                seance.setPrice(rs.getInt(5));
+                seance.setFreeSeats(rs.getInt(6));
+                seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
+                seance.setFormattedDate(currentLocale);
+                seance.setFilmId(rs.getInt(2));
 
                 seancesList.add(seance);
             }
@@ -157,26 +158,24 @@ public class SeanceDao {
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 Hall hall = new Hall();
+                hall.setId(rs.getInt(4));
+                hall.setNumberOfRows(rs.getInt(7));
+                hall.setNumberOfSeats(rs.getInt(8));
+                seance.setHall(hall);
+
                 Film film = new Film();
-                List<FilmDescription> filmDescriptions = new ArrayList<>();
+                film.setId(rs.getInt(2));
+                film.setName(rs.getString(9));
+                film.setImg(rs.getString(10));
+                film.setDuration(rs.getInt(11));
+                seance.setFilm(film);
 
                 seance.setId(rs.getInt(1));
                 seance.setDate(LocalDateTime.parse(rs.getString(3), fmt));
-                seance.setFormatedDate(currentLocale);
+                seance.setFormattedDate(currentLocale);
                 seance.setFilmId(rs.getInt(2));
                 seance.setPrice(rs.getInt(5));
-
-                hall.setId(rs.getInt(4));
-                hall.setNumberOfRows(rs.getInt(6));
-                hall.setNumberOfSeats(rs.getInt(7));
-
-                film.setId(rs.getInt(2));
-                filmDescriptions.add(new FilmDescription(rs.getInt(8), rs.getString(9), rs.getString(10)));
-                film.setFilmDescriptions(filmDescriptions);
-                film.setImg(rs.getString(11));
-
-                seance.setFilm(film);
-                seance.setHall(hall);
+                seance.setFreeSeats(rs.getInt(6));
             }
             rs.close();
             preparedStatement.close();
@@ -214,7 +213,7 @@ public class SeanceDao {
         return seance.getPrice();
     }
 
-    public String switchDateFilterQuery(String dateFilter) {
+    public String getDateFilterQuery(String dateFilter) {
         String result = "";
 
         if ("tomorrow".equals(dateFilter)) {

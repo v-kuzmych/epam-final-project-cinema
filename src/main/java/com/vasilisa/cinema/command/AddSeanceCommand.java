@@ -1,5 +1,7 @@
 package com.vasilisa.cinema.command;
 
+import database.HallDao;
+import entity.Hall;
 import entity.Seance;
 import database.SeanceDao;
 
@@ -20,6 +22,14 @@ public class AddSeanceCommand implements Command{
         seance.setFilmId(filmId);
         seance.setDate(dateTime);
         seance.setPrice(price);
+
+        // в нас зараз лиш один зал
+        // вираховуємо його місткість
+        int hallId = 1;
+        Hall hall = new HallDao().get(hallId);
+        seance.setHall(hall);
+        seance.setFreeSeats(hall.getNumberOfSeats() * hall.getNumberOfRows());
+
         new SeanceDao().create(seance);
 
         String page = "/controller?command=film_edit&tab=schedule&id=" + filmId;

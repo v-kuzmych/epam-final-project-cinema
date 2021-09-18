@@ -1,18 +1,22 @@
 package entity;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
 public class Seance {
     private int id;
     private int filmId;
     private int price;
+    private int freeSeats;
 
     private LocalDateTime date;
-    private String formatedTime;
-    private String formatedDate;
+    private String formattedTime;
+    private String formattedTimeEnd;
+    private String formattedDate;
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
     private Film film;
@@ -34,29 +38,59 @@ public class Seance {
         this.filmId = filmId;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getFreeSeats() {
+        return freeSeats;
+    }
+
+    public void setFreeSeats(int freeSeats) {
+        this.freeSeats = freeSeats;
+    }
+
     public LocalDateTime getDate() {
         return date;
     }
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-        setFormatedTime(timeFormatter.format(date));
+        setFormattedTime(timeFormatter.format(date));
+
+        // обраховуємо час закінчення фільму
+        if (this.film != null) {
+            LocalDateTime endDateTime = date.plus(Duration.of(this.film.getDuration(), ChronoUnit.MINUTES));
+            setFormattedTimeEnd(timeFormatter.format(endDateTime));
+        }
     }
 
-    public String getFormatedTime() {
-        return formatedTime;
+    public String getFormattedTime() {
+        return formattedTime;
     }
 
-    public void setFormatedTime(String formatedTime) {
-        this.formatedTime = formatedTime;
+    public void setFormattedTime(String formattedTime) {
+        this.formattedTime = formattedTime;
     }
 
-    public String getFormatedDate() {
-        return formatedDate;
+    public String getFormattedTimeEnd() {
+        return formattedTimeEnd;
     }
 
-    public void setFormatedDate(Locale locale) {
-        this.formatedDate = dateFormatter.format(date) + ", " + getDate().getDayOfWeek().getDisplayName(TextStyle.FULL, locale);
+    public void setFormattedTimeEnd(String formattedTimeEnd) {
+        this.formattedTimeEnd = formattedTimeEnd;
+    }
+
+    public String getFormattedDate() {
+        return formattedDate;
+    }
+
+    public void setFormattedDate(Locale locale) {
+        this.formattedDate = dateFormatter.format(date) + ", " + getDate().getDayOfWeek().getDisplayName(TextStyle.FULL, locale);
     }
 
     public Film getFilm() {
@@ -65,14 +99,6 @@ public class Seance {
 
     public void setFilm(Film film) {
         this.film = film;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public Hall getHall() {

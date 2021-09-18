@@ -159,7 +159,7 @@ public class OrderDao {
                 seance.setFilm(film);
                 seance.setDate(LocalDateTime.parse(rs.getString(10), fmt));
                 String[] localeAttr = locale.split("_");
-                seance.setFormatedDate(new Locale(localeAttr[0], localeAttr[1]));
+                seance.setFormattedDate(new Locale(localeAttr[0], localeAttr[1]));
 
                 order.setSeance(seance);
                 ordersList.add(order);

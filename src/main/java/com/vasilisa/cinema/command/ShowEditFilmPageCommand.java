@@ -30,7 +30,7 @@ public class ShowEditFilmPageCommand implements Command{
         String[] localeAttr = currentLocale.split("_");
         List<Seance> seances = new SeanceDao().getByFilmId(film_id, new Locale(localeAttr[0], localeAttr[1]));
         Map<String, List<Seance>> seancesMap = seances.stream().collect(Collectors.groupingBy(
-                Seance::getFormatedDate,
+                Seance::getFormattedDate,
                 LinkedHashMap::new,
                 Collectors.mapping(Function.identity(), Collectors.toList())
         ));

@@ -209,37 +209,45 @@ let getAddToCartBlock = (price) => {
     return block;
 }
 
+let initSeanceTable = () => {
+    let options = {
+                    language: {
+                        "info": "",
+                    },
+                    "order": [],
+                    "columnDefs": [
+                        { targets: 'no-sort', orderable: false }
+                    ],
+                    "language": {
+                        "decimal": "",
+                        "thousands": "",
+                        "info": "",
+                        "infoEmpty": "",
+                        "infoPostFix": "",
+                        "infoFiltered": "",
+                        "loadingRecords": "",
+                        "lengthMenu": "",
+                        "paginate": {
+                            "first": "",
+                            "last": "",
+                            "next": "",
+                            "previous": ""
+                        },
+                        "processing": "",
+                        "search": "",
+                        "searchPlaceholder": "",
+                        "zeroRecords": "",
+                        "emptyTable": ""
+                    },
+                    "paging": true,
+                    "searching": true,
+                };
 
-let addingOrder = () => {
-
-
-    // $(document).on('click', '.add-to-cart', function (e) {
-    //     let places = [];
-    //     $('.choosedPlace:checked').each(function () {
-    //         places.push($(this).val())
-    //     })
-    //
-    //     let form = $('form#user-order')
-    //     let formData = new FormData(form[0]);
-    //     formData.append('places', places)
-    //
-    //     $.ajax({
-    //         processData: false,
-    //         contentType: false,
-    //         type: 'POST',
-    //         data:formData,
-    //         url: '/controller?command=add_order',
-    //         success: function (data) {
-    //             console.log(111111)
-    //             // location.href = "/admin/films/edit.jsp"
-    //         }
-    //     })
-    // })
+    $('#seancesTable').DataTable(options);
 }
 
-
-$(document).ready(function () {
-    addingOrder();
-});
+$(document).ready( function () {
+    initSeanceTable();
+} );
 
 

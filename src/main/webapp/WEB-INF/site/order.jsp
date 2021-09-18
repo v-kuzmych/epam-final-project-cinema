@@ -17,14 +17,14 @@
                                     </div>
                                     <div class="movie-badge__info">
                                         <div class="movie-badge__title">
-                                            <span>${seance.film.filmDescriptions[0].name}</span>
+                                            <span>${seance.film.name}</span>
                                         </div>
                                         <div class="info-badges">
                                             <div class="movie-info__text">
-                                                <span>7 сентября, вторник</span>
+                                                <span>${seance.formattedDate}</span>
                                             </div>
                                             <div class="movie-info__text">
-                                                <span>21:40 - 23:53</span>
+                                                <span>${seance.formattedTime} - ${seance.formattedTimeEnd}</span>
                                             </div>
                                         </div>
                                     </div>

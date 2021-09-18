@@ -36,7 +36,7 @@ public class GetScheduleCommand implements Command {
         for (Map.Entry<Film, List<Seance>> entry : scheduleMap.entrySet()) {
             Film film = entry.getKey();
             Map<String, List<Seance>> groupedSeances = entry.getValue().stream().collect(Collectors.groupingBy(
-                    Seance::getFormatedDate,
+                    Seance::getFormattedDate,
                     LinkedHashMap::new,
                     Collectors.mapping(Function.identity(), Collectors.toList())
             ));

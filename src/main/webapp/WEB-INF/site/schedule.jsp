@@ -48,7 +48,7 @@
             <c:forEach items="${schedule}" var="item">
                 <div class="movie">
                     <a class="tablet-movie-name link-text" href="${pageContext.request.contextPath}/controller?command=film_edit&id=${item.getKey().id}">
-                            ${item.getKey().filmDescriptions[0].name}</a>
+                            ${item.getKey().name}</a>
                     <div class="box-for-img">
                         <div class="box-for-img__inner">
                             <div>
@@ -59,7 +59,7 @@
 
                     <div class="movie-info flex-column">
                         <a class="movie-name link-text mb-15" href="${pageContext.request.contextPath}/controller?command=film_edit&id=${item.getKey().id}">
-                                ${item.getKey().filmDescriptions[0].name}
+                                ${item.getKey().name}
                         </a>
                         <div class="date mb-20">
                             <c:forEach items="${item.getValue()}" var="date">
@@ -67,7 +67,7 @@
                                     <div class="tech">
                                         <div class="seances">
                                             <c:forEach items="${ date.getValue() }" var="seance">
-                                                <a class="chips none-text-decoration" href="${pageContext.request.contextPath}/controller?command=order_page&id=${seance.id}">${ seance.formatedTime }</a>
+                                                <a class="chips none-text-decoration" href="${pageContext.request.contextPath}/controller?command=order_page&id=${seance.id}">${ seance.formattedTime }</a>
                                             </c:forEach>
                                         </div>
                                     </div>

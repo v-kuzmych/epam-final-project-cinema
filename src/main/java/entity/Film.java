@@ -10,6 +10,7 @@ public class Film {
     private int duration;
     private String name;
     private String description;
+    private String formattedDuration;
 
     public int getId() {
         return id;
@@ -41,6 +42,19 @@ public class Film {
 
     public void setDuration(int duration) {
         this.duration = duration;
+
+        // форматуємо тривалість фільму
+        int hours = duration / 60;
+        int minutes = duration % 60;
+        setFormattedDuration(String.format("%s:%s", hours, minutes));
+    }
+
+    public String getFormattedDuration() {
+        return formattedDuration;
+    }
+
+    public void setFormattedDuration(String formattedDuration) {
+        this.formattedDuration = formattedDuration;
     }
 
     public String getName() {

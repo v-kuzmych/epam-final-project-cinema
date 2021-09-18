@@ -26,6 +26,10 @@ body {
     min-width: auto;
 }
 
+.small-film-img {
+    height: 80px;
+}
+
 .remove-btn {
     cursor: pointer;
     color: #ec3030;
@@ -36,7 +40,6 @@ body {
 .delete-seance:hover {
     opacity: 0.8;
 }
-
 
 .site-wrapper .page-title {
     margin: 25px;
@@ -1061,3 +1064,19 @@ h1
 }
 
 /* end ticket styles */
+
+.center-td th, .center-td td {
+    text-align: center;
+}
+
+.dataTables_filter{
+    float: left!important;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}

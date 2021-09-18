@@ -12,7 +12,7 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link <c:if test='${empty sitePage || sitePage == "home"}'>active</c:if>"
-                       href="/index.jsp" aria-current="page"><fmt:message key="home"/></a></li>
+                       href="${pageContext.request.contextPath}/" aria-current="page"><fmt:message key="home"/></a></li>
                 <li class="nav-item">
                     <a class="nav-link <c:if test='${sitePage == "films"}'>active</c:if>"
                        href="${pageContext.request.contextPath}/controller?command=user_films_page">
@@ -22,14 +22,14 @@
                        href="${pageContext.request.contextPath}/controller?command=schedule">
                         <fmt:message key="schedule"/></a></li>
                 <li class="nav-item">
-                    <a class="nav-link <c:if test='${sitePage == "uk_UA"}'>active</c:if>"
-                       href="#">
-                    <fmt:message key="schedule"/></a></li>
+                    <a class="nav-link <c:if test='${sitePage == "seances"}'>active</c:if>"
+                       href="${pageContext.request.contextPath}/controller?command=seances">
+                        <fmt:message key="on_screen"/></a></li>
             </ul>
-            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
-                <input class="form-control" type="text" placeholder="<fmt:message key="search"/>..."
-                       aria-label="Search">
-            </form>
+<%--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">--%>
+<%--                <input class="form-control" type="text" placeholder="<fmt:message key="search"/>..."--%>
+<%--                       aria-label="Search">--%>
+<%--            </form>--%>
 
             <c:choose>
                 <c:when test="${sessionScope.loggedUser == null}">

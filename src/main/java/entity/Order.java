@@ -13,7 +13,7 @@ public class Order {
 
     private List<OrderItem> orderItems;
     private Seance seance;
-    private String formatedDateTime;
+    private String formattedDateTime;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
     public int getId() {
@@ -46,7 +46,7 @@ public class Order {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
-        setFormatedDateTime(dateTimeFormatter.format(date));
+        setFormattedDateTime(dateTimeFormatter.format(date));
     }
 
     public int getPrice() {
@@ -73,11 +73,11 @@ public class Order {
         this.seance = seance;
     }
 
-    public String getFormatedDateTime() {
-        return formatedDateTime;
+    public String getFormattedDateTime() {
+        return formattedDateTime;
     }
 
-    public void setFormatedDateTime(String formatedDateTime) {
-        this.formatedDateTime = formatedDateTime;
+    public void setFormattedDateTime(String formattedDateTime) {
+        this.formattedDateTime = formattedDateTime;
     }
 }

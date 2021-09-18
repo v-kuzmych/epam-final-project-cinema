@@ -14,6 +14,7 @@ public class CommandContainer {
         commands.put("switch_language", new SwitchLanguageCommand());
         commands.put("register", new RegisterCommand());
         commands.put("schedule", new GetScheduleCommand());
+        commands.put("seances", new GetAllSeancesCommand());
         commands.put("user_films_page", new GetAllFilmsForUserCommand());
         commands.put("order_page", new ShowOrderPageCommand());
         commands.put("logout", new LogoutCommand());

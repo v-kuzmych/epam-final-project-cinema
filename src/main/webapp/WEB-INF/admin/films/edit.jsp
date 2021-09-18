@@ -90,13 +90,16 @@
                                       action="${pageContext.request.contextPath}/controller?command=add_seance&id=${film.id}">
                                     <div class="item-block">
                                         <label>Оберіть дату</label>
-                                        <input type="date" class="min-input" name="date" value="2021-09-01"
-                                               min="2021-09-01" max="2022-12-31" required>
+                                        <jsp:useBean id="now" class="java.util.Date"/>
+                                        <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+                                        <input type="date" class="min-input" name="date" value="${today}"
+                                               min="${today}" required>
                                     </div>
                                     <div class="item-block">
                                         <label>Оберіть час</label>
                                         <input type="time" class="min-input" name="time" value="09:00" min="09:00"
                                                max="22:00" required>
+                                        <small class="time-error hide">Сеанс повинен починатися в проміжку з 09:00 до 21:00</small>
                                     </div>
                                     <div class="item-block">
                                         <label>Введіть вартість</label>
@@ -116,10 +119,9 @@
                                 <div class="showtime-date mb-10">${seance.getKey()}</div>
                                 <div class="tech">
                                     <div class="seances">
-                                        <jsp:useBean id="now" class="java.util.Date"/>
                                         <c:forEach items="${seance.getValue()}" var="item">
                                             <a class="delete-seance none-text-decoration" data-id="${item.id}">
-                                                <div class="chips"  >${item.formatedTime }</div>
+                                                <div class="chips"  >${item.formattedTime }</div>
                                                 <i class="fa fa-trash remove-btn" aria-hidden="true"></i>
                                             </a>
                                         </c:forEach>

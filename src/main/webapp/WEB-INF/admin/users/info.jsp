@@ -56,8 +56,8 @@
                                 <c:forEach items="${user.orders}" var="order">
                                     <tr data-bs-toggle="collapse" data-bs-target="#order${order.id}" class="accordion-toggle">
                                         <td><button class="btn btn-default btn-xs"><i class="fa fa-eye" aria-hidden="true"></i></button></td>
-                                        <td>${order.formatedDateTime}</td>
-                                        <td><span>${order.seance.formatedDate}</span>&nbsp;<span>${order.seance.formatedTime}</span></td>
+                                        <td>${order.formattedDateTime}</td>
+                                        <td><span>${order.seance.formattedDate}</span>&nbsp;<span>${order.seance.formattedTime}</span></td>
                                         <td>${order.seance.film.name}</td>
                                         <td>${order.orderItems.size()}</td>
                                         <td>${order.price}</td>
