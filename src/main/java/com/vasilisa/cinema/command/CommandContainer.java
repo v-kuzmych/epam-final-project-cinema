@@ -29,6 +29,7 @@ public class CommandContainer {
         // admin commands
         commands.put("admin_films_page", new GetAllFilmsForAdminCommand());
         commands.put("admin_users_page", new GetAllUsersCommand());
+        commands.put("admin_orders_page", new GetAllOrdersForAdminCommand());
         commands.put("add_film", new ShowAddFilmPageCommand());
         commands.put("film_edit", new ShowEditFilmPageCommand());
         commands.put("save_film", new SaveFilmCommand());
@@ -37,8 +38,6 @@ public class CommandContainer {
         commands.put("add_seance", new AddSeanceCommand());
         commands.put("user_info", new GetUserInfoForAdminCommand());
         commands.put("admin_dashboard", new ShowDashboardPageCommand());
-
-
 
 //        log.debug("Command container was successfully initialized");
 //        log.trace("Number of commands --> " + commands.size());

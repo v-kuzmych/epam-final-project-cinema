@@ -10,9 +10,11 @@ public class Order {
     private int userId;
     private LocalDateTime date;
     private int price;
+    private int ticketsCount;
 
     private List<OrderItem> orderItems;
     private Seance seance;
+    private User user;
     private String formattedDateTime;
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
@@ -57,6 +59,14 @@ public class Order {
         this.price = price;
     }
 
+    public int getTicketsCount() {
+        return ticketsCount;
+    }
+
+    public void setTicketsCount(int ticketsCount) {
+        this.ticketsCount = ticketsCount;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -71,6 +81,14 @@ public class Order {
 
     public void setSeance(Seance seance) {
         this.seance = seance;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getFormattedDateTime() {

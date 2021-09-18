@@ -21,6 +21,7 @@ public final class Path {
     public static final String PAGE__EDIT_FILM = "/WEB-INF/admin/films/edit.jsp";
     public static final String PAGE__USERS_LIST = "/WEB-INF/admin/users/list.jsp";
     public static final String PAGE__USER_INFO = "/WEB-INF/admin/users/info.jsp";
+    public static final String PAGE__ORDERS_LIST = "/WEB-INF/admin/orders.jsp";
 
     // command
     public static final String COMMAND_SHOW_PROFILE = "/controller?command=profile";

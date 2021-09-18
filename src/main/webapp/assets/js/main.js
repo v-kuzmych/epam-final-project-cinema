@@ -212,7 +212,7 @@ let getAddToCartBlock = (price) => {
     return block;
 }
 
-let initSeanceTable = () => {
+let initSeancesTable = () => {
     let options = {
                     language: {
                         "info": "",
@@ -249,8 +249,42 @@ let initSeanceTable = () => {
     $('#seancesTable').DataTable(options);
 }
 
+let initOrdersTable = () => {
+    let options = {
+        "pageLength": 20,
+        "order": [[ 0, "desc" ]],
+        "language": {
+            "decimal": "",
+            "thousands": "",
+            "info": "",
+            "infoEmpty": "",
+            "infoPostFix": "",
+            "infoFiltered": "",
+            "loadingRecords": "",
+            "paginate": {
+                "first": "",
+                "last": "",
+                "next": "",
+                "previous": ""
+            },
+            "processing": "",
+            "search": "",
+            "searchPlaceholder": "",
+            "zeroRecords": "",
+            "emptyTable": ""
+        },
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'excel', 'pdf', 'print'
+        ]
+    };
+
+    $('#ordersTable').DataTable(options);
+}
+
 $(document).ready( function () {
-    initSeanceTable();
+    initSeancesTable();
+    initOrdersTable();
 } );
 
 
