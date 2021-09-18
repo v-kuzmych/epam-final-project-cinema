@@ -8,9 +8,10 @@
         <c:forEach items="${films}" var="film">
             <div class="movie-block">
                 <div class="movie-block__inner">
-                        <img class="card-img-top" src="${film.img}"
-                             alt="...">
+                    <a href="${pageContext.request.contextPath}/controller?command=film_page&id=${film.id}">
+                        <img class="card-img-top" src="${film.img}" alt="...">
                         <span class="card-title">${film.name}</span>
+                    </a>
                 </div>
             </div>
         </c:forEach>

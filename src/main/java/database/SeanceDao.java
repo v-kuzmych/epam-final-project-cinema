@@ -24,6 +24,8 @@ public class SeanceDao {
     private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > NOW() + interval 1 day AND s.date < NOW() + interval 2 day ";
     private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 week ";
     private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 month ";
+    private static final String WHERE_FILM_ID_IS = "AND f.id = ";
+
     private static final String ORDER_SEANCE_BY_DATE = "ORDER BY s.date ASC";
     private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.name, f.img, f.duration " +
                                                     "FROM seance s " +
@@ -95,16 +97,17 @@ public class SeanceDao {
         return seancesList;
     }
 
-    public List<Seance> getAll(String locale, String dateFilter) {
+    public List<Seance> getAll(String locale, String dateFilter, Film filteredFilm) {
         List<Seance> seancesList = new ArrayList<>();
         String dateFilterQuery = getDateFilterQuery(dateFilter);
+        String filmFilterQuery = filteredFilm != null ? WHERE_FILM_ID_IS + filteredFilm.getId() + " " : "";
 
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
         try {
             connection = DBManager.getInstance().getConnection();
-            preparedStatement = connection.prepareStatement(GET_ALL_SEANCES + dateFilterQuery + ORDER_SEANCE_BY_DATE);
+            preparedStatement = connection.prepareStatement(GET_ALL_SEANCES + dateFilterQuery + filmFilterQuery + ORDER_SEANCE_BY_DATE);
             preparedStatement.setString(1, locale);
 
             String[] localeAttr = locale.split("_");

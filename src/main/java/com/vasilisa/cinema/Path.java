@@ -7,11 +7,12 @@ public final class Path {
     public static final String PAGE__REGISTER = "/register.jsp";
     public static final String PAGE__PROFILE = "/WEB-INF/site/user/profile.jsp";
     public static final String PAGE__ERROR_PAGE = "/error_page.jsp";
-    public static final String PAGE__FILMS_LIST = "/WEB-INF/site/films.jsp";
-    public static final String PAGE__SCHEDULE = "/WEB-INF/site/schedule.jsp";
-    public static final String PAGE__SEANCES = "/WEB-INF/site/seances.jsp";
+    public static final String PAGE__FILMS_LIST = "/WEB-INF/site/films/list.jsp";
+    public static final String PAGE__SCHEDULE = "/WEB-INF/site/timetables/schedule.jsp";
+    public static final String PAGE__SEANCES = "/WEB-INF/site/timetables/seances.jsp";
     public static final String PAGE__ORDER = "/WEB-INF/site/order.jsp";
     public static final String PAGE__SUCCESS_ORDER = "/success_order.jsp";
+    public static final String PAGE__FILM = "/WEB-INF/site/films/info.jsp";
 
     // admin pages
     public static final String PAGE__ADMIN_DASHBOARD = "/WEB-INF/admin/dashboard.jsp";

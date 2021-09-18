@@ -17,6 +17,7 @@ public class CommandContainer {
         commands.put("seances", new GetAllSeancesCommand());
         commands.put("user_films_page", new GetAllFilmsForUserCommand());
         commands.put("order_page", new ShowOrderPageCommand());
+        commands.put("film_page", new ShowFilmPageCommand());
         commands.put("logout", new LogoutCommand());
         commands.put("noCommand", new NoCommand());
 

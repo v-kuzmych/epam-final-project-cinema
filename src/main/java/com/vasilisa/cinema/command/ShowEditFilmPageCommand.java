@@ -21,13 +21,15 @@ import java.util.stream.Collectors;
 public class ShowEditFilmPageCommand implements Command{
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        int film_id = Integer.parseInt(request.getParameter("id"));
-        Film film = new FilmDao().get(film_id);
-        List<FilmDescription> descriptions = new FilmDescriptionDao().getByFilmId(film_id);
-
         HttpSession session = request.getSession(false);
         String currentLocale = (String) session.getAttribute("locale");
         String[] localeAttr = currentLocale.split("_");
+        int film_id = Integer.parseInt(request.getParameter("id"));
+
+        Film film = new FilmDao().get(currentLocale, film_id);
+        List<FilmDescription> descriptions = new FilmDescriptionDao().getByFilmId(film_id);
+
+
         List<Seance> seances = new SeanceDao().getByFilmId(film_id, new Locale(localeAttr[0], localeAttr[1]));
         Map<String, List<Seance>> seancesMap = seances.stream().collect(Collectors.groupingBy(
                 Seance::getFormattedDate,

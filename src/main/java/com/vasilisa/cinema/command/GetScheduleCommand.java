@@ -20,10 +20,21 @@ public class GetScheduleCommand implements Command {
         HttpSession session = request.getSession(false);
         String locale = (String) session.getAttribute("locale");
         String dateFilter = request.getParameter("dateFilter");
+
+        Map<Film, Map<String, List<Seance>>> mappedSeances = getMappedSeances(locale, dateFilter, null);
+
+        request.setAttribute("schedule", mappedSeances);
+        request.setAttribute("sitePage", "schedule");
+        request.setAttribute("dateFilter", dateFilter);
+
+        return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__SCHEDULE);
+    }
+
+    public Map<Film, Map<String, List<Seance>>> getMappedSeances(String locale, String dateFilter, Film filteredFilm) {
         if (dateFilter == null || !Arrays.stream(DATE_FILTER_VALUES).anyMatch(dateFilter::equals)) {
             dateFilter = DATE_FILTER_VALUES[0];
         }
-        List<Seance> seances = new SeanceDao().getAll(locale, dateFilter);
+        List<Seance> seances = new SeanceDao().getAll(locale, dateFilter, filteredFilm);
 
         Map<Film, List<Seance>> scheduleMap = seances.stream().collect(Collectors.groupingBy(
                 Seance::getFilm,
@@ -31,7 +42,7 @@ public class GetScheduleCommand implements Command {
                 Collectors.mapping(Function.identity(), Collectors.toList())
         ));
 
-        Map<Film, Map<String, List<Seance>>> dashboard = new LinkedHashMap<>();
+        Map<Film, Map<String, List<Seance>>> mappedSeances = new LinkedHashMap<>();
 
         for (Map.Entry<Film, List<Seance>> entry : scheduleMap.entrySet()) {
             Film film = entry.getKey();
@@ -40,12 +51,9 @@ public class GetScheduleCommand implements Command {
                     LinkedHashMap::new,
                     Collectors.mapping(Function.identity(), Collectors.toList())
             ));
-            dashboard.put(film, groupedSeances);
+            mappedSeances.put(film, groupedSeances);
         }
-        request.setAttribute("schedule", dashboard);
-        request.setAttribute("sitePage", "schedule");
-        request.setAttribute("dateFilter", dateFilter);
 
-        return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__SCHEDULE);
+        return mappedSeances;
     }
 }

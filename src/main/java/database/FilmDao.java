@@ -9,7 +9,7 @@ import java.util.List;
 
 public class FilmDao {
 
-    private static final String GET_ALL_FILMS = "SELECT f.*, fd.name, fd.description, f.img " +
+    private static final String GET_ALL_FILMS = "SELECT f.*, fd.name, fd.description " +
                                                             "FROM film f " +
                                                             "LEFT JOIN language l ON l.locale = ? " +
                                                             "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
@@ -17,7 +17,11 @@ public class FilmDao {
                                                             "LIMIT ? OFFSET ?";
     private static final String GET_FILMS_COUNT = "SELECT count(*) FROM film";
 
-    private static final String GET_FILM_BY_ID = "SELECT * FROM film f WHERE f.id = ?";
+    private static final String GET_FILM_BY_ID = "SELECT f.*, fd.name, fd.description " +
+                                                    "FROM film f " +
+                                                    "LEFT JOIN language l ON l.locale = ? " +
+                                                    "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
+                                                    "WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
     private static final String UPDATE_FILM = "UPDATE film SET img = ?, duration = ? WHERE id = ? ";
     private static final String DELETE_FILM = "DELETE FROM film WHERE id = ?";
@@ -82,7 +86,7 @@ public class FilmDao {
         return count;
     }
 
-    public Film get(int id) {
+    public Film get(String locale, int id) {
         Film film = null;
 
         PreparedStatement preparedStatement = null;
@@ -91,7 +95,8 @@ public class FilmDao {
         try {
             connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(GET_FILM_BY_ID);
-            preparedStatement.setInt(1, id);
+            preparedStatement.setString(1, locale);
+            preparedStatement.setInt(2, id);
 
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
@@ -99,6 +104,8 @@ public class FilmDao {
                 film.setId(rs.getInt(1));
                 film.setImg(rs.getString(2));
                 film.setDuration(rs.getInt(3));
+                film.setName(rs.getString(4));
+                film.setDescription(rs.getString(5));
             }
             rs.close();
             preparedStatement.close();

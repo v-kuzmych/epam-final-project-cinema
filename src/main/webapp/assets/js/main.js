@@ -83,7 +83,10 @@ $('.item-photo [name="img_url"]').on('change', function () {
 
 $('.filterScheduleByDate').on('click', function () {
     let filter = $(this).val()
-    location.href = "/controller?command=schedule&dateFilter=" + filter;
+    let url = new URL(window.location.href);
+    url.searchParams.set('dateFilter', filter);
+    window.history.pushState({}, "", url.search);
+    location.reload();
 })
 
 $('.films_pagination .page-link').on('click', function () {
