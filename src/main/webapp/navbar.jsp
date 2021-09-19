@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="navbar">
     <div class="container">
@@ -65,5 +65,3 @@
         </div>
     </div>
 </nav>
-
-<main class="content">

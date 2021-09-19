@@ -1,7 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<!DOCTYPE html>
-<%@ include file="/header.jsp" %>
-
-<%@ include file="/footer.jsp" %>
+<fmt:message key="film.name" var="title" scope="page"/>
+<t:page title="${title}">
+    <h1>HELLO</h1>
+</t:page>
 

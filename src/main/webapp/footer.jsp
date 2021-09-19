@@ -1,6 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
-</main>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
 
 <div class="container">
     <footer class="d-flex justify-content-between py-4 my-4 border-top">
@@ -39,13 +37,3 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.datatables.net/1.11.2/js/jquery.dataTables.min.js"></script>
 <script src="${pageContext.request.contextPath}/assets/js/main.js"></script>
-
-
-<%--    <script type="text/javascript" src="js/main.js"></script>--%>
-
-<%-- LOGIN MODAL START --%>
-
-<%-- LOGIN MODAL END --%>
-
-</body>
-</html>

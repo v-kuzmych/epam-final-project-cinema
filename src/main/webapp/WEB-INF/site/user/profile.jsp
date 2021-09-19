@@ -1,7 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@ include file="/header.jsp" %>
-
+<fmt:message key="profile" var="title" scope="page"/>
+<t:page title="${title}">
     <div class="site-wrapper">
         <div class="page-title">
             <h4><fmt:message key="profile"/></h4>
@@ -84,5 +85,4 @@
             </div>
         </div>
     </div>
-
-<%@ include file="/footer.jsp" %>
+</t:page>

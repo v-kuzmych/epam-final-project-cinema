@@ -1,8 +1,9 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<%@ include file="/header.jsp" %>
-
-<div style="text-align: center">
+<fmt:message key="film.name" var="title" scope="page"/>
+<t:page title="${title}">
+    <div style="text-align: center">
         <h2 class="error">
             The following error occurred
         </h2>
@@ -40,6 +41,5 @@
             <br>
             <h5><a href="${prevPage}">Return to the previous page</a></h5>
         </c:if>
-</div>
-
-<%@ include file="/footer.jsp" %>
+    </div>
+</t:page>

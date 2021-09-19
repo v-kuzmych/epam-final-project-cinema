@@ -1,11 +1,13 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
+<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
-<%@ include file="/header.jsp" %>
+<fmt:message key="film.add" var="title" scope="page"/>
+<t:page title="${title}">
 
-<c:set var="occupiedSeats" value="${occupiedSeats}" />
-<div>
-    <div class="order-content">
+    <c:set var="occupiedSeats" value="${occupiedSeats}" />
+    <div>
+        <div class="order-content">
             <div class="content__left-block">
                 <div>
                     <div>
@@ -78,9 +80,6 @@
                     </div>
                 </div>
             </div>
-
+        </div>
     </div>
-</div>
-
-
-<%@ include file="/footer.jsp" %>
+</t:page>
