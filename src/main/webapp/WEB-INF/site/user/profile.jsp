@@ -47,10 +47,11 @@
                                         <p class="order-price">Вартість: ${order.price}</p>
                                     </div>
 
-                                    <c:forEach items="${order.orderItems}" var="item">
+                                    <div>
+                                        <c:forEach items="${order.orderItems}" var="item">
                                             <article class="card fl-left">
                                                 <section class="barcode" style="vertical-align: middle;">
-                                                    <img src="${pageContext.request.contextPath}/assets/img/barcodes/FxCHC.png" style="height: 200px;">
+                                                    <img src="${pageContext.request.contextPath}/assets/img/barcodes/FxCHC.png">
                                                 </section>
                                                 <section class="card-cont">
                                                     <h3>${order.seance.film.name}</h3>
@@ -62,7 +63,7 @@
                                                         <i class="fa fa-calendar"></i>
                                                         <time>
                                                             <span>${order.seance.formattedDate}</span>
-                                                            <span>${order.seance.formattedTime}</span>
+                                                            <span>${order.seance.formattedTime} - ${order.seance.formattedTimeEnd}</span>
                                                         </time>
                                                     </div>
                                                     <div class="even-info">
@@ -72,7 +73,8 @@
                                                     <a href="#">ticket</a>
                                                 </section>
                                             </article>
-                                    </c:forEach>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </c:forEach>
                         </div>

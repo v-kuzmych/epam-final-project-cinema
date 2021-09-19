@@ -35,6 +35,11 @@
                 ${stackTraceElement}
             </c:forEach>
         </c:if>
+
+        <c:if test="${not empty prevPage}">
+            <br>
+            <h5><a href="${prevPage}">Return to the previous page</a></h5>
+        </c:if>
 </div>
 
 <%@ include file="/footer.jsp" %>

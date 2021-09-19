@@ -7,7 +7,7 @@
         <div class="footer-left">
             <p class="text-muted">© 2021 Company, Inc</p>
             <div class="language-switcher">
-                <a class="footer-link none-text-decoration <c:if test='${empty sessionScope.locale || sessionScope.locale == "uk_UA"}'>active</c:if>"
+                <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "uk_UA"}'>active</c:if>"
                    href="/controller?command=switch_language&param=ua">UA</a>
                 <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "en_US"}'>active</c:if>"
                    href="/controller?command=switch_language&param=en">EN</a>

@@ -22,6 +22,7 @@ public class FilmDao {
                                                     "LEFT JOIN language l ON l.locale = ? " +
                                                     "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id " +
                                                     "WHERE f.id = ?";
+    private static final String GET_FILM_DURATION_BY_ID = "SELECT f.duration WHERE f.id = ?";
     private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
     private static final String UPDATE_FILM = "UPDATE film SET img = ?, duration = ? WHERE id = ? ";
     private static final String DELETE_FILM = "DELETE FROM film WHERE id = ?";
@@ -117,6 +118,31 @@ public class FilmDao {
         return film;
     }
 
+    public int getDuration(int filmId) {
+        int id = 0;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_FILM_DURATION_BY_ID);
+            preparedStatement.setInt(1, filmId);
+
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(connection);
+        }
+
+        return id;
+    }
+
     public boolean save(Film film) {
         boolean status = false;
         Connection connection = null;
@@ -124,9 +150,11 @@ public class FilmDao {
             connection = DBManager.getInstance().getConnection();
 
             connection.setAutoCommit(false);
+            // if film doesn't exist - create new film with description
             if (film.getId() == 0) {
                 status = new FilmDescriptionDao().create(connection, create(connection, film));
             } else {
+                // update film
                 if (update(connection, film)) {
                     status = new FilmDescriptionDao().update(connection, film);
                 }

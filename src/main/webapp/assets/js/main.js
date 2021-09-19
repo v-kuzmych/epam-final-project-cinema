@@ -282,6 +282,10 @@ let initOrdersTable = () => {
     $('#ordersTable').DataTable(options);
 }
 
+$('.remove-error-block').on('click', function (){
+
+})
+
 $(document).ready( function () {
     initSeancesTable();
     initOrdersTable();

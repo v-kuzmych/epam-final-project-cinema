@@ -14,13 +14,13 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="inputEmail" class="form-label"><fmt:message key="email"/></label>
-                        <input type="email" name="email" class="form-control" id="inputEmail"
+                        <input type="email" name="email" class="form-control" id="inputEmail" required
                                aria-describedby="emailHelp" placeholder="name@example.com">
                         <%--                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>--%>
                     </div>
                     <div class="mb-3">
                         <label for="inputPassword" class="form-label"><fmt:message key="password"/></label>
-                        <input type="password" name="password" class="form-control" id="inputPassword">
+                        <input type="password" name="password" class="form-control" id="inputPassword" required>
                     </div>
                 </div>
                 <div class="modal-footer">

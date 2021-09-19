@@ -85,7 +85,10 @@ public class OrderDao {
 
             connection.setAutoCommit(false);
             int orderId = createOrder(connection, order);
-            status = new OrderItemDao().createItems(connection, orderId, places);
+            if (new OrderItemDao().createItems(connection, orderId, places)) {
+                status = new SeanceDao().updateFreeSeats(connection, order.getSeanceId(), places);
+            }
+
             connection.commit();
 
         } catch (SQLException ex) {

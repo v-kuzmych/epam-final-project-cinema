@@ -5,8 +5,10 @@ import entity.Hall;
 import entity.Seance;
 
 import java.sql.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -20,13 +22,13 @@ public class SeanceDao {
                                                     "JOIN film f ON f.id = s.film_id " +
                                                     "LEFT JOIN language l ON l.locale = ? " +
                                                     "LEFT JOIN film_description fd ON fd.film_id = f.id AND fd.language_id = l.Id ";
-    private static final String WHERE_SEANCE_DATE_IS_TODAY = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 day ";
-    private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > NOW() + interval 1 day AND s.date < NOW() + interval 2 day ";
-    private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 week ";
-    private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > NOW() AND s.date < NOW() + interval 1 month ";
+    private static final String WHERE_SEANCE_DATE_IS_TODAY = "WHERE s.date > NOW() AND s.date < CURDATE() + interval 1 day ";
+    private static final String WHERE_SEANCE_DATE_IS_TOMORROW = "WHERE s.date > CURDATE() + interval 1 day AND s.date < CURDATE() + interval 2 day ";
+    private static final String WHERE_SEANCE_DATE_IS_WEEK = "WHERE s.date > NOW() AND s.date < CURDATE() + interval 1 week ";
+    private static final String WHERE_SEANCE_DATE_IS_MONTH = "WHERE s.date > NOW() AND s.date < CURDATE() + interval 1 month ";
     private static final String WHERE_FILM_ID_IS = "AND f.id = ";
-
     private static final String ORDER_SEANCE_BY_DATE = "ORDER BY s.date ASC";
+
     private static final String GET_SEANCE_BY_ID = "SELECT s.*, h.number_of_rows, h.number_of_seats, fd.name, f.img, f.duration " +
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +
@@ -36,11 +38,19 @@ public class SeanceDao {
                                                     "WHERE s.id = ? ";
     private static final String GET_SEANCE_PRICE_BY_ID = "SELECT s.price FROM seance s WHERE s.id = ?";
     private static final String DELETE_SEANCE = "DELETE FROM seance WHERE id = ?";
+    private static final String UPDATE_FREE_SEATS = "UPDATE seance SET free_seats = free_seats - ? WHERE id = ? ";
+    private static final String GET_SEANCES_BY_TIME = "SELECT s.date, ? as start, ? as end, " +
+                                                        "DATE_ADD(s.date, interval f.duration MINUTE) as end_date " +
+                                                        "FROM seance s " +
+                                                        "JOIN film f ON f.id = s.film_id " +
+                                                        "HAVING (s.date <= start AND end_date >= end) OR " +
+                                                        "       (s.date >= start AND s.date <= end)  OR " +
+                                                        "       (s.date = end)";
 
 
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
-    public void create(Seance seance) {
+    public boolean create(Seance seance) {
         PreparedStatement preparedStatement = null;
         Connection connection = null;
         try {
@@ -52,8 +62,9 @@ public class SeanceDao {
             preparedStatement.setInt(4, seance.getHall().getId());
             preparedStatement.setInt(5, seance.getFreeSeats());
 
-            if (preparedStatement.executeUpdate() <= 0) {
-                // error
+            // the seance was successfully created
+            if (preparedStatement.executeUpdate() > 0) {
+                return true;
             }
             preparedStatement.close();
         } catch (SQLException ex) {
@@ -61,6 +72,8 @@ public class SeanceDao {
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        return false;
     }
 
     public List<Seance> getByFilmId(int id, Locale currentLocale) {
@@ -245,6 +258,52 @@ public class SeanceDao {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean updateFreeSeats(Connection connection, int seanceId, String[] places) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(UPDATE_FREE_SEATS);
+            preparedStatement.setInt(1, places.length);
+            preparedStatement.setInt(2, seanceId);
+
+            if (preparedStatement.executeUpdate() == 1) {
+                return true;
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return false;
+    }
+
+    public boolean checkSeances(LocalDateTime dateTimeStart, int filmId) {
+        int filmDuration = new FilmDao().getDuration(filmId);
+        LocalDateTime dateTimeEnd = dateTimeStart.plus(Duration.of(filmDuration, ChronoUnit.MINUTES));
+
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_SEANCES_BY_TIME);
+            preparedStatement.setString(1, dateTimeStart.format(fmt));
+            preparedStatement.setString(2, dateTimeEnd.format(fmt));
+
+            rs = preparedStatement.executeQuery();
+            // checking if ResultSet is empty and seances in this time frame don`t exist
+            if (rs.next() == false) {
+                return true;
+            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(connection);
         }
 
         return false;

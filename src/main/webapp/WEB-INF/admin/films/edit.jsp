@@ -103,7 +103,7 @@
                                     </div>
                                     <div class="item-block">
                                         <label>Введіть вартість</label>
-                                        <input type="text" class="min-input" value="" name="price">
+                                        <input type="text" class="min-input" value="" name="price" required>
                                     </div>
                                     <button class="btn btn-success" type="submit" style="float:right">
                                         <fmt:message key="save"/>
