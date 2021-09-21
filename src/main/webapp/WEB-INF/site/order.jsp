@@ -46,7 +46,7 @@
                 <div class="hall-ticket-info__seat-type">
                     <div class="hall-info small">
                         <div class="hall-info__price_block">
-                            <span class="hall-info__price">${seance.price} грн</span>
+                            <span class="hall-info__price">${seance.price} <fmt:message key="site.order.currency"/></span>
                         </div>
                     </div>
                 </div>
@@ -55,25 +55,25 @@
                         <img alt="Screen" src="${pageContext.request.contextPath}/assets/img/screen.svg">
                     </div>
                     <div class="hall-scheme__title">
-                        <span>ЕКРАН</span>
+                        <span><fmt:message key="site.order.screen"/></span>
                     </div>
                     <div class="hall-scheme__hall">
                         <input type="hidden" name="price" value="${seance.price}">
-                        <form id="user-order" action="<%=request.getContextPath()%>/controller?command=add_order" method="post">
+                        <form id="user-order" action="${pageContext.request.contextPath}/controller?command=add_order" method="post">
                             <input type="hidden" name="seance_id" value="${seance.id}">
                             <table class="hall-area">
                                 <tbody>
-                                <c:forEach var="row" begin="1" end="${seance.hall.numberOfRows}" varStatus="loop">
-                                    <tr>
-                                        <c:forEach var="seat" begin="1" end="${seance.hall.numberOfSeats}" varStatus="loop">
-                                            <c:set var="thisSeat" value="${row}_${seat}" />
-                                            <td>
-                                                <input class="seat" type="checkbox" name="places" value="${thisSeat}"
-                                                       <c:if test='${fn:contains(occupiedSeats, thisSeat)}'>checked="checked" disabled="disabled"</c:if> >
-                                            </td>
-                                        </c:forEach>
-                                    </tr>
-                                </c:forEach>
+                                    <c:forEach var="row" begin="1" end="${seance.hall.numberOfRows}" varStatus="loop">
+                                        <tr>
+                                            <c:forEach var="seat" begin="1" end="${seance.hall.numberOfSeats}" varStatus="loop">
+                                                <c:set var="thisSeat" value="${row}_${seat}" />
+                                                <td>
+                                                    <input class="seat" type="checkbox" name="places" value="${thisSeat}"
+                                                           <c:if test='${fn:contains(occupiedSeats, thisSeat)}'>checked="checked" disabled="disabled"</c:if> >
+                                                </td>
+                                            </c:forEach>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                             </table>
                         </form>

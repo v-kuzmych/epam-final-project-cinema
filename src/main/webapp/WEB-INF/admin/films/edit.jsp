@@ -8,9 +8,11 @@
     <div class="page-title">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a
-                        href="${pageContext.request.contextPath}/controller?command=admin_films_page"><fmt:message
-                        key="filmsList"/></a></li>
+                <li class="breadcrumb-item">
+                    <a href="${pageContext.request.contextPath}/controller?command=admin_films_page">
+                        <fmt:message key="filmsList"/>
+                    </a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page"><fmt:message key="film.edit"/></li>
             </ol>
         </nav>
@@ -52,12 +54,12 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <input type="text" name="img_url" value="${film.img}" placeholder="Введіть url зображення">
+                                <input type="text" name="img_url" value="${film.img}" placeholder="<fmt:message key="film.imgPlaceholder"/>">
                             </div>
                         </div>
 
                         <div class="item-block">
-                            <label>Тривалість у хв</label>
+                            <label><fmt:message key="film.durationInMinutes"/></label>
                             <input type="text" name="duration" value="${film.duration}">
                         </div>
 
@@ -83,26 +85,25 @@
                  id="schedule" role="tabpanel" aria-labelledby="schedule-tab">
                 <div class="m-20">
                     <div class="mb-20" style="display: inline-block;">
-                        <button class="btn btn-primary open_add_seance_block">Додати сеанс</button>
+                        <button class="btn btn-primary open_add_seance_block"><fmt:message key="seances.add"/></button>
                         <div class="add-seance m-20">
                             <div>
                                 <form id="add-seance" method="post"
                                       action="${pageContext.request.contextPath}/controller?command=add_seance&id=${film.id}">
                                     <div class="item-block">
-                                        <label>Оберіть дату</label>
+                                        <label><fmt:message key="seances.chooseDate"/></label>
                                         <jsp:useBean id="now" class="java.util.Date"/>
                                         <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
                                         <input type="date" class="min-input" name="date" value="${today}"
                                                min="${today}" required>
                                     </div>
                                     <div class="item-block">
-                                        <label>Оберіть час</label>
-                                        <input type="time" class="min-input" name="time" value="09:00" min="09:00"
-                                               max="22:00" required>
+                                        <label><fmt:message key="seances.chooseTime"/></label>
+                                        <input type="time" class="min-input" name="time" value="09:00" min="09:00" max="22:00" required>
                                         <small class="time-error hide">Сеанс повинен починатися в проміжку з 09:00 до 21:00</small>
                                     </div>
                                     <div class="item-block">
-                                        <label>Введіть вартість</label>
+                                        <label><fmt:message key="seances.insertPrice"/></label>
                                         <input type="text" class="min-input" value="" name="price" required>
                                     </div>
                                     <button class="btn btn-success" type="submit" style="float:right">

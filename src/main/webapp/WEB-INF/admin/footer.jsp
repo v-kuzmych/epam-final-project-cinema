@@ -9,15 +9,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteFilmModalLabel">Видалення фільму</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                <h5 class="modal-title" id="deleteFilmModalLabel"><fmt:message key="footer.modal.delete.film"/></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<fmt:message key="footer.modal.close"/>"></button>
             </div>
             <div class="modal-body">
-                Ви впевнені що хочете видалити фільм?
+                <fmt:message key="footer.sureToDeleteMovie"/>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-                <a type="button" class="btn btn-primary confilm-deleting-film" data-id="">Так</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message key="footer.modal.close"/></button>
+                <a type="button" class="btn btn-primary confilm-deleting-film" data-id=""><fmt:message key="footer.modal.yes"/></a>
             </div>
         </div>
     </div>
@@ -28,15 +28,15 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteSeanceModalLabel">Видалення сеансу</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрити"></button>
+                <h5 class="modal-title" id="deleteSeanceModalLabel"><fmt:message key="footer.modal.delete.session"/></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<fmt:message key="footer.modal.close"/>"></button>
             </div>
             <div class="modal-body">
-                Ви впевнені що хочете видалити сеанс?
+                <fmt:message key="footer.sureToDeleteSeance"/>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
-                <a type="button" class="btn btn-primary confilm-deleting-seance" data-id="">Так</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><fmt:message key="footer.modal.close"/></button>
+                <a type="button" class="btn btn-primary confilm-deleting-seance" data-id=""><fmt:message key="footer.modal.yes"/></a>
             </div>
         </div>
     </div>

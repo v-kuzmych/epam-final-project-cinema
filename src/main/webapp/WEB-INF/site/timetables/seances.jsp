@@ -15,7 +15,7 @@
             <c:choose>
                 <c:when test="${seances.size() == 0}">
                     <div class="movie">
-                        <p>На жаль, сеансів не знайдено</p>
+                        <p><fmt:message key="site.seances.notFound"/></p>
                     </div>
                 </c:when>
                 <c:otherwise>
@@ -23,16 +23,16 @@
                         <span style="margin-left: 5px;"><fmt:message key="search"/></span>
                         <table id="seancesTable" class="table table-striped center-td">
                             <thead>
-                            <tr>
-                                <th class="no-sort" scope="col">Постер</th>
-                                <th scope="col">Назва</th>
-                                <th scope="col">Тривалість</th>
-                                <th scope="col">Початок</th>
-                                <th scope="col">Закінчення</th>
-                                <th scope="col">Вартість</th>
-                                <th scope="col">К-сть вільних місць</th>
-                                <th class="no-sort" scope="col"></th>
-                            </tr>
+                                <tr>
+                                    <th class="no-sort" scope="col"><fmt:message key="site.seances.poster"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.name"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.duration"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.start"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.end"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.price"/></th>
+                                    <th scope="col"><fmt:message key="site.seances.freeSeatsCount"/></th>
+                                    <th class="no-sort" scope="col"></th>
+                                </tr>
                             </thead>
                             <tbody>
                             <c:forEach items="${seances}" var="seance">
@@ -54,7 +54,7 @@
                                     <td>${seance.freeSeats}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/controller?command=order_page&id=${seance.id}">
-                                            Забронювати
+                                            <fmt:message key="site.seances.freeSeatsCount"/><
                                         </a>
                                     </td>
                                 </tr>

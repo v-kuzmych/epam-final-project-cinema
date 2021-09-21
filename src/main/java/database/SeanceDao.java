@@ -16,7 +16,7 @@ import java.util.Locale;
 public class SeanceDao {
 
     private static final String INSERT_SEANCE = "INSERT INTO seance (film_id, date, price, hall_id, free_seats) VALUES  (?, ?, ?, ?, ?)";
-    private static final String GET_SEANCE_BY_FILM_ID = "SELECT * FROM seance WHERE film_id = ? ORDER BY date ASC ";
+    private static final String GET_SEANCE_BY_FILM_ID = "SELECT * FROM seance WHERE film_id = ? AND date > NOW() ORDER BY date ASC ";
     private static final String GET_ALL_SEANCES = "SELECT s.*, fd.name, fd.description, f.img, f.duration " +
                                                     "FROM seance s " +
                                                     "JOIN film f ON f.id = s.film_id " +

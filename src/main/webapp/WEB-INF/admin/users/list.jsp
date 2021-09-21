@@ -16,7 +16,7 @@
         <tr>
             <th scope="col" class="col-1">#</th>
             <th scope="col" class="col-2"><fmt:message key="user.name"/></th>
-            <th scope="col" class="col-2"><fmt:message key="email"/></th>
+            <th scope="col" class="col-2"><fmt:message key="user.email"/></th>
             <th scope="col" class="col-2"><fmt:message key="user.role"/></th>
         </tr>
         </thead>

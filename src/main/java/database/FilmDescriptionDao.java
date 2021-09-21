@@ -14,6 +14,7 @@ public class FilmDescriptionDao {
 
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
     private static final String UPDATE_FILM_DESCRIPTION = "UPDATE film_description SET name = ?, description = ? WHERE  film_id = ? AND  language_id = ?";
+    DBManager dbManager = DBManager.getInstance();
 
     public List<FilmDescription> getByFilmId(int id) {
         List<FilmDescription> filmDescriptions = new ArrayList<>();
@@ -22,7 +23,7 @@ public class FilmDescriptionDao {
         ResultSet rs = null;
         Connection connection = null;
         try {
-            connection = DBManager.getInstance().getConnection();
+            connection = dbManager.getConnection();
             preparedStatement = connection.prepareStatement(GET_FILM_DESCRIPTIONS);
             preparedStatement.setInt(1, id);
 

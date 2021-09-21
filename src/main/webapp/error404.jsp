@@ -6,7 +6,7 @@
     <div style="text-align: center">
         <img src="/assets/img/404.png">
         <div style="margin-top: 20px">
-            <a href="/">Повернутись на головну</a>
+            <a href="/"><fmt:message key="site.error.returnOnMain"/></a>
         </div>
     </div>
 </t:page>

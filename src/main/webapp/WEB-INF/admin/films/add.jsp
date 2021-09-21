@@ -6,9 +6,11 @@
     <div class="page-title">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a
-                        href="${pageContext.request.contextPath}/controller?command=admin_films_page"><fmt:message
-                        key="filmsList"/></a></li>
+                <li class="breadcrumb-item">
+                    <a href="${pageContext.request.contextPath}/controller?command=admin_films_page">
+                        <fmt:message key="filmsList"/>
+                    </a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page"><fmt:message key="film.add"/></li>
             </ol>
         </nav>
@@ -24,11 +26,11 @@
                     <label><fmt:message key="film.poster"/></label>
                     <div class="item-photo">
                         <img src="${pageContext.request.contextPath}/assets/img/no_img.jpeg" class="img_url">
-                        <input type="text" name="img_url" value="" placeholder="Введіть url зображення">
+                        <input type="text" name="img_url" value="" placeholder="<fmt:message key="film.imgPlaceholder"/>">
                     </div>
                 </div>
                 <div class="item-block">
-                    <label>Тривалість у хв</label>
+                    <label><fmt:message key="film.durationInMinutes"/></label>
                     <input type="text" name="duration" value="">
                 </div>
 

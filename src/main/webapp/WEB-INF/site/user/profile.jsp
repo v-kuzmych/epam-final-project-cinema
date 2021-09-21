@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <fmt:message key="profile" var="title" scope="page"/>
@@ -19,11 +20,11 @@
                             <input type="text" name="nameUa" value="${user.name}">
                         </div>
                         <div class="item-block">
-                            <label><fmt:message key="email"/></label>
+                            <label><fmt:message key="user.email"/></label>
                             <input type="text" name="nameEn" value="${user.email}">
                         </div>
                         <div class="item-block">
-                            <label><fmt:message key="password"/></label>
+                            <label><fmt:message key="user.password"/></label>
                             <input type="text" name="nameEn" value="">
                         </div>
                         <button class="btn btn-success submit-update-user" type="submit" style="float: right;">
@@ -32,20 +33,20 @@
                 </div>
             </div>
             <div class="content__box-item">
-                <h3 class="content__title">Ваші квитки</h3>
+                <h3 class="content__title"><fmt:message key="user.yourTickets"/></h3>
                 <div>
                 <c:choose>
                     <c:when test="${empty user.orders}">
-                        <h4>У Вас немає придбаних квитків</h4>
+                        <h4><fmt:message key="user.ticketsNotFound"/></h4>
                     </c:when>
                     <c:otherwise>
                         <div class="tickets-box">
                             <c:forEach items="${user.orders}" var="order">
                                 <div class="user-order">
                                     <div class="order-info">
-                                        <b>Замовлення № ${order.id},</b>
+                                        <b><fmt:message key="user.orderNumber"/> ${order.id},</b>
                                         <span>${order.formattedDateTime}</span>
-                                        <p class="order-price">Вартість: ${order.price}</p>
+                                        <p class="order-price"><fmt:message key="user.orderPrice"/> ${order.price}</p>
                                     </div>
 
                                     <div>

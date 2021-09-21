@@ -26,16 +26,17 @@
                        href="${pageContext.request.contextPath}/controller?command=seances">
                         <fmt:message key="on_screen"/></a></li>
             </ul>
-<%--            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">--%>
-<%--                <input class="form-control" type="text" placeholder="<fmt:message key="search"/>..."--%>
-<%--                       aria-label="Search">--%>
-<%--            </form>--%>
 
             <c:choose>
                 <c:when test="${sessionScope.loggedUser == null}">
                     <div class="text-end">
-                        <a type="button" class="btn btn-outline-light me-2" href="${pageContext.request.contextPath}/login.jsp"><fmt:message key="login"/></a>
-                        <a type="button" class="btn btn-warning" href="${pageContext.request.contextPath}/register.jsp"><fmt:message key="signUp"/></a>
+                        <a type="button" class="btn btn-outline-light me-2"
+                           href="${pageContext.request.contextPath}/login.jsp">
+                            <fmt:message key="login"/>
+                        </a>
+                        <a type="button" class="btn btn-warning" href="${pageContext.request.contextPath}/register.jsp">
+                            <fmt:message key="signUp"/>
+                        </a>
                     </div>
                 </c:when>
 
@@ -49,13 +50,20 @@
                                          width="40" height="40" class="rounded-circle">
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=profile"><fmt:message key="profile"/></a>
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/controller?command=profile">
+                                        <fmt:message key="profile"/>
+                                    </a>
                                     <c:if test="${sessionScope.loggedUser.role.equals('admin')}">
-                                        <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=admin_dashboard"><fmt:message
-                                                key="adminPanel"/></a>
+                                        <a class="dropdown-item"
+                                           href="${pageContext.request.contextPath}/controller?command=admin_dashboard">
+                                            <fmt:message key="adminPanel"/>
+                                        </a>
                                     </c:if>
-                                    <a class="dropdown-item" href="${pageContext.request.contextPath}/controller?command=logout"><fmt:message
-                                            key="logout"/></a>
+                                    <a class="dropdown-item"
+                                       href="${pageContext.request.contextPath}/controller?command=logout">
+                                        <fmt:message key="logout"/>
+                                    </a>
                                 </ul>
                             </li>
                         </ul>

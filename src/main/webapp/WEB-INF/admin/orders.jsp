@@ -15,12 +15,12 @@
         <thead>
             <tr>
                 <th scope="col" class="col-1">№</th>
-                <th scope="col" class="col-2">Дата замовлення</th>
-                <th scope="col" class="col-2">Користувач</th>
-                <th scope="col" class="col-3">Фільм</th>
-                <th scope="col" class="col-2">Дата сеансу</th>
-                <th scope="col" class="col-1">К-сть квитків</th>
-                <th scope="col" class="col-1">Сума</th>
+                <th scope="col" class="col-2"><fmt:message key="orders.bookingDate"/></th>
+                <th scope="col" class="col-2"><fmt:message key="orders.film"/></th>
+                <th scope="col" class="col-3"><fmt:message key="orders.user"/></th>
+                <th scope="col" class="col-2"><fmt:message key="orders.seanceDate"/></th>
+                <th scope="col" class="col-1"><fmt:message key="orders.ticketsCount"/></th>
+                <th scope="col" class="col-1"><fmt:message key="orders.price"/></th>
             </tr>
         </thead>
         <tbody>

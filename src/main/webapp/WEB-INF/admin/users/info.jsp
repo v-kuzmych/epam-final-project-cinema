@@ -6,9 +6,11 @@
     <div class="page-title">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a
-                        href="${pageContext.request.contextPath}/controller?command=admin_users_page"><fmt:message
-                        key="usersList"/></a></li>
+                <li class="breadcrumb-item">
+                    <a href="${pageContext.request.contextPath}/controller?command=admin_users_page">
+                        <fmt:message key="usersList"/>
+                    </a>
+                </li>
                 <li class="breadcrumb-item active" aria-current="page"><fmt:message key="user.info"/></li>
             </ol>
         </nav>
@@ -16,7 +18,7 @@
 
     <div class="content__box">
         <div class="content__box-item">
-            <h3 class="content__title"><fmt:message key="generalInfo"/></h3>
+            <h3 class="content__title"><fmt:message key="user.generalInfo"/></h3>
             <div class="info-block">
                 <div>
                     <div class="item-block">
@@ -24,7 +26,7 @@
                         <input type="text" name="nameUa" value="${user.name}" readonly disabled>
                     </div>
                     <div class="item-block">
-                        <label><fmt:message key="email"/></label>
+                        <label><fmt:message key="user.email"/></label>
                         <input type="text" name="nameEn" value="${user.email}" readonly disabled>
                     </div>
                     <div class="item-block">
@@ -44,11 +46,11 @@
                                 <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Дата бронювання</th>
-                                    <th>Дата сеансу</th>
-                                    <th>Фільм</th>
-                                    <th>К-сть</th>
-                                    <th>Сума</th>
+                                    <th><fmt:message key="user.order.bookingDate"/></th>
+                                    <th><fmt:message key="user.order.seanceDate"/></th>
+                                    <th><fmt:message key="user.order.film"/></th>
+                                    <th><fmt:message key="user.order.ticketsCount"/></th>
+                                    <th><fmt:message key="user.order.price"/></th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -69,8 +71,8 @@
                                                 <table class="table table-striped">
                                                     <thead>
                                                     <tr class="info">
-                                                        <th>Ряд</th>
-                                                        <th>Місце</th>
+                                                        <th><fmt:message key="user.order.row"/></th>
+                                                        <th><fmt:message key="user.order.seat"/></th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
