@@ -1,4 +1,4 @@
-package entity;
+package com.vasilisa.cinema.entity;
 
 public class Hall {
     private int id;

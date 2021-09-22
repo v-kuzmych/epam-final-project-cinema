@@ -1,8 +1,8 @@
 package com.vasilisa.cinema.command;
 
-import entity.Language;
+import com.vasilisa.cinema.entity.Language;
 import com.vasilisa.cinema.Path;
-import database.LanguageDao;
+import com.vasilisa.cinema.database.LanguageDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

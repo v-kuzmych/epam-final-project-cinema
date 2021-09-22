@@ -1,11 +1,11 @@
 package com.vasilisa.cinema.command;
 
-import entity.User;
+import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.Path;
-import database.UserDao;
+import com.vasilisa.cinema.database.UserDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import util.SecurePassword;
+import com.vasilisa.cinema.util.SecurePassword;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

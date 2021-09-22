@@ -1,8 +1,8 @@
-package database;
+package com.vasilisa.cinema.database;
 
-import entity.Film;
-import entity.Hall;
-import entity.Seance;
+import com.vasilisa.cinema.entity.Film;
+import com.vasilisa.cinema.entity.Hall;
+import com.vasilisa.cinema.entity.Seance;
 
 import java.sql.*;
 import java.time.Duration;

@@ -1,6 +1,5 @@
-package util;
+package com.vasilisa.cinema.util;
 
-import com.vasilisa.cinema.command.RegisterCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

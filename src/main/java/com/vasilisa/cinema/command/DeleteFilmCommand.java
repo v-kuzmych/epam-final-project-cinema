@@ -1,6 +1,6 @@
 package com.vasilisa.cinema.command;
 
-import database.FilmDao;
+import com.vasilisa.cinema.database.FilmDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

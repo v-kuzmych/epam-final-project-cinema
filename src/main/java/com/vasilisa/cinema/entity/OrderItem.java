@@ -1,4 +1,4 @@
-package entity;
+package com.vasilisa.cinema.entity;
 
 public class OrderItem {
     private int id;

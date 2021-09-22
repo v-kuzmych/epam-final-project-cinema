@@ -1,10 +1,10 @@
 package com.vasilisa.cinema.command;
 
-import entity.Order;
-import entity.User;
+import com.vasilisa.cinema.entity.Order;
+import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.Path;
-import database.OrderDao;
-import database.UserDao;
+import com.vasilisa.cinema.database.OrderDao;
+import com.vasilisa.cinema.database.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

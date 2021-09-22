@@ -1,8 +1,8 @@
 package com.vasilisa.cinema.command;
 
-import entity.User;
+import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.Path;
-import database.UserDao;
+import com.vasilisa.cinema.database.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

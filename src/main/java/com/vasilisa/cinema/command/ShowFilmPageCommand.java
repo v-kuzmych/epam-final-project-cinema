@@ -1,9 +1,9 @@
 package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.Path;
-import database.FilmDao;
-import entity.Film;
-import entity.Seance;
+import com.vasilisa.cinema.database.FilmDao;
+import com.vasilisa.cinema.entity.Film;
+import com.vasilisa.cinema.entity.Seance;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

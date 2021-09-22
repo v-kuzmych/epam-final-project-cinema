@@ -1,4 +1,4 @@
-package database;
+package com.vasilisa.cinema.database;
 
 import java.sql.*;
 import java.util.ArrayList;

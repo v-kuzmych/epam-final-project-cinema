@@ -11,7 +11,7 @@
 
     <tag>
         <name>DateTag</name>
-        <tag-class>tags.DateTag</tag-class>
+        <tag-class>com.vasilisa.cinema.tags.DateTag</tag-class>
     </tag>
 
 </taglib>

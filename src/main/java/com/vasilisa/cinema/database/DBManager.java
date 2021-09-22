@@ -1,4 +1,4 @@
-package database;
+package com.vasilisa.cinema.database;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

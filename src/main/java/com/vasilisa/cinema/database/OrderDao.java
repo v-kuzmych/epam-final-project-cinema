@@ -1,5 +1,5 @@
-package database;
-import entity.*;
+package com.vasilisa.cinema.database;
+import com.vasilisa.cinema.entity.*;
 
 import java.sql.*;
 import java.time.LocalDateTime;

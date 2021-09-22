@@ -1,4 +1,4 @@
-package tags;
+package com.vasilisa.cinema.tags;
 
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;

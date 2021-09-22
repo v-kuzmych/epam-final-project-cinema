@@ -1,7 +1,6 @@
-package database;
+package com.vasilisa.cinema.database;
 
-import entity.Film;
-import entity.FilmDescription;
+import com.vasilisa.cinema.entity.Film;
 
 import java.sql.*;
 import java.util.ArrayList;

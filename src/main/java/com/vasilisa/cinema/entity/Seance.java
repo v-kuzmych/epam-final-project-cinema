@@ -1,4 +1,4 @@
-package entity;
+package com.vasilisa.cinema.entity;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
