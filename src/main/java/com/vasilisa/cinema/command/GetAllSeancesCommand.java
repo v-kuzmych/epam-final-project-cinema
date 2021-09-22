@@ -1,7 +1,7 @@
 package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.Path;
-import com.vasilisa.cinema.database.SeanceDao;
+import com.vasilisa.cinema.dao.SeanceDao;
 import com.vasilisa.cinema.entity.Seance;
 
 import javax.servlet.http.HttpServletRequest;

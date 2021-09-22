@@ -1,7 +1,7 @@
 package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.Path;
-import com.vasilisa.cinema.database.FilmDao;
+import com.vasilisa.cinema.dao.FilmDao;
 import com.vasilisa.cinema.entity.Film;
 import com.vasilisa.cinema.entity.Seance;
 

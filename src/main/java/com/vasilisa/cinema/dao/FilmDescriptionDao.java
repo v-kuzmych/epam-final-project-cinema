@@ -1,7 +1,8 @@
-package com.vasilisa.cinema.database;
+package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.Film;
 import com.vasilisa.cinema.entity.FilmDescription;
+import com.vasilisa.cinema.util.DBManager;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +15,6 @@ public class FilmDescriptionDao {
 
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
     private static final String UPDATE_FILM_DESCRIPTION = "UPDATE film_description SET name = ?, description = ? WHERE  film_id = ? AND  language_id = ?";
-    DBManager dbManager = DBManager.getInstance();
 
     public List<FilmDescription> getByFilmId(int id) {
         List<FilmDescription> filmDescriptions = new ArrayList<>();
@@ -23,7 +23,7 @@ public class FilmDescriptionDao {
         ResultSet rs = null;
         Connection connection = null;
         try {
-            connection = dbManager.getConnection();
+            connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(GET_FILM_DESCRIPTIONS);
             preparedStatement.setInt(1, id);
 
@@ -31,13 +31,13 @@ public class FilmDescriptionDao {
             while (rs.next()) {
                 filmDescriptions.add(new FilmDescription(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
-                rs.close();
-                preparedStatement.close();
-            } catch (SQLException ex) {
-                ex.printStackTrace();
-            } finally {
-                DBManager.getInstance().close(connection);
-            }
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            DBManager.getInstance().close(connection);
+        }
 
         return filmDescriptions;
     }

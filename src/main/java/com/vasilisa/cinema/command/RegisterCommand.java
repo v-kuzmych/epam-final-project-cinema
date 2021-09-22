@@ -2,7 +2,7 @@ package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.Path;
-import com.vasilisa.cinema.database.UserDao;
+import com.vasilisa.cinema.dao.UserDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import com.vasilisa.cinema.util.SecurePassword;

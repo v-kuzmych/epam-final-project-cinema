@@ -1,10 +1,10 @@
 package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.Path;
-import com.vasilisa.cinema.database.HallDao;
+import com.vasilisa.cinema.dao.HallDao;
 import com.vasilisa.cinema.entity.Hall;
 import com.vasilisa.cinema.entity.Seance;
-import com.vasilisa.cinema.database.SeanceDao;
+import com.vasilisa.cinema.dao.SeanceDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

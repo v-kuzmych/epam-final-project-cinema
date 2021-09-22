@@ -1,6 +1,7 @@
-package com.vasilisa.cinema.database;
+package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.Hall;
+import com.vasilisa.cinema.util.DBManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,6 +1,7 @@
-package com.vasilisa.cinema.database;
+package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.Language;
+import com.vasilisa.cinema.util.DBManager;
 
 import java.sql.*;
 import java.util.ArrayList;

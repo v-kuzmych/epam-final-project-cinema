@@ -1,7 +1,7 @@
 package com.vasilisa.cinema.command;
 
 import com.vasilisa.cinema.Path;
-import com.vasilisa.cinema.database.OrderDao;
+import com.vasilisa.cinema.dao.OrderDao;
 import com.vasilisa.cinema.entity.Order;
 
 import javax.servlet.http.HttpServletRequest;
