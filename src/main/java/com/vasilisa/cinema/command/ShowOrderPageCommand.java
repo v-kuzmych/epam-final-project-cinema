@@ -11,14 +11,18 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class ShowOrderPageCommand implements Command{
+
+    private SeanceDao seanceDao = new SeanceDao();
+    private OrderItemDao orderItemDao = new OrderItemDao();
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         int seanceId = Integer.parseInt(request.getParameter("id"));
-        List<String> occupiedSeats = new OrderItemDao().getOccupiedSeatsAtSeance(seanceId);
-
         HttpSession session = request.getSession(false);
         String locale = (String) session.getAttribute("locale");
-        Seance seance = new SeanceDao().get(seanceId, locale);
+
+        List<String> occupiedSeats = orderItemDao.getOccupiedSeatsAtSeance(seanceId);
+        Seance seance = seanceDao.get(seanceId, locale);
 
         request.setAttribute("seance", seance);
         request.setAttribute("occupiedSeats", occupiedSeats);

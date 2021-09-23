@@ -9,9 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public class ShowAddFilmPageCommand implements Command {
+
+    private LanguageDao languageDao = new LanguageDao();
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        List<Language> languages = new LanguageDao().getAll();
+        List<Language> languages = languageDao.getAll();
         request.setAttribute("languages", languages);
         request.setAttribute("adminPage", "films");
 

@@ -10,13 +10,16 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public class GetAllSeancesCommand implements Command{
+
+    private SeanceDao seanceDao = new SeanceDao();
+
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession(false);
         String locale = (String) session.getAttribute("locale");
         String dateFilter = request.getParameter("dateFilter");
 
-        List<Seance> seances = new SeanceDao().getAll(locale, dateFilter, null);
+        List<Seance> seances = seanceDao.getAll(locale, dateFilter, null);
 
         request.setAttribute("seances", seances);
         request.setAttribute("sitePage", "seances");
