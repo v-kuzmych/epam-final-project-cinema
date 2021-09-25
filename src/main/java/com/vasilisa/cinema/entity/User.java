@@ -1,5 +1,7 @@
 package com.vasilisa.cinema.entity;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class User {
@@ -8,6 +10,8 @@ public class User {
     private String email;
     private String password;
     private String role;
+    private Date date;
+
     private List<Order> orders;
 
     public int getId() {
@@ -48,6 +52,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 
     public List<Order> getOrders() {

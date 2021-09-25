@@ -43,7 +43,7 @@ public class Film {
     public void setDuration(int duration) {
         this.duration = duration;
 
-        // форматуємо тривалість фільму
+        // format the duration of the film
         int hours = duration / 60;
         int minutes = duration % 60;
         setFormattedDuration(String.format("%s:%s", hours, minutes));

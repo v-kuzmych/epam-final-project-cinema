@@ -26,4 +26,5 @@ public final class Path {
     // command
     public static final String COMMAND_SHOW_PROFILE = "/controller?command=profile";
     public static final String COMMAND_SHOW_DASHBOARD = "/controller?command=admin_dashboard";
+    public static final String COMMAND_SHOW_FILMS_LIST = "/controller?command=admin_films_page";
 }

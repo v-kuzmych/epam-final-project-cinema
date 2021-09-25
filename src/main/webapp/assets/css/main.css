@@ -863,7 +863,6 @@ div.filter-title {
     max-width: 100%;
     object-fit: cover;
     object-position: center;
-    cursor: pointer;
     height: 250px;
     border: 1px #e8e8e8 solid;
 }

@@ -2,7 +2,18 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <%@ include file="/WEB-INF/admin/header.jsp" %>
-<% DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");%>
+
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
+
+<fmt:message key="validation.input.filmImg" var="validateFilmImg" scope="page"/>
+<fmt:message key="validation.input.filmName" var="validateFilmName" scope="page"/>
+<fmt:message key="validation.input.filmDuration" var="validateFilmDuration" scope="page"/>
+<fmt:message key="validation.input.filmDescription" var="validateFilmDescription" scope="page"/>
+
+<fmt:message key="validation.input.seanceDate" var="validateSeanceDate" scope="page"/>
+<fmt:message key="validation.input.seanceTime" var="validateSeanceTime" scope="page"/>
+<fmt:message key="validation.input.seancePrice" var="validateSeancePrice" scope="page"/>
 
 <div class="wrapper">
     <div class="page-title">
@@ -54,24 +65,42 @@
                                     </c:otherwise>
                                 </c:choose>
 
-                                <input type="text" name="img_url" value="${film.img}" placeholder="<fmt:message key="film.imgPlaceholder"/>">
+                                <input type="url" name="img_url" value="${film.img}"
+                                       placeholder="<fmt:message key="placeholder.filmImg"/> (https://example.com)"
+                                       pattern="[Hh][Tt][Tt][Pp][Ss]?:\/\/(?:(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)(?:\.(?:[a-zA-Z\u00a1-\uffff0-9]+-?)*[a-zA-Z\u00a1-\uffff0-9]+)*(?:\.(?:[a-zA-Z\u00a1-\uffff]{2,}))(?::\d{2,5})?(?:\/[^\s]*)?"
+                                       required title="${validateFilmImg}"
+                                       oninvalid="setCustomValidity('${validateFilmImg}')"
+                                       oninput="setCustomValidity(''); checkValidity();">
                             </div>
                         </div>
 
                         <div class="item-block">
                             <label><fmt:message key="film.durationInMinutes"/></label>
-                            <input type="text" name="duration" value="${film.duration}">
+                            <input type="number" name="duration" value="${film.duration}"
+                                   placeholder="<fmt:message key="placeholder.filmDuration"/>"
+                                   required min="2" pattern="\\d+" title="${validateFilmDuration}"
+                                   oninvalid="setCustomValidity('${validateFilmDuration}')"
+                                   oninput="setCustomValidity(''); checkValidity();">
                         </div>
 
                         <c:forEach items="${descriptions}" var="item">
                             <input type="hidden" name="languageIds" value="${item.languageId}">
                             <div class="item-block">
                                 <label><fmt:message key="film.name${item.languageId}"/></label>
-                                <input type="text" name="name${item.languageId}" value="${item.name}">
+                                <input type="text" name="name${item.languageId}" value="${item.name}"
+                                       placeholder="<fmt:message key="placeholder.filmName"/>"
+                                       required minlength="2" maxlength="100" title="${validateFilmName}"
+                                       oninvalid="setCustomValidity('${validateFilmName}')"
+                                       oninput="setCustomValidity(''); checkValidity();">
                             </div>
                             <div class="item-block">
                                 <label><fmt:message key="film.desc${item.languageId}"/></label>
-                                <textarea oninput="auto_grow(this)" name="desc${item.languageId}">${item.description}</textarea>
+                                <textarea oninput="auto_grow(this)" name="desc${item.languageId}"
+                                          placeholder="<fmt:message key="placeholder.filmDescription"/>"
+                                          required minlength="10" maxlength="2000" title="${validateFilmDescription}"
+                                          oninvalid="setCustomValidity('${validateFilmDescription}')">
+                                        ${item.description}
+                                </textarea>
                             </div>
                         </c:forEach>
                         <button class="btn btn-success submit-add-film" type="submit">
@@ -92,19 +121,26 @@
                                       action="${pageContext.request.contextPath}/controller?command=add_seance&id=${film.id}">
                                     <div class="item-block">
                                         <label><fmt:message key="seances.chooseDate"/></label>
-                                        <jsp:useBean id="now" class="java.util.Date"/>
-                                        <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today"/>
                                         <input type="date" class="min-input" name="date" value="${today}"
-                                               min="${today}" required>
+                                               min="${today}" required title="${validateSeanceDate}"
+                                               oninvalid="setCustomValidity('${validateSeanceDate}')"
+                                               oninput="setCustomValidity(''); checkValidity();">
                                     </div>
                                     <div class="item-block">
                                         <label><fmt:message key="seances.chooseTime"/></label>
-                                        <input type="time" class="min-input" name="time" value="09:00" min="09:00" max="22:00" required>
-                                        <small class="time-error hide">Сеанс повинен починатися в проміжку з 09:00 до 21:00</small>
+                                        <input type="time" class="min-input" name="time"
+                                               value="09:00" min="09:00" max="22:00"
+                                               title="${validateSeanceTime}"
+                                               oninvalid="setCustomValidity('${validateSeanceTime}')"
+                                               oninput="setCustomValidity(''); checkValidity();">
                                     </div>
                                     <div class="item-block">
                                         <label><fmt:message key="seances.insertPrice"/></label>
-                                        <input type="text" class="min-input" value="" name="price" required>
+                                        <input type="number" class="min-input" value="" name="price"
+                                               placeholder="<fmt:message key="placeholder.seancePrice"/>"
+                                               required min="1" pattern="\\d+" title="${validateSeancePrice}"
+                                               oninvalid="setCustomValidity('${validateSeancePrice}')"
+                                               oninput="setCustomValidity(''); checkValidity();">
                                     </div>
                                     <button class="btn btn-success" type="submit" style="float:right">
                                         <fmt:message key="save"/>

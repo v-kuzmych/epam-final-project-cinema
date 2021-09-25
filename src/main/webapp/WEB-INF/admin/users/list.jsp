@@ -18,6 +18,7 @@
             <th scope="col" class="col-2"><fmt:message key="user.name"/></th>
             <th scope="col" class="col-2"><fmt:message key="user.email"/></th>
             <th scope="col" class="col-2"><fmt:message key="user.role"/></th>
+            <th scope="col" class="col-2"><fmt:message key="user.date"/></th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${user.role}</td>
+                <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="medium" value="${user.date}" /></td>
             </tr>
         </c:forEach>
         </tbody>

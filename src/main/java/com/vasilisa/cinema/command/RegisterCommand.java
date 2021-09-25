@@ -12,27 +12,29 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class RegisterCommand implements Command {
+
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+        String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 
         // error handler
         String errorMessage = null;
         String forward = Path.PAGE__ERROR_PAGE;
+        request.setAttribute("prevPage", Path.PAGE__REGISTER);
 
-        if (email.length() == 0 || password.length() == 0) {
-            logger.error("Failed to create new user");
-
-            errorMessage = "Sorry, failed register";
+        if (email == null || password == null || email.isEmpty() || password.isEmpty()) {
+            errorMessage = "Failed to create new user";
             request.setAttribute("errorMessage", errorMessage);
-            request.setAttribute("prevPage", Path.PAGE__REGISTER);
-            return new CommandResult(CommandResult.ResponseType.FORWARD, Path.PAGE__ERROR_PAGE);
+            logger.error(errorMessage);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, forward);
         }
 
         User user = new User();
+        user.setName(name);
         user.setEmail(email);
         user.setPassword(new SecurePassword().md5Hex(password));
 
@@ -50,6 +52,7 @@ public class RegisterCommand implements Command {
             new CommandResult(CommandResult.ResponseType.FORWARD, forward);
         }
 
+        logger.debug("Command finished");
         return new CommandResult(CommandResult.ResponseType.FORWARD, forward);
     }
 }

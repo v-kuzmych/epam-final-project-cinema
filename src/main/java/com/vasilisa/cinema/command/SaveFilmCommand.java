@@ -38,7 +38,7 @@ public class SaveFilmCommand implements Command{
         film.setFilmDescriptions(fd);
 
         if (!new FilmDao().save(film)) {
-            errorMessage = "Не вдалося зберегти фільм";
+            errorMessage = "Failed to save movie";
             request.setAttribute("errorMessage", errorMessage);
             return new CommandResult(CommandResult.ResponseType.FORWARD, errorPage);
         }

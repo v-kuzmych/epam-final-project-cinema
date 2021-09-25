@@ -2,10 +2,10 @@ package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.*;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,9 +13,11 @@ public class UserDao {
 
     private static final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM user WHERE email = ? AND password = ?";
     private static final String GET_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
-    private static final String INSERT_USER = "INSERT INTO user (email, password, date) VALUES  (?, ?, ?)";
+    private static final String INSERT_USER = "INSERT INTO user (name, email, password, date) VALUES  (?, ?, ?, ?)";
+    private static final String UPDATE_USER = "UPDATE user SET name = ?, email = ?, password = ? WHERE id = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM user";
-    private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
+
+    private static final Logger logger = LogManager.getLogger(UserDao.class);
 
     public User create(User user) {
         PreparedStatement preparedStatement = null;
@@ -24,9 +26,10 @@ public class UserDao {
         try {
             connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(INSERT_USER, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1, user.getEmail());
-            preparedStatement.setString(2, user.getPassword());
-            preparedStatement.setString(3, fmt.format(LocalDateTime.now()));
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setDate(4, (Date) new java.util.Date());
 
             if (preparedStatement.executeUpdate() > 0) {
                 rs = preparedStatement.getGeneratedKeys();
@@ -44,6 +47,34 @@ public class UserDao {
         }
 
         return null;
+    }
+
+    public boolean update(User user) {
+        boolean result = false;
+
+        PreparedStatement preparedStatement = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_USER);
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getEmail());
+            preparedStatement.setString(3, user.getPassword());
+            preparedStatement.setInt(4, user.getId());
+
+            if (preparedStatement.executeUpdate() > 0) {
+                result = true;
+                logger.debug("Update user");
+            }
+
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            logger.error("Update user failed with error " + ex);
+        } finally {
+            DBManager.getInstance().close(connection);
+        }
+
+        return result;
     }
 
     public User login(User user) {
@@ -94,6 +125,7 @@ public class UserDao {
                 user.setName(rs.getString(2));
                 user.setEmail(rs.getString(3));
                 user.setRole(rs.getString(5));
+                user.setDate(rs.getDate(6));
                 usersList.add(user);
             }
 
@@ -124,16 +156,19 @@ public class UserDao {
                 user.setId(rs.getInt(1));
                 user.setName(rs.getString(2));
                 user.setEmail(rs.getString(3));
+                user.setPassword(rs.getString(4));
                 user.setRole(rs.getString(5));
             }
 
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            logger.error("Get user failed with error " + ex);
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        logger.debug("Get user with id " + user.getId());
         return user;
     }
 

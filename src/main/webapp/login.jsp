@@ -2,6 +2,10 @@
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
 <fmt:message key="login" var="title" scope="page"/>
+
+<fmt:message key="validation.input.userEmail" var="validateUserEmail" scope="page"/>
+<fmt:message key="validation.input.userPassword" var="validateUserPassword" scope="page"/>
+
 <t:page title="${title}">
     <div class="wrapper">
         <div class="modal-dialog">
@@ -15,13 +19,19 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="inputEmail" class="form-label"><fmt:message key="email"/></label>
-                            <input type="email" name="email" class="form-control" id="inputEmail" required
-                                   aria-describedby="emailHelp" placeholder="name@example.com">
-                            <%--                            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>--%>
+                            <input type="email" name="email" class="form-control" id="inputEmail"
+                                   aria-describedby="emailHelp" placeholder="name@example.com"
+                                   title="${validateUserEmail}" required
+                                   oninvalid="setCustomValidity('${validateUserEmail}')"
+                                   oninput="setCustomValidity(''); checkValidity();">
                         </div>
                         <div class="mb-3">
                             <label for="inputPassword" class="form-label"><fmt:message key="password"/></label>
-                            <input type="password" name="password" class="form-control" id="inputPassword" required>
+                            <input type="password" name="password" class="form-control" id="inputPassword"
+                                   placeholder="<fmt:message key="placeholder.input.userPassword"/>" title="${validateUserPassword}"
+                                   required pattern="([a-zA-Z\u0400-\u04ff0-9]{3,}"
+                                   oninvalid="setCustomValidity('${validateUserPassword}')"
+                                   oninput="setCustomValidity(''); checkValidity();">
                         </div>
                         <a href="hello-servlet"><fmt:message key="forgotPassword"/></a><br>
                     </div>

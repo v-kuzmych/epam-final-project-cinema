@@ -17,16 +17,15 @@ public class RequestListener implements ServletRequestListener {
 
     @Override
     public void requestInitialized(ServletRequestEvent servletRequestEvent) {
-        logger.error("test");
-        logger.info("test info");
         ServletRequest request = servletRequestEvent.getServletRequest();
         try {
             if (request.getCharacterEncoding() == null) {
+                logger.error("Set character encoding UTF-8");
                 request.setCharacterEncoding("UTF-8");
             }
         } catch (UnsupportedEncodingException e) {
             logger.warn(e.getMessage());
-            logger.info("using default request encoding (not utf-8)");
+            logger.info("Using default request encoding (not utf-8)");
         }
     }
 

@@ -41,7 +41,7 @@
         </init-param>
         <init-param>
             <param-name>common</param-name>
-            <param-value>profile logout</param-value>
+            <param-value>profile logout update_user</param-value>
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>

@@ -8,6 +8,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class SecurePassword {
+
     private static final Logger logger = LogManager.getLogger(SecurePassword.class);
 
     public static String md5Hex(String st) {
@@ -32,6 +33,7 @@ public class SecurePassword {
             md5Hex = "0" + md5Hex;
         }
 
+        logger.debug("MD5 algorithm finished");
         return md5Hex;
     }
 }

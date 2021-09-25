@@ -25,6 +25,7 @@ public class CommandContainer {
         commands.put("login", new LoginCommand());
         commands.put("add_order", new AddOrderCommand());
         commands.put("profile", new GetUserProfileCommand());
+        commands.put("update_user", new UpdateUserProfileCommand());
 
         // admin commands
         commands.put("admin_films_page", new GetAllFilmsForAdminCommand());

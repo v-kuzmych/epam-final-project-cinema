@@ -20,6 +20,6 @@ public class DeleteFilmCommand implements Command {
             return new CommandResult(CommandResult.ResponseType.REDIRECT, Path.PAGE__ERROR_PAGE);
         }
 
-        return new CommandResult(CommandResult.ResponseType.REDIRECT, Path.PAGE__ADMIN_FILMS_LIST);
+        return new CommandResult(CommandResult.ResponseType.REDIRECT, Path.COMMAND_SHOW_FILMS_LIST);
     }
 }
