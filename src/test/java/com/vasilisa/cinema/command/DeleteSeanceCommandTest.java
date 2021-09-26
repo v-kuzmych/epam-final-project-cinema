@@ -57,7 +57,7 @@ public class DeleteSeanceCommandTest {
         subject.execute(mockRequest, mockResponse);
 
         verify(mockRequest).setAttribute(eq("errorMessage"), stringCaptor.capture());
-        String expected = "Не вдалося видалити сеанс";
+        String expected = "Failed to delete seance";
         String actual = stringCaptor.getValue();
         assertEquals(expected, actual);
     }

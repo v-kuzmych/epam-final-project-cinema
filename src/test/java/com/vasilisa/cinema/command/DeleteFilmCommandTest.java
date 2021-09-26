@@ -41,7 +41,7 @@ public class DeleteFilmCommandTest {
         when(mockRequest.getParameter(anyString())).thenReturn("55");
         when(mockFilmDao.delete(anyInt())).thenReturn(true);
 
-        CommandResult expected = new CommandResult(CommandResult.ResponseType.REDIRECT, Path.PAGE__ADMIN_FILMS_LIST);
+        CommandResult expected = new CommandResult(CommandResult.ResponseType.REDIRECT, Path.COMMAND_SHOW_FILMS_LIST);
         CommandResult actual = subject.execute(mockRequest, mockResponse);
 
         assertEquals(expected.getPage(), actual.getPage());
@@ -55,7 +55,7 @@ public class DeleteFilmCommandTest {
         subject.execute(mockRequest, mockResponse);
 
         verify(mockRequest).setAttribute(eq("errorMessage"), stringCaptor.capture());
-        String expected = "Не вдалося видалити фільм";
+        String expected = "Failed to delete movie";
         String actual = stringCaptor.getValue();
         assertEquals(expected, actual);
     }

@@ -6,14 +6,12 @@ import com.vasilisa.cinema.dao.UserDao;
 import com.vasilisa.cinema.entity.PasswordRecovery;
 import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.util.EmailSender;
-import com.vasilisa.cinema.util.Md5HexEncryption;
 import org.apache.commons.mail.EmailException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -51,7 +49,6 @@ public class SendRecoveryEmailCommand implements Command {
             return new CommandResult(CommandResult.ResponseType.FORWARD, forward);
         }
 
-        int timestamp = (int) new Date().getTime();
         String token = UUID.randomUUID().toString();
         String recoveryHref = "http://localhost:8080/controller?command=recovery_password&token=" + token;
 

@@ -275,7 +275,7 @@ let initOrdersTable = () => {
         },
         dom: 'Bfrtip',
         buttons: [
-            'copy', 'excel', 'pdf', 'print'
+            'copy', 'excelHtml5', 'pdf', 'print',
         ]
     };
 
