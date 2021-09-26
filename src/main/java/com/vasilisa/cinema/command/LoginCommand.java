@@ -3,7 +3,7 @@ package com.vasilisa.cinema.command;
 import com.vasilisa.cinema.entity.User;
 import com.vasilisa.cinema.Path;
 import com.vasilisa.cinema.dao.UserDao;
-import com.vasilisa.cinema.util.SecurePassword;
+import com.vasilisa.cinema.util.Md5HexEncryption;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -42,7 +42,7 @@ public class LoginCommand implements Command {
 
         User user = new User();
         user.setEmail(email);
-        user.setPassword(new SecurePassword().md5Hex(password));
+        user.setPassword(new Md5HexEncryption().md5Hex(password));
         User loggedUser = new UserDao().login(user);
         logger.trace("Found in DB: user --> " + user);
 

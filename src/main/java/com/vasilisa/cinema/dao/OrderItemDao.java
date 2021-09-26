@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderItemDao {
+
     private static final String GET_ORDER_ITEMS_BY_SEANCE = "SELECT oi.`row_number`, oi.seat_number " +
                                                         "FROM `order` o " +
                                                         "JOIN order_item oi ON oi.order_id = o.id " +

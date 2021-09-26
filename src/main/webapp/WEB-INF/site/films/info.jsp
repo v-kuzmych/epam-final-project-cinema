@@ -9,6 +9,7 @@
 
     <div class="film-block row">
       <div class="col-lg-9">
+        <h5>${film.name}</h5>
         <div>
           ${film.description}
         </div>

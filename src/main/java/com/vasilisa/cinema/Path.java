@@ -5,6 +5,9 @@ public final class Path {
     // site pages
     public static final String PAGE__LOGIN = "/login.jsp";
     public static final String PAGE__REGISTER = "/register.jsp";
+    public static final String PAGE__SUCCESS_SEND_RECOVERY_EMAIL = "/success_send_recovery_email.jsp";
+    public static final String PAGE__RECOVERY_PASSWORD = "/WEB-INF/site/user/recovery_password.jsp";
+    public static final String PAGE__SUCCESS_CHANGE_PASS = "/WEB-INF/site/user/success_change_pass.jsp";
     public static final String PAGE__PROFILE = "/WEB-INF/site/user/profile.jsp";
     public static final String PAGE__ERROR_PAGE = "/error_page.jsp";
     public static final String PAGE__FILMS_LIST = "/WEB-INF/site/films/list.jsp";

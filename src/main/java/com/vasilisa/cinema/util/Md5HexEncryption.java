@@ -7,9 +7,9 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public class SecurePassword {
+public class Md5HexEncryption {
 
-    private static final Logger logger = LogManager.getLogger(SecurePassword.class);
+    private static final Logger logger = LogManager.getLogger(Md5HexEncryption.class);
 
     public static String md5Hex(String st) {
         MessageDigest messageDigest = null;

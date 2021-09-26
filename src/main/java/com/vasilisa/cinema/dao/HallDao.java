@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class HallDao {
+
     private static final String GET_HALL_BY_ID = "SELECT * FROM hall WHERE id = ?";
 
     private static final Logger logger = LogManager.getLogger(HallDao.class);

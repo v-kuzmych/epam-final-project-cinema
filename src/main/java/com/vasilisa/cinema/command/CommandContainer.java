@@ -22,11 +22,14 @@ public class CommandContainer {
         commands.put("user_films_page", new GetAllFilmsForUserCommand());
         commands.put("order_page", new ShowOrderPageCommand());
         commands.put("film_page", new ShowFilmPageCommand());
+        commands.put("login", new LoginCommand());
+        commands.put("send_recovery_email", new SendRecoveryEmailCommand());
+        commands.put("recovery_password", new RecoveryPasswordCommand());
+        commands.put("change_password", new ChangePasswordCommand());
         commands.put("logout", new LogoutCommand());
         commands.put("noCommand", new NoCommand());
 
         // client commands
-        commands.put("login", new LoginCommand());
         commands.put("add_order", new AddOrderCommand());
         commands.put("profile", new GetUserProfileCommand());
         commands.put("update_user", new UpdateUserProfileCommand());

@@ -13,6 +13,7 @@ public class UserDao {
 
     private static final String GET_USER_BY_EMAIL_AND_PASSWORD = "SELECT * FROM user WHERE email = ? AND password = ?";
     private static final String GET_USER_BY_ID = "SELECT * FROM user WHERE id = ?";
+    private static final String GET_USER_BY_EMAIL = "SELECT * FROM user WHERE email = ?";
     private static final String INSERT_USER = "INSERT INTO user (name, email, password, date) VALUES  (?, ?, ?, ?)";
     private static final String UPDATE_USER = "UPDATE user SET name = ?, email = ?, password = ? WHERE id = ?";
     private static final String GET_ALL_USERS = "SELECT * FROM user";
@@ -180,6 +181,37 @@ public class UserDao {
         }
 
         logger.debug("Get user with id " + user.getId());
+        return user;
+    }
+
+    public User checkByEmail(String email) {
+        User user = new User();
+
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+        Connection connection = null;
+        try {
+            connection = DBManager.getInstance().getConnection();
+            preparedStatement = connection.prepareStatement(GET_USER_BY_EMAIL);
+            preparedStatement.setString(1, email);
+
+            rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                logger.debug("Get user by email");
+                user.setId(rs.getInt(1));
+                user.setName(rs.getString(2));
+                user.setEmail(rs.getString(3));
+            }
+
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            logger.error("Get user by email failed with error " + ex.getMessage());
+        } finally {
+            DBManager.getInstance().close(connection);
+        }
+
         return user;
     }
 

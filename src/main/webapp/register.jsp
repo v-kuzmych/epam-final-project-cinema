@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<fmt:message key="film.name" var="title" scope="page"/>
+<fmt:message key="signUp" var="title" scope="page"/>
 
 <fmt:message key="validation.input.userName" var="validateUserName" scope="page"/>
 <fmt:message key="validation.input.userEmail" var="validateUserEmail" scope="page"/>

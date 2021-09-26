@@ -33,7 +33,7 @@
                                    oninvalid="setCustomValidity('${validateUserPassword}')"
                                    oninput="setCustomValidity(''); checkValidity();">
                         </div>
-                        <a href="hello-servlet"><fmt:message key="forgotPassword"/></a><br>
+                        <a href="" data-bs-toggle="modal" data-bs-target="#passwordRecoveryModal"><fmt:message key="forgotPassword"/></a><br>
                     </div>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary"><fmt:message key="enter"/></button>

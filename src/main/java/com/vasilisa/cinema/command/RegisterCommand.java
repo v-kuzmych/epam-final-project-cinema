@@ -5,7 +5,7 @@ import com.vasilisa.cinema.Path;
 import com.vasilisa.cinema.dao.UserDao;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import com.vasilisa.cinema.util.SecurePassword;
+import com.vasilisa.cinema.util.Md5HexEncryption;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +42,7 @@ public class RegisterCommand implements Command {
         User user = new User();
         user.setName(name);
         user.setEmail(email);
-        user.setPassword(new SecurePassword().md5Hex(password));
+        user.setPassword(new Md5HexEncryption().md5Hex(password));
 
         User newUser = new UserDao().create(user);
         HttpSession session = request.getSession();

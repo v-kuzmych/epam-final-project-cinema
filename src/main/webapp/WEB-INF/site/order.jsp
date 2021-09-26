@@ -83,3 +83,9 @@
         </div>
     </div>
 </t:page>
+
+
+<script type="text/fmt" id="key_reserve"><fmt:message key="site.seances.reserve" /></script>
+<script type="text/fmt" id="key_currency"><fmt:message key="site.order.currency" /></script>
+<script type="text/fmt" id="key_row"><fmt:message key="user.order.row" /></script>
+<script type="text/fmt" id="key_seat"><fmt:message key="user.order.seat" /></script>

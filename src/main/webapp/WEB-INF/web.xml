@@ -43,7 +43,7 @@
         </init-param>
         <init-param>
             <param-name>out-of-control</param-name>
-            <param-value>home_page login switch_language register schedule seances user_films_page film_page order_page add_order noCommand</param-value>
+            <param-value>home_page login send_recovery_email recovery_password change_password switch_language register schedule seances user_films_page film_page order_page add_order noCommand</param-value>
         </init-param>
     </filter>
 

@@ -7,8 +7,7 @@
     <div style="text-align: center; margin: 30px;">
         <img src="/assets/img/success.png" style="height: 100px;">
         <div style="margin-top: 20px">
-            <p><fmt:message key="success.msg.order"/></p>
-            <a href="/controller?command=profile"><fmt:message key="success.msg.viewOrder"/></a>
+            <h5><fmt:message key="success.msg.recoveryPswd"/></h5>
         </div>
     </div>
 </t:page>

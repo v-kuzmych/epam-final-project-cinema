@@ -164,7 +164,7 @@ let getUserOrderBlock = (value, price) => {
                                             <span>${places[0]}</span>
                                         </div>
                                         <div class="ticket-info__description">
-                                            <span>ряд</span>
+                                            <span>` + $("#key_row").text() + `</span>
                                         </div>
                                     </div>
                                     <div class="ticket-info__seat-info ticket-info__block">
@@ -172,7 +172,7 @@ let getUserOrderBlock = (value, price) => {
                                             <span>${places[1]}</span>
                                         </div>
                                         <div class="ticket-info__description">
-                                            <span>місце</span>
+                                            <span>` + $("#key_seat").text() + `</span>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +181,7 @@ let getUserOrderBlock = (value, price) => {
                                         <span>${price}</span>
                                     </div>
                                     <div class="ticket-info__currency ticket-info__currency_cash">
-                                        <span>грн</span>
+                                        <span>` + $("#key_currency").text() + `</span>
                                     </div>
                                 </div>
                             </div>
@@ -200,11 +200,11 @@ let getAddToCartBlock = (price) => {
                         <div class="left-block-row__item">
                             <button type="submit" form="user-order" class="btn btn-primary add-to-cart">
                                 <div class="add-to-cart__content-left">
-                                    Забронювати
+                                `+ $("#key_reserve").text() +`
                                 </div>
                                 <div class="add-to-cart__content-right">
                                     <span class="add-to-cart__price">${price}</span>
-                                    <span class="add-to-cart__currency">&nbsp;грн</span>
+                                    <span class="add-to-cart__currency">&nbsp;` + $("#key_currency").text() + `</span>
                                 </div>
                             </button>
                         </div>
