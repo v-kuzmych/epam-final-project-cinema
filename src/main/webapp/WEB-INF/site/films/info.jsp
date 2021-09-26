@@ -4,7 +4,8 @@
 <fmt:message key="films" var="title" scope="page"/>
 <t:page title="${title}">
   <div class="container">
-    <%@ include file="/WEB-INF/site/timetables/template.jsp" %>
+
+    <%@ include file="/WEB-INF/jspf/seancesSchedule.jspf" %>
 
     <div class="film-block row">
       <div class="col-lg-9">

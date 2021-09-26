@@ -251,7 +251,7 @@ let initSeancesTable = () => {
 
 let initOrdersTable = () => {
     let options = {
-        "pageLength": 20,
+        "pageLength": 15,
         "order": [[ 0, "desc" ]],
         "language": {
             "decimal": "",
@@ -281,10 +281,6 @@ let initOrdersTable = () => {
 
     $('#ordersTable').DataTable(options);
 }
-
-$('.remove-error-block').on('click', function (){
-
-})
 
 $(document).ready( function () {
     initSeancesTable();

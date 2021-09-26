@@ -1,5 +1,4 @@
 <%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
-<%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="/WEB-INF/cinemaTags.tld" prefix="ct" %>
 <%-- check --%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>

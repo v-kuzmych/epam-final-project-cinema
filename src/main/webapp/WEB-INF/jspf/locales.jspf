@@ -1,0 +1,6 @@
+<div class="language-switcher">
+    <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "uk_UA"}'>active</c:if>"
+       href="/controller?command=switch_language&param=ua">UA</a>
+    <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "en_US"}'>active</c:if>"
+       href="/controller?command=switch_language&param=en">EN</a>
+</div>

@@ -35,6 +35,7 @@ public class UserDao {
                 rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     user.setId(rs.getInt(1));
+                    logger.debug("Created user");
                     return user;
                 }
             }
@@ -42,6 +43,7 @@ public class UserDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Create user failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
@@ -64,12 +66,13 @@ public class UserDao {
 
             if (preparedStatement.executeUpdate() > 0) {
                 result = true;
-                logger.debug("Update user");
+                logger.debug("Updated user");
             }
 
             preparedStatement.close();
         } catch (SQLException ex) {
-            logger.error("Update user failed with error " + ex);
+            ex.printStackTrace();
+            logger.error("Update user failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
@@ -96,15 +99,19 @@ public class UserDao {
                 loggedUser.setName(rs.getString(2));
                 loggedUser.setEmail(rs.getString(3));
                 loggedUser.setRole(rs.getString(5));
+
+                logger.debug("Logged user");
             }
 
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Login user failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
+
         return loggedUser;
     }
 
@@ -133,9 +140,12 @@ public class UserDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get all users failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        logger.debug("Get users list");
         return usersList;
     }
 
@@ -163,7 +173,8 @@ public class UserDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
-            logger.error("Get user failed with error " + ex);
+            ex.printStackTrace();
+            logger.error("Get user failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }

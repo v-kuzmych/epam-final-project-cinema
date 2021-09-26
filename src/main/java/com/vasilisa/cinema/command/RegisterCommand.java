@@ -11,12 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Register command.
+ */
+
 public class RegisterCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(RegisterCommand.class);
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
+        logger.debug("Command starts");
+
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String password = request.getParameter("password");

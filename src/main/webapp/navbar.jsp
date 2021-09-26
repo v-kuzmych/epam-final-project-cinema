@@ -11,8 +11,9 @@
         <div class="collapse navbar-collapse" id="navbars">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link <c:if test='${empty sitePage || sitePage == "home"}'>active</c:if>"
-                       href="${pageContext.request.contextPath}/" aria-current="page"><fmt:message key="home"/></a></li>
+                    <a class="nav-link <c:if test='${sitePage == "seances"}'>active</c:if>"
+                       href="${pageContext.request.contextPath}/controller?command=seances">
+                        <fmt:message key="on_screen"/></a></li>
                 <li class="nav-item">
                     <a class="nav-link <c:if test='${sitePage == "films"}'>active</c:if>"
                        href="${pageContext.request.contextPath}/controller?command=user_films_page">
@@ -21,11 +22,11 @@
                     <a class="nav-link <c:if test='${sitePage == "schedule"}'>active</c:if>"
                        href="${pageContext.request.contextPath}/controller?command=schedule">
                         <fmt:message key="schedule"/></a></li>
-                <li class="nav-item">
-                    <a class="nav-link <c:if test='${sitePage == "seances"}'>active</c:if>"
-                       href="${pageContext.request.contextPath}/controller?command=seances">
-                        <fmt:message key="on_screen"/></a></li>
             </ul>
+
+            <div style="filter: invert(1); margin-right: 20px;">
+                <%@ include file="/WEB-INF/jspf/locales.jspf" %>
+            </div>
 
             <c:choose>
                 <c:when test="${sessionScope.loggedUser == null}">

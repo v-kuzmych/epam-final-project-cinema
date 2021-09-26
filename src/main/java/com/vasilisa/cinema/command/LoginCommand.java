@@ -11,14 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * Login command.
+ */
+
 public class LoginCommand implements Command {
 
     private static final Logger logger = LogManager.getLogger(LoginCommand.class);
 
     @Override
     public CommandResult execute(HttpServletRequest request, HttpServletResponse response) {
-        HttpSession session = request.getSession();
+        logger.debug("Command starts");
 
+        HttpSession session = request.getSession();
+        // obtain login and password from the request
         String email = request.getParameter("email");
         String password = request.getParameter("password");
 

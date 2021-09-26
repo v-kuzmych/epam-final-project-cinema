@@ -1,6 +1,8 @@
 package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ public class OrderItemDao {
                                                         "JOIN order_item oi ON oi.order_id = o.id " +
                                                         "WHERE o.seance_id = ?";
     private static final String INSERT_ORDER_ITEM = "INSERT INTO order_item (order_id, `row_number`, seat_number) VALUES (?, ?, ?)";
+
+    private static final Logger logger = LogManager.getLogger(OrderItemDao.class);
 
     public List<String> getOccupiedSeatsAtSeance(int seanceId) {
         List<String> occupiedSeats = new ArrayList<String>();
@@ -32,10 +36,12 @@ public class OrderItemDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getOccupiedSeatsAtSeance failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get occupied seats list");
         return occupiedSeats;
     }
 
@@ -58,14 +64,17 @@ public class OrderItemDao {
             int[] items = preparedStatement.executeBatch();
             for (int item : items) {
                 if (item != 1) {
+                    logger.error("createItems failed");
                     return false;
                 }
             }
 
             preparedStatement.close();
+            logger.debug("Items created");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("createItems failed with error " + ex.getMessage());
         }
 
         return false;

@@ -1,20 +1,22 @@
 <%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
 
+<jsp:useBean id="now" class="java.util.Date"/>
+<fmt:formatDate value="${now}" pattern="yyyy" var="thisYear"/>
+
 <div class="container">
     <footer class="d-flex justify-content-between py-4 my-4 border-top">
         <div class="footer-left">
-            <p class="text-muted">© 2021 Company, Inc</p>
-            <div class="language-switcher">
-                <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "uk_UA"}'>active</c:if>"
-                   href="/controller?command=switch_language&param=ua">UA</a>
-                <a class="footer-link none-text-decoration <c:if test='${sessionScope.locale == "en_US"}'>active</c:if>"
-                   href="/controller?command=switch_language&param=en">EN</a>
-            </div>
+            <p class="text-muted">&#169; ${thisYear} Company, Inc</p>
+
+            <%@ include file="/WEB-INF/jspf/locales.jspf" %>
+
         </div>
 
         <ul class="nav justify-content-end">
             <li class="nav-item">
-                <a href="#" class="nav-link px-2 text-muted">Home</a></li>
+                <a class="nav-link px-2 footer-link <c:if test='${sitePage == "seances"}'>active</c:if>"
+                   href="${pageContext.request.contextPath}/controller?command=seances">
+                    <fmt:message key="on_screen"/></a></li>
             <li class="nav-item">
                 <a class="nav-link px-2 footer-link <c:if test='${sitePage == "films"}'>active</c:if>"
                 href="${pageContext.request.contextPath}/controller?command=user_films_page">
@@ -23,11 +25,6 @@
                 <a class="nav-link px-2 footer-link <c:if test='${sitePage == "schedule"}'>active</c:if>"
                    href="${pageContext.request.contextPath}/controller?command=schedule">
                     <fmt:message key="schedule"/></a></li>
-            <li class="nav-item">
-                <a class="nav-link px-2 footer-link <c:if test='${sitePage == "other"}'>active</c:if>"
-                   href="${pageContext.request.contextPath}/controller?command=schedule">
-                    <fmt:message key="schedule"/></a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
         </ul>
     </footer>
 </div>

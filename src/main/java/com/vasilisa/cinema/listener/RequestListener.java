@@ -6,9 +6,11 @@ import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
+import javax.servlet.ServletResponse;
 import java.io.UnsupportedEncodingException;
 
 public class RequestListener implements ServletRequestListener {
+
     private static final Logger logger = LogManager.getLogger(RequestListener.class);
 
     @Override

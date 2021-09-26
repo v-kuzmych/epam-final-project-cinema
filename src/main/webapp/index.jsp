@@ -3,6 +3,6 @@
 
 <fmt:message key="film.name" var="title" scope="page"/>
 <t:page title="${title}">
-    <h1>HELLO</h1>
+    <jsp:forward page="controller?command=seances"/>
 </t:page>
 

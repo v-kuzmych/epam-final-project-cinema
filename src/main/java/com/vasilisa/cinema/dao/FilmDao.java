@@ -2,6 +2,8 @@ package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.Film;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,6 +28,8 @@ public class FilmDao {
     private static final String INSERT_FILM = "INSERT INTO film (img, duration) VALUES  (?, ?)";
     private static final String UPDATE_FILM = "UPDATE film SET img = ?, duration = ? WHERE id = ? ";
     private static final String DELETE_FILM = "DELETE FROM film WHERE id = ?";
+
+    private static final Logger logger = LogManager.getLogger(FilmDao.class);
 
     public List<Film> getAll(String locale, int limit, int offset) {
 
@@ -56,10 +60,12 @@ public class FilmDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get all films failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get films list");
         return filmsList;
     }
 
@@ -80,10 +86,12 @@ public class FilmDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get films count failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get films count");
         return count;
     }
 
@@ -112,9 +120,12 @@ public class FilmDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get film failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        logger.debug("Get film");
         return film;
     }
 
@@ -136,10 +147,12 @@ public class FilmDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get duration failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get film duration");
         return id;
     }
 
@@ -152,9 +165,11 @@ public class FilmDao {
             connection.setAutoCommit(false);
             // if film doesn't exist - create new film with description
             if (film.getId() == 0) {
+                logger.debug("Creating film...");
                 status = new FilmDescriptionDao().create(connection, create(connection, film));
             } else {
                 // update film
+                logger.debug("Updating film...");
                 if (update(connection, film)) {
                     status = new FilmDescriptionDao().update(connection, film);
                 }
@@ -164,6 +179,7 @@ public class FilmDao {
         } catch (SQLException ex) {
             DBManager.getInstance().rollbackAndClose(connection);
             ex.printStackTrace();
+            logger.error("Save film failed with error " + ex.getMessage());
         } finally {
             try {
                 connection.setAutoCommit(true);
@@ -173,6 +189,7 @@ public class FilmDao {
             }
         }
 
+        logger.debug("Saving film " + status);
         return status;
     }
 
@@ -188,6 +205,7 @@ public class FilmDao {
                 rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     film.setId(rs.getInt(1));
+                    logger.debug("Created film");
                 }
             }
 
@@ -195,6 +213,7 @@ public class FilmDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Create film failed with error " + ex.getMessage());
         }
 
         return film;
@@ -212,10 +231,12 @@ public class FilmDao {
 
             if (preparedStatement.executeUpdate() > 0) {
                 status = true;
+                logger.debug("Updated film");
             }
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Update failed with error " + ex.getMessage());
         }
 
         return status;
@@ -230,10 +251,12 @@ public class FilmDao {
             preparedStatement.setInt(1, filmId);
 
             if (preparedStatement.executeUpdate() == 1) {
+                logger.debug("Deleted film");
                 return true;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Delete film failed with error " + ex.getMessage());
         }
 
         return false;

@@ -8,7 +8,7 @@
             <h4><fmt:message key="schedule"/></h4>
         </div>
 
-        <%@ include file="/WEB-INF/site/timetables/template.jsp" %>
+        <%@ include file="/WEB-INF/jspf/seancesSchedule.jspf" %>
 
     </div>
 </t:page>

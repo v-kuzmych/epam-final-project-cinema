@@ -4,6 +4,8 @@ import com.vasilisa.cinema.entity.Film;
 import com.vasilisa.cinema.entity.Hall;
 import com.vasilisa.cinema.entity.Seance;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.Duration;
@@ -48,8 +50,9 @@ public class SeanceDao {
                                                         "       (s.date >= start AND s.date <= end)  OR " +
                                                         "       (s.date = end)";
 
-
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
+
+    private static final Logger logger = LogManager.getLogger(OrderItemDao.class);
 
     public boolean create(Seance seance) {
         PreparedStatement preparedStatement = null;
@@ -65,15 +68,18 @@ public class SeanceDao {
 
             // the seance was successfully created
             if (preparedStatement.executeUpdate() > 0) {
+                logger.debug("the seance was successfully created");
                 return true;
             }
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("create failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("create seance was failed");
         return false;
     }
 
@@ -86,9 +92,6 @@ public class SeanceDao {
             connection = DBManager.getInstance().getConnection();
             preparedStatement = connection.prepareStatement(GET_SEANCE_BY_FILM_ID);
             preparedStatement.setInt(1, id);
-
-//            String[] localeAttr = locale.split("_");
-//            Locale currentLocale = new Locale(localeAttr[0], localeAttr[1]);
 
             rs = preparedStatement.executeQuery();
             while (rs.next()) {
@@ -105,9 +108,12 @@ public class SeanceDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getByFilmId failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        logger.debug("Get film seances list");
         return seancesList;
     }
 
@@ -151,10 +157,12 @@ public class SeanceDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getAll failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get all seances list");
         return seancesList;
     }
 
@@ -198,10 +206,12 @@ public class SeanceDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("get failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get seance");
         return seance;
     }
 
@@ -223,10 +233,12 @@ public class SeanceDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getPrice failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get seance price");
         return seance.getPrice();
     }
 
@@ -255,10 +267,12 @@ public class SeanceDao {
             preparedStatement.setInt(1, seanceId);
 
             if (preparedStatement.executeUpdate() == 1) {
+                logger.debug("Deleted seance");
                 return true;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("delete failed with error " + ex.getMessage());
         }
 
         return false;
@@ -272,10 +286,12 @@ public class SeanceDao {
             preparedStatement.setInt(2, seanceId);
 
             if (preparedStatement.executeUpdate() == 1) {
+                logger.debug("Free seats updated");
                 return true;
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("updateFreeSeats failed with error " + ex.getMessage());
         }
 
         return false;
@@ -297,16 +313,19 @@ public class SeanceDao {
             rs = preparedStatement.executeQuery();
             // checking if ResultSet is empty and seances in this time frame don`t exist
             if (rs.next() == false) {
+                logger.debug("Seances in this time frame don`t exist");
                 return true;
             }
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("checkSeances failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Seances in this time frame exist");
         return false;
     }
 }

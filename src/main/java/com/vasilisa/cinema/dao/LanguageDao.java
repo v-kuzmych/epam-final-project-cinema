@@ -2,6 +2,8 @@ package com.vasilisa.cinema.dao;
 
 import com.vasilisa.cinema.entity.Language;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -10,6 +12,8 @@ import java.util.List;
 public class LanguageDao {
 
     private static final String GET_ALL_LANGUAGES = "SELECT * FROM language";
+
+    private static final Logger logger = LogManager.getLogger(LanguageDao.class);
 
     public List<Language> getAll() {
         List<Language> languagesList = new ArrayList<>();
@@ -33,9 +37,12 @@ public class LanguageDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Get all failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
+
+        logger.debug("Get language list");
         return languagesList;
     }
 

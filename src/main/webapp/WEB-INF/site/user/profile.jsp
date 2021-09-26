@@ -37,9 +37,9 @@
                                    oninput="setCustomValidity(''); checkValidity();">
                         </div>
 
-                        <small style="color:#909090">Залиште поле пустим, якшо Ви не бажаєте змінювати пароль</small>
+                        <small style="color:#909090"><fmt:message key="user.emptyPswdMsg"/></small>
                         <div class="item-block">
-                            <label><fmt:message key="user.password"/></label>
+                            <label></label>
                             <input type="password" name="password" class="form-control" autocomplete="off"
                                    placeholder="<fmt:message key="placeholder.input.userPassword"/>" title="${validateUserPassword}"
                                    pattern="[a-zA-Z\u0400-\u04ff0-9]{3,}"
@@ -77,8 +77,8 @@
                                                 <section class="card-cont">
                                                     <h3>${order.seance.film.name}</h3>
                                                     <div style="font-weight: 600;">
-                                                        <span>Ряд: ${item.rowNumber}</span>
-                                                        <p>Місце: ${item.seatNumber}</p>
+                                                        <span><fmt:message key="user.order.row"/>: ${item.rowNumber}</span>
+                                                        <p><fmt:message key="user.order.seat"/>: ${item.seatNumber}</p>
                                                     </div>
                                                     <div class="even-date">
                                                         <i class="fa fa-calendar"></i>

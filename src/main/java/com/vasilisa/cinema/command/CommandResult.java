@@ -1,5 +1,9 @@
 package com.vasilisa.cinema.command;
 
+/**
+ * Class used to hold the path to go and transfer method: forward or redirect.
+ */
+
 public class CommandResult {
     private ResponseType responseType;
     private String page;

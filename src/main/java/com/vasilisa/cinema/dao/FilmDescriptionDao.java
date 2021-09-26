@@ -3,6 +3,8 @@ package com.vasilisa.cinema.dao;
 import com.vasilisa.cinema.entity.Film;
 import com.vasilisa.cinema.entity.FilmDescription;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,6 +17,8 @@ public class FilmDescriptionDao {
 
     private static final String INSERT_FILM_DESCRIPTION = "INSERT INTO film_description (film_id, language_id, name, description) VALUES  (?, ?, ?, ?)";
     private static final String UPDATE_FILM_DESCRIPTION = "UPDATE film_description SET name = ?, description = ? WHERE  film_id = ? AND  language_id = ?";
+
+    private static final Logger logger = LogManager.getLogger(FilmDescriptionDao.class);
 
     public List<FilmDescription> getByFilmId(int id) {
         List<FilmDescription> filmDescriptions = new ArrayList<>();
@@ -34,11 +38,13 @@ public class FilmDescriptionDao {
             rs.close();
             preparedStatement.close();
         } catch (SQLException ex) {
+            logger.error("getByFilmId failed with error " + ex.getMessage());
             ex.printStackTrace();
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get film description");
         return filmDescriptions;
     }
 
@@ -63,9 +69,11 @@ public class FilmDescriptionDao {
             }
 
             preparedStatement.close();
+            logger.debug("Created film description");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("create failed with error " + ex.getMessage());
         }
 
         return false;
@@ -92,9 +100,11 @@ public class FilmDescriptionDao {
             }
 
             preparedStatement.close();
+            logger.debug("Updated film description");
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("update failed with error " + ex.getMessage());
         }
 
         return false;

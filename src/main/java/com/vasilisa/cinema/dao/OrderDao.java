@@ -1,6 +1,8 @@
 package com.vasilisa.cinema.dao;
 import com.vasilisa.cinema.entity.*;
 import com.vasilisa.cinema.util.DBManager;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -45,6 +47,8 @@ public class OrderDao {
 
     private DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-LL-dd HH:mm:ss");
 
+    private static final Logger logger = LogManager.getLogger(OrderDao.class);
+
     public boolean checkForEmptySeats(int seanceId, String[] places) {
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -64,6 +68,7 @@ public class OrderDao {
 
                 rs = preparedStatement.executeQuery();
                 if (rs.next()) {
+                    logger.error("This seats is occupied");
                     return false;
                 }
                 rs.close();
@@ -71,10 +76,12 @@ public class OrderDao {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("checkForEmptySeats failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("This seats is free");
         return true;
     }
 
@@ -87,13 +94,14 @@ public class OrderDao {
             connection.setAutoCommit(false);
             int orderId = createOrder(connection, order);
             if (new OrderItemDao().createItems(connection, orderId, places)) {
+                logger.debug("Updating free seats... ");
                 status = new SeanceDao().updateFreeSeats(connection, order.getSeanceId(), places);
             }
-
             connection.commit();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Create failed with error " + ex.getMessage());
         } finally {
             try {
                 connection.setAutoCommit(true);
@@ -103,6 +111,7 @@ public class OrderDao {
             }
         }
 
+        logger.debug("Creating " + status);
         return status;
     }
 
@@ -120,12 +129,14 @@ public class OrderDao {
                 rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     order.setId(rs.getInt(1));
+                    logger.debug("Created order " + order.getId());
                 }
             }
             preparedStatement.close();
 
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("Create failed with error " + ex.getMessage());
         }
 
         return order.getId();
@@ -184,10 +195,12 @@ public class OrderDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getUserOrders failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get user orders list");
         return ordersList;
     }
 
@@ -236,10 +249,12 @@ public class OrderDao {
             preparedStatement.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
+            logger.error("getAll failed with error " + ex.getMessage());
         } finally {
             DBManager.getInstance().close(connection);
         }
 
+        logger.debug("Get all orders list");
         return ordersList;
     }
 

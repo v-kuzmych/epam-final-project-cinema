@@ -22,13 +22,15 @@
         </tr>
         </thead>
         <tbody>
+        <c:set var="k" value="0"/>
         <c:forEach items="${users}" var="user">
+            <c:set var="k" value="${k+1}"/>
             <tr class='clickable-row' data-id="${user.id}">
-                <th scope="row">1</th>
+                <th scope="row">${k}</th>
                 <td>${user.name}</td>
                 <td>${user.email}</td>
                 <td>${user.role}</td>
-                <td><fmt:formatDate type="both" dateStyle="medium" timeStyle="medium" value="${user.date}" /></td>
+                <td><fmt:formatDate type="date" dateStyle="medium" value="${user.date}" /></td>
             </tr>
         </c:forEach>
         </tbody>
