@@ -1,5 +1,9 @@
 package com.vasilisa.cinema.entity;
 
+/**
+ * Password recovery entity
+ */
+
 public class PasswordRecovery {
     private int id;
     private int userId;

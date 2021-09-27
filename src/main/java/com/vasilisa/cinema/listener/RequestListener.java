@@ -9,6 +9,10 @@ import javax.servlet.ServletRequestListener;
 import javax.servlet.ServletResponse;
 import java.io.UnsupportedEncodingException;
 
+/**
+ * Request encoding listener
+ */
+
 public class RequestListener implements ServletRequestListener {
 
     private static final Logger logger = LogManager.getLogger(RequestListener.class);

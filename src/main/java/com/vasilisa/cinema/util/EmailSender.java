@@ -4,6 +4,11 @@ import org.apache.commons.mail.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * Email sender
+ * Send email for recovery password
+ */
+
 public class EmailSender {
 
     private static final Logger logger = LogManager.getLogger(EmailSender.class);

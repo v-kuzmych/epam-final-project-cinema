@@ -15,7 +15,7 @@ public class PasswordRecoveryDao {
     private static final Logger logger = LogManager.getLogger(PasswordRecoveryDao.class);
 
     public PasswordRecovery get(String token) {
-        PasswordRecovery pr = new PasswordRecovery();
+        PasswordRecovery pr = null;
 
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -28,6 +28,7 @@ public class PasswordRecoveryDao {
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 logger.debug("Get token");
+                pr = new PasswordRecovery();
                 pr.setId(rs.getInt(1));
                 pr.setUserId(rs.getInt(2));
                 pr.setToken(rs.getString(3));

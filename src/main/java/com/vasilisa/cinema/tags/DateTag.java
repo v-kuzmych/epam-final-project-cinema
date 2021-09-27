@@ -9,6 +9,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Custom date tag
+ */
+
 public class DateTag extends TagSupport{
     private static final Logger logger = LogManager.getLogger(DateTag.class);
 

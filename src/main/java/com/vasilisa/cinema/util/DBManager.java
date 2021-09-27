@@ -55,20 +55,6 @@ public class DBManager {
     private DBManager() {
     }
 
-    /**
-     * Commits and close the given connection.
-     *
-     * @param con Connection to be committed and closed.
-     */
-    public void commitAndClose(Connection con) {
-        try {
-            con.commit();
-            con.close();
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-        }
-    }
-
     public void close(Connection con) {
         try {
             con.close();
@@ -88,84 +74,6 @@ public class DBManager {
             con.close();
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-    }
-
-    /**************** THIS METHOD IS NOT USED IN THE PROJECT *******/
-    /**
-     * Returns a DB connection. This method is just for a example how to use the
-     * DriverManager to obtain a DB connection. It does not use a pool connections
-     * and not used in this project. It is preferable to use
-     * {@link #getConnection()} method instead.
-     *
-     * @return A DB connection.
-     */
-    public Connection getConnectionWithDriverManager() throws SQLException {
-//		try {
-//			Class.forName("com.mysql.cj.jdbc.Driver");
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-        Connection connection = DriverManager
-                .getConnection("jdbc:mysql://localhost:3306/cinema", "root", "password");
-        connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
-        connection.setAutoCommit(false);
-        return connection;
-    }
-
-    /**************************************************************/
-    public static void testDb(Connection conn) {
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM users");
-            while (rs.next()) {
-                int n = rs.getMetaData().getColumnCount();
-                for (int i = 1; i <= n; i++) {
-                    System.out.print(":" + rs.getString(i) + ":");
-                }
-                System.out.println();
-            }
-        } catch (SQLException ex) {
-            // handle any errors
-            System.out.println("SQLException: " + ex.getMessage());
-            System.out.println("SQLState: " + ex.getSQLState());
-            System.out.println("VendorError: " + ex.getErrorCode());
-        } finally {
-            // it is a good idea to release
-            // resources in a finally{} block
-            // in reverse-order of their creation
-            // if they are no-longer needed
-
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException sqlEx) {
-                } // ignore
-
-                rs = null;
-            }
-
-            if (stmt != null) {
-                try {
-                    stmt.close();
-                } catch (SQLException sqlEx) {
-                } // ignore
-
-                stmt = null;
-            }
-        }
-    }
-
-    public static void main(String[] args) {
-        DBManager db = DBManager.getInstance();
-        Connection conn = null;
-        try {
-            conn = db.getConnectionWithDriverManager();
-            testDb(conn);
-        } catch (SQLException e) {
-            System.out.println("ERROR: " + e.getMessage());
         }
     }
 }

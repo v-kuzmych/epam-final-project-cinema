@@ -185,7 +185,7 @@ public class UserDao {
     }
 
     public User checkByEmail(String email) {
-        User user = new User();
+        User user = null;
 
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
@@ -198,6 +198,7 @@ public class UserDao {
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 logger.debug("Get user by email");
+                user = new User();
                 user.setId(rs.getInt(1));
                 user.setName(rs.getString(2));
                 user.setEmail(rs.getString(3));

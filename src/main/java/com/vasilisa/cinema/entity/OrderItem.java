@@ -1,5 +1,9 @@
 package com.vasilisa.cinema.entity;
 
+/**
+ * Order details entity
+ */
+
 public class OrderItem {
     private int id;
     private int orderId;

@@ -19,6 +19,7 @@ public final class Path {
 
     // admin pages
     public static final String PAGE__ADMIN_DASHBOARD = "/WEB-INF/admin/dashboard.jsp";
+
     public static final String PAGE__ADMIN_FILMS_LIST = "/WEB-INF/admin/films/list.jsp";
     public static final String PAGE__ADD_FILM = "/WEB-INF/admin/films/add.jsp";
     public static final String PAGE__EDIT_FILM = "/WEB-INF/admin/films/edit.jsp";

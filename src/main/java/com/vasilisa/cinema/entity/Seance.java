@@ -7,6 +7,10 @@ import java.time.format.TextStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 
+/**
+ * Seance entity
+ */
+
 public class Seance {
     private int id;
     private int filmId;

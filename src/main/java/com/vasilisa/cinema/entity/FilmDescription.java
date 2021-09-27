@@ -2,6 +2,10 @@ package com.vasilisa.cinema.entity;
 
 import java.util.Objects;
 
+/**
+ * Film description entity
+ */
+
 public class FilmDescription {
     private int filmId;
     private int languageId;

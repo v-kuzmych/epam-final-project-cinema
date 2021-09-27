@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Order entity
+ */
+
 public class Order {
     private int id;
     private int seanceId;

@@ -3,6 +3,10 @@ package com.vasilisa.cinema.entity;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Film entity
+ */
+
 public class Film {
     private int id;
     private List<FilmDescription> filmDescriptions;

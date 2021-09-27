@@ -15,6 +15,10 @@ import javax.servlet.http.*;
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.REDIRECT;
 import static com.vasilisa.cinema.command.CommandResult.ResponseType.FORWARD;
 
+/**
+ * Main servlet controller.
+ */
+
 public class Controller extends HttpServlet {
 
     private static final Logger logger = LogManager.getLogger(UpdateUserProfileCommand.class);

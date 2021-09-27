@@ -45,7 +45,7 @@ public class CommandContainer {
         commands.put("delete_seance", new DeleteSeanceCommand());
         commands.put("add_seance", new AddSeanceCommand());
         commands.put("user_info", new GetUserInfoForAdminCommand());
-        commands.put("admin_dashboard", new ShowDashboardPageCommand());
+        commands.put("admin_dashboard", new GetAllFilmsForAdminCommand());
 
         logger.debug("Command container was successfully initialized");
         logger.trace("Number of commands --> " + commands.size());

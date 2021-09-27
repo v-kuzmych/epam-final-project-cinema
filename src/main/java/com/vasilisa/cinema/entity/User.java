@@ -1,8 +1,11 @@
 package com.vasilisa.cinema.entity;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+
+/**
+ * User entity
+ */
 
 public class User {
     private int id;

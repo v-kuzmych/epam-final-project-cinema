@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
+/**
+ * Locale filter
+ */
+
 @WebFilter("/*")
 public class LocaleFilter implements Filter {
 

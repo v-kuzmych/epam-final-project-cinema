@@ -1,5 +1,9 @@
 package com.vasilisa.cinema.entity;
 
+/**
+ * Hall entity
+ */
+
 public class Hall {
     private int id;
     private int numberOfRows;

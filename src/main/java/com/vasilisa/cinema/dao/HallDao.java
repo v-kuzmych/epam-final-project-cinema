@@ -17,7 +17,8 @@ public class HallDao {
     private static final Logger logger = LogManager.getLogger(HallDao.class);
 
     public Hall get(int hallId) {
-        Hall hall = new Hall();
+        Hall hall = null;
+
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
@@ -28,6 +29,7 @@ public class HallDao {
 
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
+                hall = new Hall();
                 hall.setId(rs.getInt(1));
                 hall.setNumberOfRows(rs.getInt(2));
                 hall.setNumberOfSeats(rs.getInt(3));

@@ -9,6 +9,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Film entity
+ */
+
 public class FilmDao {
 
     private static final String GET_ALL_FILMS = "SELECT f.*, fd.name, fd.description " +

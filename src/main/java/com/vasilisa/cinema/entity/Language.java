@@ -1,5 +1,9 @@
 package com.vasilisa.cinema.entity;
 
+/**
+ * Language entity
+ */
+
 public class Language {
     private int id;
     private String shortName;

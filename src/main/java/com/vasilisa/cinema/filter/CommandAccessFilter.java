@@ -1,6 +1,8 @@
 package com.vasilisa.cinema.filter;
 
 import com.vasilisa.cinema.Path;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +15,8 @@ import java.util.*;
  */
 
 public class CommandAccessFilter  implements Filter {
-    //private static final Logger log = Logger.getLogger(CommandAccessFilter.class);
+
+    private static final Logger logger = LogManager.getLogger(LocaleFilter.class);
 
     // commands access
     private static Map<String, List<String>> accessMap = new HashMap<>();
@@ -23,22 +26,22 @@ public class CommandAccessFilter  implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
-//        log.debug("Filter initialization starts");
+        logger.debug("Filter initialization starts");
 
         // roles
         accessMap.put("admin", asList(filterConfig.getInitParameter("admin")));
         accessMap.put("user", asList(filterConfig.getInitParameter("user")));
-//        log.trace("Access map --> " + accessMap);
+        logger.trace("Access map --> " + accessMap);
 
         // commons
         commons = asList(filterConfig.getInitParameter("common"));
-//        log.trace("Common commands --> " + commons);
+        logger.trace("Common commands --> " + commons);
 
         // out of control
         outOfControl = asList(filterConfig.getInitParameter("out-of-control"));
-//        log.trace("Out of control commands --> " + outOfControl);
+        logger.trace("Out of control commands --> " + outOfControl);
 
-//        log.debug("Filter initialization finished");
+        logger.debug("Filter initialization finished");
 
     }
 
@@ -58,16 +61,16 @@ public class CommandAccessFilter  implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-//        log.debug("Filter starts");
+        logger.debug("Filter starts");
 
         if (accessAllowed(request)) {
-//            log.debug("Filter finished");
+            logger.debug("Filter finished");
             chain.doFilter(request, response);
         } else {
-            String errorMessasge = "You do not have permission to access the requested resource";
+            String errorMessage = "You do not have permission to access the requested resource";
 
-            request.setAttribute("errorMessage", errorMessasge);
-//            log.trace("Set the request attribute: errorMessage --> " + errorMessasge);
+            request.setAttribute("errorMessage", errorMessage);
+            logger.trace("Set the request attribute: errorMessage --> " + errorMessage);
 
             request.getRequestDispatcher(Path.PAGE__ERROR_PAGE)
                     .forward(request, response);
@@ -100,8 +103,8 @@ public class CommandAccessFilter  implements Filter {
 
     @Override
     public void destroy() {
-//        log.debug("Filter destruction starts");
+        logger.debug("Filter destruction starts");
         // do nothing
-//        log.debug("Filter destruction finished");
+        logger.debug("Filter destruction finished");
     }
 }

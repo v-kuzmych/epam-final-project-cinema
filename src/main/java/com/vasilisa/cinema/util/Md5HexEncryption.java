@@ -7,6 +7,10 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * Md5Hex Encryption for password
+ */
+
 public class Md5HexEncryption {
 
     private static final Logger logger = LogManager.getLogger(Md5HexEncryption.class);

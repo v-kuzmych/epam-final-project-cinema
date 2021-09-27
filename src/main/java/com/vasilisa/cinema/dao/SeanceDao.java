@@ -167,7 +167,7 @@ public class SeanceDao {
     }
 
     public Seance get(int seanceId, String locale) {
-        Seance seance = new Seance();
+        Seance seance = null;
         PreparedStatement preparedStatement = null;
         ResultSet rs = null;
         Connection connection = null;
@@ -182,6 +182,8 @@ public class SeanceDao {
 
             rs = preparedStatement.executeQuery();
             if (rs.next()) {
+                seance = new Seance();
+
                 Hall hall = new Hall();
                 hall.setId(rs.getInt(4));
                 hall.setNumberOfRows(rs.getInt(7));
