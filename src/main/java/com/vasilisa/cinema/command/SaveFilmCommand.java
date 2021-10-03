@@ -35,7 +35,8 @@ public class SaveFilmCommand implements Command {
         // if id exist then it is updating, else adding
         if(request.getParameter("id") != null) {
             logger.debug("Updating film...");
-            film.setId(Integer.parseInt(request.getParameter("id")));
+            int id = Integer.parseInt(request.getParameter("id"));
+            film.setId(id);
         }
 
         film.setImg(request.getParameter("img_url"));

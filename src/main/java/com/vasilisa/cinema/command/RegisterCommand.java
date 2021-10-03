@@ -39,6 +39,13 @@ public class RegisterCommand implements Command {
             return new CommandResult(CommandResult.ResponseType.FORWARD, forward);
         }
 
+        if (new UserDao().checkByEmail(email) != null) {
+            errorMessage = "This email is already in use";
+            request.setAttribute("errorMessage", errorMessage);
+            logger.error(errorMessage);
+            return new CommandResult(CommandResult.ResponseType.FORWARD, forward);
+        }
+
         User user = new User();
         user.setName(name);
         user.setEmail(email);

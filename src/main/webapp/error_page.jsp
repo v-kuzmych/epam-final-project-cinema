@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/jspf/pageHeader.jspf" %>
 <%@taglib prefix="t" tagdir="/WEB-INF/tags" %>
 
-<fmt:message key="film.name" var="title" scope="page"/>
+<fmt:message key="error.title" var="title" scope="page"/>
 <t:page title="${title}">
     <div style="text-align: center; margin: 30px;">
         <img src="/assets/img/error.png" style="height: 400px;">

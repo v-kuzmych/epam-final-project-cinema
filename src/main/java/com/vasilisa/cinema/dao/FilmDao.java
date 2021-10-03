@@ -224,8 +224,9 @@ public class FilmDao {
     }
 
     public boolean update(Connection connection, Film film) {
-        boolean status = false;
+        logger.debug("Start update film");
 
+        boolean status = false;
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(UPDATE_FILM);

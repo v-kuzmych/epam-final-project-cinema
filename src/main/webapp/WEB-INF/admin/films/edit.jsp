@@ -98,9 +98,7 @@
                                 <textarea oninput="auto_grow(this)" name="desc${item.languageId}"
                                           placeholder="<fmt:message key="placeholder.filmDescription"/>"
                                           required minlength="10" maxlength="2000" title="${validateFilmDescription}"
-                                          oninvalid="setCustomValidity('${validateFilmDescription}')">
-                                        ${item.description}
-                                </textarea>
+                                          oninvalid="setCustomValidity('${validateFilmDescription}')">${item.description}</textarea>
                             </div>
                         </c:forEach>
                         <button class="btn btn-success submit-add-film" type="submit">

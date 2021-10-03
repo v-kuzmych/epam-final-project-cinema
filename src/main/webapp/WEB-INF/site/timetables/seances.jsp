@@ -53,7 +53,7 @@
                                     <td>${seance.freeSeats}</td>
                                     <td>
                                         <a href="${pageContext.request.contextPath}/controller?command=order_page&id=${seance.id}">
-                                            <fmt:message key="site.seances.freeSeatsCount"/><
+                                            <fmt:message key="site.seances.reserve"/>
                                         </a>
                                     </td>
                                 </tr>

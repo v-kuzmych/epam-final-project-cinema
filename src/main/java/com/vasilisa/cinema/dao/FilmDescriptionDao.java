@@ -80,6 +80,7 @@ public class FilmDescriptionDao {
     }
 
     public boolean update(Connection connection, Film film) {
+        logger.debug("Updating film description....");
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement(UPDATE_FILM_DESCRIPTION);
