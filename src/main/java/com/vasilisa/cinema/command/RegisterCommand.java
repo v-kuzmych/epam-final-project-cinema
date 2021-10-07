@@ -57,6 +57,7 @@ public class RegisterCommand implements Command {
             logger.info("The user was successfully created");
 
             session.setAttribute("loggedUser", newUser);
+            session.setAttribute("userRole", "user");
             forward = Path.COMMAND_SHOW_PROFILE;
         } else {
             errorMessage = "Cannot create user with such login/password";
